@@ -1,26 +1,49 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
 import './App.css';
+import store from "./Ducks/store";
+import axios from "axios";
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      movies: []
+    }
+  }
+
+  componentDidMount() {
+    axios.get('/api/moviesDb').then(res => {
+      console.log(res.data);
+      this.setState({movies: res.data});
+    }).catch(err => console.log(err));
+  }
+
+  getMovies = () => {
+    axios.get('/api/movies').then(res => {
+      this.setState({ movies: res.data });
+    }).catch(err => console.log(err));
+  }
+
+  sendToDb = (title, img_url, release_date, synopsis) => {
+    axios.post('api/movies').then(res => {
+      this.getMovies();
+    }).catch(err => console.log(err));
+  }
   render() {
+    const { movies } = this.state;
+    let movieList = movies.map((e, i) => {
+      return <div key={i}>{e}</div>
+    });
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <Provider store={store} >
+        <BrowserRouter>
+          <div className="App">
+          {movieList}
+          </div>
+        </BrowserRouter>
+      </Provider>
     );
   }
 }
