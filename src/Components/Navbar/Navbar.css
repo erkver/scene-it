@@ -1,0 +1,41 @@
+
+
+
+@media(min-width: 320px) {
+
+  .nav-cont {
+    height: 50px;
+    background: #6A706E;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 30px;
+  }
+
+  .nav-icon {
+    height: 25px;
+    margin-left: 5px;
+  }
+
+  .search-icon {
+    height: 25px;
+    margin-right: 5px;
+  }
+
+  .spinner {
+    animation-name: spinner;
+    animation-duration: .5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
+
+  @keyframes spinner {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(180deg);
+    }
+  }
+}
