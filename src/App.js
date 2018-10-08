@@ -6,7 +6,6 @@ import store from "./Ducks/store";
 import routes from "./routes";
 import Navbar from "./Components/Navbar/Navbar";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleNotch, faSearchPlus } from "@fortawesome/free-solid-svg-icons";
 
 library.add(faCircleNotch, faSearchPlus);
@@ -18,6 +17,7 @@ class App extends Component {
           <div>
             <Navbar />
             {routes}
+            <p className="footer">Data for this site was provided by The Movie DB</p>
           </div>
         </BrowserRouter>
       </Provider>;

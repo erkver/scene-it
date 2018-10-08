@@ -12,7 +12,7 @@ port = process.env.PORT || 3001,
 massive = require('massive'),
 { json } = require('body-parser'),
 strategy = require('./strategy'),
-{ getMovies } = require('./ctrl/userCtrl');
+{ getMovies, getScreening } = require('./ctrl/userCtrl');
 
 app.use(json());
 // massive(CONNECTION_STRING).then(db => {
@@ -59,5 +59,6 @@ app.use(json());
 // });
 
 app.get('/api/movies', getMovies);
+app.get('/api/screening/:id', getScreening);
 
 app.listen(port, () => console.log(`Server is listening on port ${port}`));

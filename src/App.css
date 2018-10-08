@@ -45,5 +45,12 @@ table {
 }
 
 body {
-  font-family: 'Didact Gothic', sans-serif;
+	font-family: 'Didact Gothic', sans-serif;
+	background: #89B6A5;
+}
+
+.footer {
+	text-align: center;
+	bottom: 0;
+	width: 100%;
 }

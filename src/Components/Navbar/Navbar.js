@@ -4,13 +4,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 class Navbar extends Component {
 
-  toggleSpinner = () => {
-  const icon = document.querySelector('.nav-icon');
-  if (icon.classList.contains('spinner')) {
-    icon.classList.remove('spinner');
-  } else {
-    icon.classList.add('spinner');
-  }
+  // toggleSpinner = () => {
+  // const icon = querySelector('.nav-icon');
+  // if (icon.className.contains('spinner')) {
+  //   icon.className.remove('spinner');
+  // } else {
+  //   icon.className.add('spinner');
+  // }
   render() {
     return (
       <div className="nav-cont">
