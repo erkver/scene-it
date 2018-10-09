@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import './App.css';
+import './App.scss';
 import store from "./Ducks/store";
 import routes from "./routes";
 import Navbar from "./Components/Navbar/Navbar";

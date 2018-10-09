@@ -2,7 +2,8 @@ import React,{ Component } from "react";
 import { connect } from "react-redux";
 import { getMovies, getScreening } from "../../Ducks/reducer";
 import Movie from "../../Components/Movie/Movie";
-import "./Home.css";
+import "./Home.scss";
+// import { Link } from "react-router-dom";
 
 class Home extends Component {
   componentDidMount() {
@@ -22,8 +23,10 @@ class Home extends Component {
   ));
     return (
       <div className="movie-list-cont">
-        <h1 className="list-text">Screenings</h1>
-          {movieList}
+        <div>
+          <h1 className="list-text">Screenings</h1>
+        </div>      
+        {movieList}
       </div>
     );
   }

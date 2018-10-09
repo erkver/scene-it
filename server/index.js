@@ -11,53 +11,48 @@ app = express(),
 port = process.env.PORT || 3001,
 massive = require('massive'),
 { json } = require('body-parser'),
-strategy = require('./strategy'),
+{ strat, getUser, logout } = require('./ctrl/authCtrl'),
 { getMovies, getScreening } = require('./ctrl/userCtrl');
 
 app.use(json());
-// massive(CONNECTION_STRING).then(db => {
-//   app.set("db", db);
-// }).catch(err => console.log(err));
+massive(CONNECTION_STRING).then(db => {
+  // console.log(db);
+  app.set("db", db);
+}).catch(err => console.log(err));
 
-// app.use(
-//   session({
-//     secret: SECRET,
-//     resave: false,
-//     saveUninitialized: false
-//   })
-// );
+app.use(
+  session({
+    secret: SECRET,
+    resave: false,
+    saveUninitialized: false
+  })
+);
 
-// app.use(passport.initialize());
-// app.use(passport.session());
-// passport.use(strategy);
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(strat);
 
 
-// passport.serializeUser((user, done) => {
-//   done(null, user);
-// });
+passport.serializeUser((user, done) => {
+  console.log(user);
+  done(null, user);
+});
 
-// passport.deserializeUser((user, done) => {
-//   done(null, user);
-// });
+passport.deserializeUser((user, done) => {
+  done(null, user);
+});
 
-// app.get('/login', passport.authenticate('auth0', {
-//   successRedirect: '/movies',
-//   failureRedirect: '/login',
-//   connection: 'github',
-// }));
+app.get('/login', passport.authenticate('auth0', {
+  successRedirect: '/api/me',
+  failureRedirect: '/login'
+  // connection: 'github',
+}));
 
-// function authenticated(req, res, next) {
-//   if (!req.user) {
-//     res.sendStatus(401);
-//   } else {
-//     next();
-//   }
-// }
+//Auth endpoints
+app.get('/api/me', getUser);
+app.post('/logout', logout);
 
-// app.get('/movies', authenticated, (req, res) => {
-//   res.status(200).send(req.user);
-// });
-
+//User endpoints
 app.get('/api/movies', getMovies);
 app.get('/api/screening/:id', getScreening);
 

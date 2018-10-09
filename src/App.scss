@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Didact+Gothic');
+@import './index';
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -46,7 +47,7 @@ table {
 
 body {
 	font-family: 'Didact Gothic', sans-serif;
-	background: #89B6A5;
+	background: $primary-background;
 }
 
 .footer {

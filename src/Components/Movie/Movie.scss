@@ -1,0 +1,32 @@
+@import '../../index';
+
+@media(min-width: 320px) {
+  .movie-cont {
+    background: $primary-card;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: 5px auto;
+    border: solid 1px $primary-btn;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 20px;
+
+    img {
+      border: solid 1px $primary-btn;
+    }
+
+    .info-btn {
+      background: $primary-btn;
+      border: none;
+      font-size: 20px;
+      color: white;
+      padding: 4%;
+      border-radius: 10px;
+      text-decoration: none;
+    }
+  }
+}
