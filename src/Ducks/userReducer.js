@@ -30,7 +30,7 @@ const initialState = {
   isLoading: false
 }
 
-export default function reducer(state = initialState, action) {
+export default function userReducer(state = initialState, action) {
   switch(action.type) {
     case `${GET_MOVIES}_FULFILLED`:
       return {
@@ -43,12 +43,12 @@ export default function reducer(state = initialState, action) {
         ...state,
         isLoading: false,
         movies: action.payload.data
-      }
+      };
     case GET_SCREENING_INFO:
       return {
         ...state,
         movies: action.payload
-      }
+      };
     default:
       return state;
   }

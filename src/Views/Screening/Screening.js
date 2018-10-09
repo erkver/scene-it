@@ -27,9 +27,6 @@ class Screening extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  const { movies } = state;
-  return {movies} 
-}
+const mapStateToProps = ({ userReducer }) => ({ ...userReducer });
 
 export default connect(mapStateToProps)(Screening);

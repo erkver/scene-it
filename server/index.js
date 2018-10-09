@@ -1,9 +1,6 @@
 require ('dotenv').config();
 
-const {
-  SECRET,
-  CONNECTION_STRING
-} = process.env;
+const { SECRET, CONNECTION_STRING, REACT_APP_HOME } = process.env;
 const express = require('express'),
 session = require('express-session'),
 passport = require('passport'),
@@ -24,10 +21,11 @@ app.use(
   session({
     secret: SECRET,
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
   })
 );
 
+//Auth functionality
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(strat);
@@ -35,7 +33,12 @@ passport.use(strat);
 
 passport.serializeUser((user, done) => {
   console.log(user);
-  done(null, user);
+  const db = app.get('db');
+  db.getUserByAuthid([user.id]).then(response => {
+    if(!response[0]){
+      db.addUserByAuthid([user.displayName, user.id, user.emails[0].value, user.picture, user.gender]).then(res => done(null, res[0])).catch(console.log);
+    } else return done(null, response[0]);
+  }).catch(console.log)
 });
 
 passport.deserializeUser((user, done) => {
@@ -43,9 +46,8 @@ passport.deserializeUser((user, done) => {
 });
 
 app.get('/login', passport.authenticate('auth0', {
-  successRedirect: '/api/me',
+  successRedirect: REACT_APP_HOME,
   failureRedirect: '/login'
-  // connection: 'github',
 }));
 
 //Auth endpoints

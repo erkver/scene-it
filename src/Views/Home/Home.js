@@ -1,19 +1,18 @@
 import React,{ Component } from "react";
 import { connect } from "react-redux";
-import { getMovies, getScreening } from "../../Ducks/reducer";
+import { getMovies, getScreening } from "../../Ducks/userReducer";
 import Movie from "../../Components/Movie/Movie";
 import "./Home.scss";
-// import { Link } from "react-router-dom";
 
 class Home extends Component {
   componentDidMount() {
-    this.props.getMovies();
+    this.props.getMovies().then(res => console.log(res));
   }
 
   render() {
     const { movies, getScreening } = this.props;
-    console.log(movies);
-    let movieList = movies.map((movie, i) => (
+    console.log(this.props);
+    let movieList = movies && movies.map((movie, i) => (
       <div className="main-movie-cont" key={i}>
         <Movie 
           movie={movie}
@@ -32,9 +31,6 @@ class Home extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  const { movies } = state;
-  return { movies };
-}
+const mapStateToProps = ({userReducer}) => ({...userReducer});
 
 export default connect(mapStateToProps, {getMovies, getScreening})(Home);
