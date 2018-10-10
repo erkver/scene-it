@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { getScreenings, getScreening, getUser } from "../../Ducks/userReducer";
 import Movie from "../../Components/Movie/Movie";
 import "./Home.scss";
+import { withRouter } from "react-router-dom";
 
 class Home extends Component {
   componentDidMount() {
@@ -15,7 +16,7 @@ class Home extends Component {
 
   render() {
     const { screenings, getScreening } = this.props;
-    console.log(this.props);
+    console.log(this.props.user);
     let screeningList = screenings.map((movie, i) => (
       <div className="main-movie-cont" key={i}>
         <Movie 
@@ -37,4 +38,4 @@ class Home extends Component {
 
 const mapStateToProps = ({userReducer}) => ({...userReducer});
 
-export default connect(mapStateToProps, {getScreenings, getScreening, getUser})(Home);
+export default withRouter(connect(mapStateToProps, {getScreenings, getScreening, getUser})(Home));

@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { addFavorite } from "../../Ducks/userReducer";
 import './Screening.scss';
+import { withRouter } from "react-router-dom";
 
 class Screening extends Component {
   constructor() {
@@ -14,8 +16,8 @@ class Screening extends Component {
     if(this.state.claimed) {
       btnText = 'Claimed!'
     }
-    const { screening } = this.props;
-    console.log(screening);
+    const { screening, isAuthed, user } = this.props;
+    console.log(this.props);
     return (
       <div className="main-screening-cont">
           <h1 className="title-text">{screening.title} screening</h1>
@@ -35,7 +37,26 @@ class Screening extends Component {
               ? 
               <button 
                   className="add-btn" 
-                  onClick={() => this.setState({claimed: !this.state.claimed})}>{btnText}
+                  onClick={() => {!isAuthed
+                    ?
+                    alert("Must be logged in to get passes!")
+                    :
+                    this.setState({ claimed: !this.state.claimed }); addFavorite(
+                      screening.id,
+                      screening.title, 
+                      screening.poster_path,
+                      screening.release_date,
+                      screening.overview,
+                      true,
+                      "TBD",
+                      "TBD",
+                      "TBD",
+                      screening.production_companies[0].name,
+                      screening.genres[0].name,
+                      screening.homepage,
+                      screening.runtime,
+                      user.data.user_id
+                    )}}>{btnText}
               </button>
               : 
               <p className="add-text">{btnText}</p>
@@ -48,4 +69,4 @@ class Screening extends Component {
 
 const mapStateToProps = ({ userReducer }) => ({ ...userReducer });
 
-export default connect(mapStateToProps)(Screening);
+export default withRouter(connect(mapStateToProps, {addFavorite})(Screening));

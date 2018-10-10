@@ -5,9 +5,9 @@ import { connect } from "react-redux";
 
 class Dropdown extends Component {
   render() {
-    console.log(this.props);
-    const { REACT_APP_LOGIN } = process.env;
-    const { visibility, handleClick, isAuthed } = this.props;
+    // console.log(this.props);
+    const { REACT_APP_LOGOUT } = process.env;
+    const { visibility, handleClick } = this.props;
     return (
       <div id="main-dropdown-cont" className={visibility}>
         <Link
@@ -20,8 +20,8 @@ class Dropdown extends Component {
           onClick={() => handleClick()}>Profile</Link>
         <a
           className="menu-link"
-          href={REACT_APP_LOGIN}
-          onClick={() => handleClick()}>Login</a>
+          href={REACT_APP_LOGOUT}
+          onClick={() => handleClick()}>Logout</a>
       </div>
     );
   }
