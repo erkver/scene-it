@@ -1,12 +1,13 @@
 import React, {Component} from "react";
 import { Link } from "react-router-dom";
 import "./Dropdown.scss";
-
+import { connect } from "react-redux";
 
 class Dropdown extends Component {
   render() {
+    console.log(this.props);
     const { REACT_APP_LOGIN } = process.env;
-    const { visibility, handleClick } = this.props;
+    const { visibility, handleClick, isAuthed } = this.props;
     return (
       <div id="main-dropdown-cont" className={visibility}>
         <Link
@@ -26,4 +27,6 @@ class Dropdown extends Component {
   }
 }
 
-export default Dropdown;
+const mapStateToProps = ({ userReducer }) => ({ ...userReducer });
+
+export default connect(mapStateToProps)(Dropdown);

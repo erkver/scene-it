@@ -1,13 +1,13 @@
 import axios from "axios";
 
-const GET_MOVIES = "GET_MOVIES";
+const GET_SCREENINGS = "GET_SCREENINGS";
 const GET_SCREENING = "GET_SCREENING";
-const GET_SCREENING_INFO = "GET_SCREENING_INFO"
+const GET_USER = "GET_USER";
 
-export function getMovies() {
+export function getScreenings() {
   return {
-    type: GET_MOVIES,
-    payload: axios.get('/api/movies')
+    type: GET_SCREENINGS,
+    payload: axios.get('/api/screenings')
   }
 }
 
@@ -18,37 +18,46 @@ export function getScreening(id) {
   }
 }
 
-export function getScreeningInfo() {
+export function getUser() {
   return {
-    type: GET_SCREENING_INFO,
-    payload: initialState.movies
+    type: GET_USER,
+    payload: axios.get('/api/me')
   }
 }
 
 const initialState = {
-  movies: [],
+  screenings: [],
+  screening: [],
+  user: {},
+  isAuthed: false,
   isLoading: false
 }
 
 export default function userReducer(state = initialState, action) {
   switch(action.type) {
-    case `${GET_MOVIES}_FULFILLED`:
+    case `${GET_SCREENINGS}_FULFILLED`:
       return {
         ...state,
         isLoading: false,
-        movies: action.payload.data.results
+        screenings: action.payload.data.results
       };
     case `${GET_SCREENING}_FULFILLED`:
       return {
         ...state,
         isLoading: false,
-        movies: action.payload.data
+        screening: action.payload.data
       };
-    case GET_SCREENING_INFO:
+    case `${GET_USER}_FULFILLED`:
       return {
         ...state,
-        movies: action.payload
+        isAuthed: true,
+        user: action.payload
       };
+    case `${GET_USER}_REJECTED`:
+      return {
+        ...state,
+        isAuthed: false
+      }
     default:
       return state;
   }

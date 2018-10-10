@@ -9,7 +9,7 @@ port = process.env.PORT || 3001,
 massive = require('massive'),
 { json } = require('body-parser'),
 { strat, getUser, logout } = require('./ctrl/authCtrl'),
-{ getMovies, getScreening } = require('./ctrl/userCtrl');
+{ getScreenings, getScreening } = require('./ctrl/userCtrl');
 
 app.use(json());
 massive(CONNECTION_STRING).then(db => {
@@ -55,7 +55,7 @@ app.get('/api/me', getUser);
 app.post('/logout', logout);
 
 //User endpoints
-app.get('/api/movies', getMovies);
+app.get('/api/screenings', getScreenings);
 app.get('/api/screening/:id', getScreening);
 
 app.listen(port, () => console.log(`Server is listening on port ${port}`));
