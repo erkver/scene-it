@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export default function Movie (props) {
   let divName = 'movie-cont';
-  const { movie, getScreening, user } = props;
+  const { movie, getScreening, user, getMovie } = props;
   if(user.data && user.data.isadmin){
     divName = 'admin-movie-cont'
   };
@@ -31,9 +31,9 @@ export default function Movie (props) {
         <p>Passes Redeemed: 0/200</p>
         <p>Booking Ratio 1:1</p>
         <Link 
-          to={`/screening/${movie.id}`} 
+          to={`/admin/movie/${movie.id}`} 
           className="info-btn"
-          onClick={() => getScreening(movie.id)}>More Info</Link>
+          onClick={() => getMovie(movie.id)}>More Info</Link>
         </>
       }
     </div>

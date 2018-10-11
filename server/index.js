@@ -1,16 +1,17 @@
 require ('dotenv').config();
 
 const { SECRET, CONNECTION_STRING, REACT_APP_HOME } = process.env;
-const express = require('express'),
-session = require('express-session'),
-passport = require('passport'),
-app = express(),
-port = process.env.PORT || 3001,
-massive = require('massive'),
-{ json } = require('body-parser'),
-{ strat, getUser, logout } = require('./ctrl/authCtrl'),
-{ getScreenings, getScreening, addFavorite } = require('./ctrl/userCtrl'),
-{ getMovies, getMovie } = require('./ctrl/adminCtrl');
+const express = require("express"),
+  session = require("express-session"),
+  passport = require("passport"),
+  app = express(),
+  port = process.env.PORT || 3001,
+  massive = require("massive"),
+  { json } = require("body-parser"),
+  { strat, getUser, logout } = require("./ctrl/authCtrl"),
+  { getScreenings, getScreening, addFavorite, getDbMovies } = require("./ctrl/userCtrl"),
+  { getMovies, getMovie, test } = require("./ctrl/adminCtrl"),
+  { getTheatres } = require("./ctrl/theatreCtrl");
 
 app.use(json());
 massive(CONNECTION_STRING).then(db => {
@@ -33,7 +34,6 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(strat);
-
 
 passport.serializeUser((user, done) => {
   // console.log(user);
@@ -62,9 +62,15 @@ app.get('/logout', logout);
 app.get('/api/screenings', getScreenings);
 app.get('/api/screening/:id', getScreening);
 app.post('/api/favorite', addFavorite);
+app.get('/api/testmov', getDbMovies);
 
 //Admin endpoints
 app.get('/api/movies', getMovies);
 app.get('/api/movie/:id', getMovie);
+app.get("/api/test", test);
+
+//Theatre endpoints
+app.get("/api/theatres", getTheatres);
+
 
 app.listen(port, () => console.log(`Server is listening on port ${port}`));

@@ -17,6 +17,7 @@ export function getMovie(id) {
   };
 }
 
+
 const initialState = {
   movies: [],
   isLoading: false

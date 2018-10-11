@@ -11,9 +11,6 @@ class Home extends Component {
     this.props.getUser();
   }
     
-  // componentDidUpate(prevProps) {
-  //   prevPMovie}
-
   render() {
     const { screenings, getScreening } = this.props;
     setTimeout(console.log(this.props), 1000);

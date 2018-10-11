@@ -35,6 +35,9 @@ class AdminHome extends Component {
   }
 }
 
-const mapStateToProps = ({ userReducer, adminReducer }) => ({ ...userReducer, ...adminReducer });
+const mapStateToProps = ({ userReducer, adminReducer }) => ({ 
+  ...userReducer, 
+  ...adminReducer 
+});
 
 export default withRouter(connect(mapStateToProps, { getMovies, getMovie, getUser })(AdminHome));

@@ -5,6 +5,8 @@ import Profile from "./Views/Profile/Profile";
 import Watchlist from "./Views/Watchlist/Watchlist";
 import Screening from "./Views/Screening/Screening";
 import AdminHome from "./Views/AdminHome/AdminHome";
+import AdminScreening from "./Views/AdminScreening/AdminScreening";
+import NewScreening from "./Views/NewScreening/NewScreening";
 import { connect } from "react-redux";
 
 const mapStateToProps = ({ userReducer }) => ({ ...userReducer });
@@ -47,15 +49,17 @@ export default (
       })} 
     />
     <Route 
-      path='/admin'
-      component={connect(mapStateToProps)(props => {
-        if (props.user[0] && props.user.data.isadmin) {
-          return <AdminHome {...props} />;
-        } else {
-          return <Redirect to="/" />;
-        }
-      })} 
+      path='/admin/movie/:id'
+      component={AdminScreening}
+      // component={connect(mapStateToProps)(props => {
+      //   if (props.user[0] && props.user.data.isadmin) {
+      //     return <AdminHome {...props} />;
+      //   } else {
+      //     return <Redirect to="/" />;
+      //   }
+      // })} 
     />
+    <Route path='/admin/add/screening' component={NewScreening} />
     <Route path="*" render={() => <h4>404 Not Found!</h4>} />
   </Switch>
 );
