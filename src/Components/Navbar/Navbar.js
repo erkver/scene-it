@@ -19,7 +19,7 @@ class Navbar extends Component {
   render() {
     const { isAuthed } = this.props;
     const { REACT_APP_LOGIN } = process.env;
-    console.log(this.props);
+    // console.log(this.props);
     let visibility = 'hide';
     if (this.state.visible) {
       visibility = 'show';

@@ -10,13 +10,13 @@ class Home extends Component {
     this.props.getScreenings();
     this.props.getUser();
   }
-
+    
   // componentDidUpate(prevProps) {
   //   prevPMovie}
 
   render() {
     const { screenings, getScreening } = this.props;
-    console.log(this.props.user);
+    setTimeout(console.log(this.props), 1000);
     let screeningList = screenings.map((movie, i) => (
       <div className="main-movie-cont" key={i}>
         <Movie 

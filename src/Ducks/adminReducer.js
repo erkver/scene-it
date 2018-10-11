@@ -1,8 +1,7 @@
 import axios from "axios";
 
-
 const GET_MOVIES = "GET_MOVIES";
-const GET_SCREENING = "GET_SCREENING";
+const GET_MOVIE = "GET_MOVIE";
 
 export function getMovies() {
   return {
@@ -11,10 +10,10 @@ export function getMovies() {
   };
 }
 
-export function getScreening(id) {
+export function getMovie(id) {
   return {
-    type: GET_SCREENING,
-    payload: axios.get(`/api/screening/${id}`)
+    type: GET_MOVIE,
+    payload: axios.get(`/api/movie/${id}`)
   };
 }
 
@@ -31,7 +30,7 @@ export default function adminReducer(state = initialState, action) {
         isLoading: false,
         movies: action.payload.data.results
       };
-    case `${GET_SCREENING}_FULFILLED`:
+    case `${GET_MOVIE}_FULFILLED`:
       return {
         ...state,
         isLoading: false,

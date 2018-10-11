@@ -9,7 +9,8 @@ port = process.env.PORT || 3001,
 massive = require('massive'),
 { json } = require('body-parser'),
 { strat, getUser, logout } = require('./ctrl/authCtrl'),
-{ getScreenings, getScreening, addFavorite } = require('./ctrl/userCtrl');
+{ getScreenings, getScreening, addFavorite } = require('./ctrl/userCtrl'),
+{ getMovies, getMovie } = require('./ctrl/adminCtrl');
 
 app.use(json());
 massive(CONNECTION_STRING).then(db => {
@@ -22,6 +23,9 @@ app.use(
     secret: SECRET,
     resave: false,
     saveUninitialized: false,
+    cookie: {
+      maxAge: 1000000
+    }
   })
 );
 
@@ -54,10 +58,13 @@ app.get('/login', passport.authenticate('auth0', {
 app.get('/api/me', getUser);
 app.get('/logout', logout);
 
-
 //User endpoints
 app.get('/api/screenings', getScreenings);
 app.get('/api/screening/:id', getScreening);
 app.post('/api/favorite', addFavorite);
+
+//Admin endpoints
+app.get('/api/movies', getMovies);
+app.get('/api/movie/:id', getMovie);
 
 app.listen(port, () => console.log(`Server is listening on port ${port}`));

@@ -11,7 +11,7 @@ module.exports = {
       console.log(err);
     });
   },
-  createMoviesDb: (req, res) => {
+  createScreening: (req, res) => {
     const db = req.app.get('db');
     const { title, img_url, release_date, synopsis } = req.body;
     db.create_movies_tbl([title, img_url, release_date, synopsis]).then(movies => {
@@ -21,7 +21,7 @@ module.exports = {
       console.log(err);
     });
   },
-  getScreening: (req, res) => {
+  getMovie: (req, res) => {
     const { id } = req.params;
     console.log(req.params.id);
     axios

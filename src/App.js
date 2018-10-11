@@ -3,7 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import './App.scss';
 import store from "./Ducks/store";
-import routes from "./routes/routes";
+import routes from "./routes";
 import Navbar from "./Components/Navbar/Navbar";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faCircleNotch, faSearchPlus } from "@fortawesome/free-solid-svg-icons";

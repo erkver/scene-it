@@ -4,7 +4,6 @@ const GET_SCREENINGS = "GET_SCREENINGS";
 const GET_SCREENING = "GET_SCREENING";
 const GET_USER = "GET_USER";
 const ADD_FAVORITE = "ADD_FAVORITE";
-const GET_USER_BY_ID = "GET_USER_BY_ID";
 
 export function getScreenings() {
   return {
@@ -24,13 +23,6 @@ export function getUser() {
   return {
     type: GET_USER,
     payload: axios.get('/api/me')
-  }
-}
-
-export function getUserById(id) {
-  return {
-    type: GET_USER_BY_ID,
-    payload: axios.get(`/user/${id}`)
   }
 }
 
@@ -109,12 +101,6 @@ export default function userReducer(state = initialState, action) {
       return {
         ...state,
         favorites: action.payload
-      };
-    case `${GET_USER_BY_ID}_FULFILLED`:
-      return {
-        ...state,
-        isAuthed: true,
-        user: action.payload
       };
     default:
       return state;
