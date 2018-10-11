@@ -1,23 +1,6 @@
 import axios from "axios";
 
-const GET_SCREENINGS = "GET_SCREENINGS";
-const GET_SCREENING = "GET_SCREENING";
 const GET_USER = "GET_USER";
-const ADD_FAVORITE = "ADD_FAVORITE";
-
-export function getScreenings() {
-  return {
-    type: GET_SCREENINGS,
-    payload: axios.get('/api/screenings')
-  }
-}
-
-export function getScreening(id) {
-  return {
-    type: GET_SCREENING,
-    payload: axios.get(`/api/screening/${id}`)
-  }
-}
 
 export function getUser() {
   return {
@@ -26,66 +9,13 @@ export function getUser() {
   }
 }
 
-export function addFavorite(
-  movieId,
-  fav_title,
-  fav_img_url,
-  fav_release_date,
-  fav_synopsis,
-  fav_isScreening,
-  fav_screening_date,
-  fav_theatre_name,
-  fav_theatre_location,
-  fav_studio,
-  fav_genre,
-  fav_mov_url,
-  fav_runtime,
-  userId
-) {
-  return {
-    type: ADD_FAVORITE,
-    payload: axios.post('/api/favorite' , {
-      movieId,
-      fav_title,
-      fav_img_url,
-      fav_release_date,
-      fav_synopsis,
-      fav_isScreening,
-      fav_screening_date,
-      fav_theatre_name,
-      fav_theatre_location,
-      fav_studio,
-      fav_genre,
-      fav_mov_url,
-      fav_runtime,
-      userId
-    })
-  }
-}
-
 const initialState = {
-  screenings: [],
-  screening: [],
-  favorites: [],
   user: {},
-  isAuthed: false,
-  isLoading: false
+  isAuthed: false
 }
 
 export default function userReducer(state = initialState, action) {
   switch(action.type) {
-    case `${GET_SCREENINGS}_FULFILLED`:
-      return {
-        ...state,
-        isLoading: false,
-        screenings: action.payload.data.results
-      };
-    case `${GET_SCREENING}_FULFILLED`:
-      return {
-        ...state,
-        isLoading: false,
-        screening: action.payload.data
-      };
     case `${GET_USER}_FULFILLED`:
       return {
         ...state,
@@ -96,11 +26,6 @@ export default function userReducer(state = initialState, action) {
       return {
         ...state,
         isAuthed: false
-      };
-    case `${ADD_FAVORITE}_FULFILLED`:
-      return {
-        ...state,
-        favorites: action.payload
       };
     default:
       return state;

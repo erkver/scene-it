@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { addFavorite } from "../../Ducks/userReducer";
+import { addFavorite } from "../../Ducks/favoritesReducer";
 import './Screening.scss';
 import { withRouter } from "react-router-dom";
 
@@ -67,6 +67,6 @@ class Screening extends Component {
   }
 }
 
-const mapStateToProps = ({ userReducer }) => ({ ...userReducer });
+const mapStateToProps = ({ userReducer, favoritesReducer }) => ({ ...userReducer, favoritesReducer });
 
 export default withRouter(connect(mapStateToProps, {addFavorite})(Screening));

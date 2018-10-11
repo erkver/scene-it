@@ -2,15 +2,17 @@ import { createStore, applyMiddleware, combineReducers } from "redux";
 import promiseMiddleware from "redux-promise-middleware";
 
 import userReducer from './userReducer';
-import authReducer from "./authReducer";
+import favoritesReducer from "./favoritesReducer";
 import adminReducer from "./adminReducer";
 import theatreReducer from "./theatreReducer";
+import screeningReducer from "./screeningReducer";
 
 const combinedReducers = combineReducers({
   userReducer,
-  authReducer,
+  favoritesReducer,
   adminReducer,
-  theatreReducer
+  theatreReducer,
+  screeningReducer
 });
 
 export default createStore(combinedReducers, applyMiddleware(promiseMiddleware()));

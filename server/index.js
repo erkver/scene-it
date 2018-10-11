@@ -1,6 +1,6 @@
-require ('dotenv').config();
+require('dotenv').config();
 
-const { SECRET, CONNECTION_STRING, REACT_APP_HOME } = process.env;
+const { SECRET, REACT_APP_HOME } = process.env;
 const express = require("express"),
   session = require("express-session"),
   passport = require("passport"),
@@ -9,15 +9,12 @@ const express = require("express"),
   massive = require("massive"),
   { json } = require("body-parser"),
   { strat, getUser, logout } = require("./ctrl/authCtrl"),
-  { getScreenings, getScreening, addFavorite, getDbMovies } = require("./ctrl/userCtrl"),
-  { getMovies, getMovie, test } = require("./ctrl/adminCtrl"),
+  { getScreenings, getScreening, addFavorite } = require("./ctrl/userCtrl"),
+  { getMovies, getMovie } = require("./ctrl/adminCtrl"),
   { getTheatres } = require("./ctrl/theatreCtrl");
 
 app.use(json());
-massive(CONNECTION_STRING).then(db => {
-  // console.log(db);
-  app.set("db", db);
-}).catch(err => console.log(err));
+massive(process.env.CONNECTION_STRING).then(db => app.set("db", db)).catch(err => console.log(err));
 
 app.use(
   session({
@@ -39,6 +36,7 @@ passport.serializeUser((user, done) => {
   // console.log(user);
   const db = app.get('db');
   db.getUserByAuthid([user.id]).then(response => {
+    console.log(response);
     if(!response[0]){
       db.addUserByAuthid([user.displayName, user.id, user.emails[0].value, user.picture, user.gender]).then(res => done(null, res[0])).catch(console.log);
     } else return done(null, response[0]);
@@ -62,12 +60,10 @@ app.get('/logout', logout);
 app.get('/api/screenings', getScreenings);
 app.get('/api/screening/:id', getScreening);
 app.post('/api/favorite', addFavorite);
-app.get('/api/testmov', getDbMovies);
 
 //Admin endpoints
 app.get('/api/movies', getMovies);
 app.get('/api/movie/:id', getMovie);
-app.get("/api/test", test);
 
 //Theatre endpoints
 app.get("/api/theatres", getTheatres);

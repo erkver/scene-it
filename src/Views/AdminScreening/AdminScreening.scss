@@ -1,11 +1,11 @@
 @import '../../index';
 
 @media(min-width: 320px) {
-  .main-movie-cont {
+  .main-single-movie-cont {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 120vh;
+    height: 90vh;
     margin: auto;
     width: 100vw;
     
@@ -14,7 +14,7 @@
         font-weight: bold;
         margin: 10px 0;
       }
-      .movie-cont {
+      .single-movie-cont {
         background: $primary-card;
         width: 90%;
         height: 110%;
@@ -54,9 +54,9 @@
         button {
           background: $primary-btn;
           border: none;
-          font-size: 20px;
+          font-size: 14px;
           color: white;
-          padding: 4%;
+          padding: 3%;
           border-radius: 10px;
           text-decoration: none;
         }

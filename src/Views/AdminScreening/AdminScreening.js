@@ -9,9 +9,9 @@ class AdminScreening extends Component {
     const { movies } = this.props;
     console.log(this.props);
     return (
-      <div className="main-movie-cont">
-        <h1 className="title-text">{movies.title} movies</h1>
-        <div className="movie-cont">
+      <div className="main-single-movie-cont">
+        <h1 className="title-text">{movies.title} Info</h1>
+        <div className="single-movie-cont">
           <img
             src={`http://image.tmdb.org/t/p/w92/${movies.poster_path}`}
             alt={movies.title}
