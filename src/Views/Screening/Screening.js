@@ -67,6 +67,6 @@ class Screening extends Component {
   }
 }
 
-const mapStateToProps = ({ userReducer, favoritesReducer }) => ({ ...userReducer, favoritesReducer });
+const mapStateToProps = ({ userReducer, favoritesReducer, screeningReducer }) => ({ ...userReducer, favoritesReducer, ...screeningReducer });
 
 export default withRouter(connect(mapStateToProps, {addFavorite})(Screening));

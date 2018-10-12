@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getMovies, getMovie } from "../../Ducks/adminReducer";
+import { getScreenings, getScreening } from "../../Ducks/screeningReducer";
 import { getUser } from "../../Ducks/userReducer";
 import Movie from "../../Components/Movie/Movie";
 import "./AdminHome.scss";
@@ -8,18 +8,18 @@ import { withRouter } from "react-router-dom";
 
 class AdminHome extends Component {
   componentDidMount() {
-    this.props.getMovies();
+    this.props.getScreenings();
     this.props.getUser();
   }
 
   render() {
-    const { movies, getMovie, user } = this.props;
+    const { getScreening, user, screenings } = this.props;
     console.log(this.props);
-    let screeningList = movies.map((movie, i) => (
+    let screeningList = screenings.map((movie, i) => (
       <div className="main-movie-cont" key={i}>
         <Movie
           movie={movie}
-          getMovie={getMovie}
+          getScreening={getScreening}
           user={user}
         />
       </div>
@@ -35,9 +35,9 @@ class AdminHome extends Component {
   }
 }
 
-const mapStateToProps = ({ userReducer, adminReducer }) => ({ 
+const mapStateToProps = ({ userReducer, screeningReducer }) => ({ 
   ...userReducer, 
-  ...adminReducer 
+  ...screeningReducer 
 });
 
-export default withRouter(connect(mapStateToProps, { getMovies, getMovie, getUser })(AdminHome));
+export default withRouter(connect(mapStateToProps, { getScreenings, getScreening, getUser })(AdminHome));

@@ -1,10 +1,9 @@
 import axios from 'axios';
-// import moment from "moment";
 
 const GET_SCREENINGS = "GET_SCREENINGS";
 const GET_SCREENING = "GET_SCREENING";
-// const ADD_SCREENING = "ADD_SCREENING";
-// const HANDLE_DATE = "HANDLE_DATE";
+const GET_SCREENING_INFO = "GET_SCREENING_INFO";
+const ADD_SCREENING = "ADD_SCREENING";
 
 export function getScreenings() {
   return {
@@ -20,17 +19,51 @@ export function getScreening(id) {
   };
 }
 
-// export function handleDate(date) {
-//   return {
-//     type: HANDLE_DATE,
-//     startDate: date
-//   }
-// }
+export function getScreeningInfo(id) {
+  return {
+    type: GET_SCREENING,
+    payload: axios.get(`/api/screeningInfo/${id}`)
+  };
+}
+
+export function addScreening(
+  title,
+  img_url,
+  release_date,
+  synopsis,
+  isScreening,
+  screening_date,
+  userId,
+  studio,
+  genre,
+  mov_url,
+  runtime,
+  theatreId,
+  seat_count) {
+  return {
+    type: ADD_SCREENING,
+    payload: axios.post("/api/screening", {
+      title,
+      img_url,
+      release_date,
+      synopsis,
+      isScreening,
+      screening_date,
+      userId,
+      studio,
+      genre,
+      mov_url,
+      runtime,
+      theatreId,
+      seat_count
+    })
+  };
+}
 
 const initialState = {
   screenings: [],
   screening: [],
-  // startDate: moment(),
+  screeningInfo: [],
   isLoading: false
 };
 
@@ -40,7 +73,7 @@ export default function screeningReducer(state = initialState, action) {
       return {
         ...state,
         isLoading: false,
-        screenings: action.payload.data.results
+        screenings: action.payload.data
       };
     case `${GET_SCREENING}_FULFILLED`:
       return {
@@ -48,11 +81,18 @@ export default function screeningReducer(state = initialState, action) {
         isLoading: false,
         screening: action.payload.data
       };
-    // case HANDLE_DATE:
-    //   return {
-    //     ...state,
-    //     startDate: action.payload
-    //   }
+    case `${GET_SCREENING_INFO}_FULFILLED`:
+      return {
+        ...state,
+        isLoading: false,
+        screeningInfo: action.payload.data
+      };      
+    case `${ADD_SCREENING}_FULFILLED`:
+      return {
+        ...state,
+        isLoading: false,
+        screenings: action.payload.data
+      };
     default: 
       return state;
   }

@@ -3,6 +3,7 @@ import axios from "axios";
 const GET_MOVIES = "GET_MOVIES";
 const GET_MOVIE = "GET_MOVIE";
 
+
 export function getMovies() {
   return {
     type: GET_MOVIES,
@@ -17,9 +18,9 @@ export function getMovie(id) {
   };
 }
 
-
 const initialState = {
   movies: [],
+  movie: [],
   isLoading: false
 };
 
@@ -35,7 +36,7 @@ export default function adminReducer(state = initialState, action) {
       return {
         ...state,
         isLoading: false,
-        movies: action.payload.data
+        movie: action.payload.data
       };
     default:
       return state;

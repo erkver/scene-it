@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 
 class Dropdown extends Component {
   render() {
-    console.log(this.props);
+    // console.log(this.props);
     const { REACT_APP_LOGOUT } = process.env;
     const { visibility, handleClick, user } = this.props;
     return (

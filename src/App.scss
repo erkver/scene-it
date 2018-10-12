@@ -52,7 +52,9 @@ body {
 
 .footer {
 	text-align: center;
-	bottom: 0;
 	width: 100%;
 	font-size: 10px;
+	// position: absolute;
+	margin-top: 10px;
+	min-height: calc(5vh - 5px);
 }

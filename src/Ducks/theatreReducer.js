@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const GET_THEATRES = "GET_THEATRES";
+const GET_THEATRE = "GET_THEATRE";
 
 export function getTheatres() {
   return {
@@ -9,8 +10,16 @@ export function getTheatres() {
   }
 }
 
+export function getTheatre() {
+  return {
+    type: GET_THEATRES,
+    payload: axios.get('/api/theatre/:id')
+  }
+}
+
 const initialState = {
   theatres: [],
+  theatre: [],
   isLoading: false
 };
 
@@ -20,7 +29,13 @@ export default function theatreReducer(state = initialState, action) {
       return {
         ...state,
         isLoading: false,
-        theatres: action.payload
+        theatres: action.payload.data
+      };
+    case `${GET_THEATRE}_FULFILLED`:
+      return {
+        ...state,
+        isLoading: false,
+        theatre: action.payload.data
       };
     default:
       return state;

@@ -1,17 +1,26 @@
 require('dotenv').config();
 
 const { SECRET, REACT_APP_HOME } = process.env;
-const express = require("express"),
-  session = require("express-session"),
-  passport = require("passport"),
-  app = express(),
-  port = process.env.PORT || 3001,
-  massive = require("massive"),
-  { json } = require("body-parser"),
-  { strat, getUser, logout } = require("./ctrl/authCtrl"),
-  { getScreenings, getScreening, addFavorite } = require("./ctrl/userCtrl"),
-  { getMovies, getMovie } = require("./ctrl/adminCtrl"),
-  { getTheatres } = require("./ctrl/theatreCtrl");
+const express = require("express");
+const session = require("express-session");
+const passport = require("passport");
+const app = express();
+const port = process.env.PORT || 3001;
+const massive = require("massive");
+const { json } = require("body-parser");
+
+const { strat, getUser, logout } = require("./ctrl/authCtrl");
+const { getMovies, getMovie } = require("./ctrl/adminCtrl.js");
+
+const {
+  getScreenings,
+  getScreening,
+  getScreeningInfo,
+  createScreening
+} = require("./ctrl/screeningCtrl");
+
+const { getTheatres, getTheatre } = require("./ctrl/theatreCtrl");
+const { addFavorite } = require('./ctrl/favoritesCtrl');
 
 app.use(json());
 massive(process.env.CONNECTION_STRING).then(db => app.set("db", db)).catch(err => console.log(err));
@@ -36,7 +45,7 @@ passport.serializeUser((user, done) => {
   // console.log(user);
   const db = app.get('db');
   db.getUserByAuthid([user.id]).then(response => {
-    console.log(response);
+    // console.log(response);
     if(!response[0]){
       db.addUserByAuthid([user.displayName, user.id, user.emails[0].value, user.picture, user.gender]).then(res => done(null, res[0])).catch(console.log);
     } else return done(null, response[0]);
@@ -56,17 +65,21 @@ app.get('/login', passport.authenticate('auth0', {
 app.get('/api/me', getUser);
 app.get('/logout', logout);
 
-//User endpoints
-app.get('/api/screenings', getScreenings);
-app.get('/api/screening/:id', getScreening);
-app.post('/api/favorite', addFavorite);
-
 //Admin endpoints
 app.get('/api/movies', getMovies);
 app.get('/api/movie/:id', getMovie);
 
+//Screening endpoints
+app.get('/api/screenings', getScreenings);
+app.get('/api/screening/:id', getScreening);
+app.get('/api/screeningInfo/:id', getScreeningInfo);
+app.post("/api/screening", createScreening);
+
 //Theatre endpoints
 app.get("/api/theatres", getTheatres);
+app.get("/api/theatres/:id", getTheatre);
 
+//Favorites endpoints
+app.post("/api/favorite", addFavorite);
 
 app.listen(port, () => console.log(`Server is listening on port ${port}`));
