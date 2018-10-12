@@ -7,7 +7,7 @@ import { withRouter } from "react-router-dom";
 class AdminScreening extends Component {
   render() {
     const { screening } = this.props;
-    console.log(this.props);
+    console.log(screening[0]);
     return (
       <div className="main-single-screening-cont">
         <h1 className="title-text">{screening.title} Info</h1>

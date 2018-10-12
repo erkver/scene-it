@@ -16,7 +16,7 @@ module.exports = {
     const db = req.app.get('db');
     const { id } = req.params;
     db.screenings.get_screening([id]).then(response => {
-      console.log(response);
+      console.log(response.data);
       return res.status(200).json(response);
     }).catch(err => {
       res.status(500).send({ errorMessage: "Something went wrong" });
