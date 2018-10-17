@@ -4,6 +4,7 @@ const GET_SCREENINGS = "GET_SCREENINGS";
 const GET_SCREENING = "GET_SCREENING";
 const GET_SCREENING_INFO = "GET_SCREENING_INFO";
 const ADD_SCREENING = "ADD_SCREENING";
+const EDIT_SCREENING = 'EDIT_SCREENING';
 
 export function getScreenings() {
   return {
@@ -60,6 +61,22 @@ export function addScreening(
   };
 }
 
+export function editScreening(
+  screening_date,
+  runtime,
+  theatreId,
+  seat_count) {
+  return {
+    type: ADD_SCREENING,
+    payload: axios.post("/api/screening", {
+      screening_date,
+      runtime,
+      theatreId,
+      seat_count
+    })
+  };
+}
+
 const initialState = {
   screenings: [],
   screening: [],
@@ -88,6 +105,12 @@ export default function screeningReducer(state = initialState, action) {
         screeningInfo: action.payload.data
       };      
     case `${ADD_SCREENING}_FULFILLED`:
+      return {
+        ...state,
+        isLoading: false,
+        screenings: action.payload.data
+      };
+    case `${EDIT_SCREENING}_FULFILLED`:
       return {
         ...state,
         isLoading: false,

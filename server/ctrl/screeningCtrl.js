@@ -78,5 +78,19 @@ module.exports = {
         res.status(500).send({ errorMessage: "Something went wrong" });
         console.log(err);
       });
+  },
+  editScreening: (req, res) => {
+    const db = req.app.get('db');
+    const { screening_date,
+      theatreId,
+      seat_count } = req.body;
+    const { id } = req.params;
+    db.screenings.edit_screening([id, screening_date, theatreId, seat_count]).then(response => {
+      console.log(response);
+      return res.status(200).json(response);
+    }).catch(err => {
+      res.status(500).send({ errorMessage: "Something went wrong" });
+      console.log(err);
+    });
   }
 }

@@ -16,7 +16,8 @@ const {
   getScreenings,
   getScreening,
   getScreeningInfo,
-  createScreening
+  createScreening,
+  editScreening
 } = require("./ctrl/screeningCtrl");
 
 const { getTheatres, getTheatre } = require("./ctrl/theatreCtrl");
@@ -74,6 +75,7 @@ app.get('/api/screenings', getScreenings);
 app.get('/api/screening/:id', getScreening);
 app.get('/api/screeningInfo/:id', getScreeningInfo);
 app.post("/api/screening", createScreening);
+app.put('/api/screening/:id', editScreening);
 
 //Theatre endpoints
 app.get("/api/theatres", getTheatres);

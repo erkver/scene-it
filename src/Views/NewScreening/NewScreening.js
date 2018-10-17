@@ -99,6 +99,7 @@ class NewScreening extends Component {
                 dateFormat="LLL"
                 timeCaption="time"
                 className="date-cont"
+                placeholderText="Click to select date"
                 required
               />
           </div>
