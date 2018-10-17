@@ -62,15 +62,14 @@ export function addScreening(
 }
 
 export function editScreening(
+  id,
   screening_date,
-  runtime,
   theatreId,
   seat_count) {
   return {
     type: ADD_SCREENING,
-    payload: axios.post("/api/screening", {
+    payload: axios.put(`/api/screening/${id}`, {
       screening_date,
-      runtime,
       theatreId,
       seat_count
     })

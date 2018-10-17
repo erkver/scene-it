@@ -85,6 +85,7 @@ module.exports = {
       theatreId,
       seat_count } = req.body;
     const { id } = req.params;
+    console.log(id, screening_date, theatreId, seat_count);
     db.screenings.edit_screening([id, screening_date, theatreId, seat_count]).then(response => {
       console.log(response);
       return res.status(200).json(response);

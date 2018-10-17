@@ -43,7 +43,7 @@ export default function Movie (props) {
       <p>Passes Redeemed: 0/200</p>
       <p>Booking Ratio 1:1</p>
       <Link
-        to={`/admin/movie/${movie.id}`}
+        to={`/admin/screening/${movie.id}`}
         className="info-btn"
         onClick={() => { console.log(movie.id); getScreening(movie.id) }}>More Info</Link>
     </div>

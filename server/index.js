@@ -23,6 +23,12 @@ const {
 const { getTheatres, getTheatre } = require("./ctrl/theatreCtrl");
 const { addFavorite } = require('./ctrl/favoritesCtrl');
 
+const {
+  getReports,
+  getReport,
+  addReport
+} = require('./ctrl/reportCtrl');
+
 app.use(json());
 massive(process.env.CONNECTION_STRING).then(db => app.set("db", db)).catch(err => console.log(err));
 
@@ -83,5 +89,10 @@ app.get("/api/theatres/:id", getTheatre);
 
 //Favorites endpoints
 app.post("/api/favorite", addFavorite);
+
+//Report endpoints
+app.get('/api/reports', getReports);
+app.get('/api/report/:id', getReport);
+app.post('/api/report', addReport);
 
 app.listen(port, () => console.log(`Server is listening on port ${port}`));
