@@ -27,18 +27,12 @@ module.exports = {
       attendance,
       ratio,
       reaction,
-      scenes,
-      press_comments,
-      audience_comments,
       movieId
      } = req.body;
     db.reports.add_report([
       attendance,
       ratio,
       reaction,
-      scenes,
-      press_comments,
-      audience_comments,
       movieId
     ]).then(response => {
       return res.status(200).json(response);

@@ -76,7 +76,9 @@ class NewScreening extends Component {
             <p className="desc-text">Title:</p>
             <select 
               required
+              defaultValue="default"
               onChange={this.handleMovie}>
+              <option disabled hidden value="default" >Select movie</option>
               {movieList}
             </select>
           </div>
@@ -84,7 +86,9 @@ class NewScreening extends Component {
             <p className="desc-text">Theatre:</p>
             <select 
               required
+              defaultValue="default"
               onChange={this.handleTheatre} >
+              <option disabled hidden value="default" >Select theatre</option>
               {theatreList}
             </select>
           </div>

@@ -16,7 +16,7 @@ module.exports = {
     const db = req.app.get('db');
     const { id } = req.params;
     db.screenings.get_screening([id]).then(response => {
-      console.log(response);
+      // console.log(response);
       return res.status(200).json(response);
     }).catch(err => {
       res.status(500).send({ errorMessage: "Something went wrong" });
@@ -29,7 +29,7 @@ module.exports = {
     axios
       .get(`https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=en-US`)
       .then(response => {
-        console.log(response);
+        // console.log(response);
         return res.status(200).json(response.data);
       })
       .catch(err => {
@@ -85,9 +85,9 @@ module.exports = {
       theatreId,
       seat_count } = req.body;
     const { id } = req.params;
-    console.log(id, screening_date, theatreId, seat_count);
+    // console.log(id, screening_date, theatreId, seat_count);
     db.screenings.edit_screening([id, screening_date, theatreId, seat_count]).then(response => {
-      console.log(response);
+      // console.log(response);
       return res.status(200).json(response);
     }).catch(err => {
       res.status(500).send({ errorMessage: "Something went wrong" });

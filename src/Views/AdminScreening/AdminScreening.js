@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { editScreening, getScreening } from "../../Ducks/screeningReducer";
 import "./AdminScreening.scss";
-import { withRouter, Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import moment from 'moment';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -114,8 +114,12 @@ class AdminScreening extends Component {
               <p className="info-text">
                 Current Theatre: {screening[0] && screening[0].theatre_name}
               </p>
-              <select required onChange={this.handleTheatre}>
-                {theatreList}
+              <select 
+                required
+                defaultValue="default" 
+                onChange={this.handleTheatre}>
+                  <option disabled hidden value="default" >Select theatre</option>
+                  {theatreList}
               </select>
               <p className="info-text">
                 Current Seat Count: {screening[0] && screening[0].seat_count}
@@ -151,11 +155,9 @@ class AdminScreening extends Component {
                       (!(selectedTheatre[0] && selectedTheatre[0].theatre_id) ? screening[0].theatre_id : selectedTheatre[0].theatre_id),
                       (!seatCount ? screening[0].seat_count : +seatCount));
                   }}
-                >
-                  Submit Screening
+                >Submit Screening
                 </button>
               </div>
-
             </>
           )}
         </div>

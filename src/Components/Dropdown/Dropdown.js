@@ -45,7 +45,7 @@ class Dropdown extends Component {
               onClick={() => handleClick()}>Add New Screening</Link>
             <Link
               className="menu-link"
-              to="/profile"
+              to="/admin/add/report/step1"
               onClick={() => handleClick()}>Create New Report</Link>
             <a
               className="menu-link"
