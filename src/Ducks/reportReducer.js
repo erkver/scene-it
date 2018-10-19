@@ -5,6 +5,7 @@ const GET_REPORT = "GET_REPORT";
 const ADD_REPORT = "ADD_REPORT";
 const ADD_SCENE = "ADD_SCENE";
 const ADD_PRESS_COMMENT = "ADD_PRESS_COMMENT";
+const ADD_AUD_COMMENT = "ADD_AUD_COMMENT";
 
 export function getReports() {
   return {
@@ -49,11 +50,28 @@ export function addPressComment(
   comment) {
   return {
     type: ADD_PRESS_COMMENT,
-    payload: ('/api/comment/press', {
+    payload: axios.post('/api/comment/press', {
       name,
       outlet,
       reportId,
       comment})
+  }
+}
+
+export function addAudComment(
+  name,
+  age,
+  comment,
+  reportId
+  ) {
+  return {
+    type: ADD_AUD_COMMENT,
+    payload: axios.post('/api/comment/audience', {
+      name,
+      age,
+      comment,
+      reportId
+    })
   }
 }
 
@@ -63,6 +81,7 @@ const initialState = {
   scenes: [],
   scene: [],
   pressComments: [],
+  audienceComments: [],
   isLoading: false
 }
 
@@ -97,6 +116,12 @@ export default function reportReducer(state = initialState, action) {
         ...state,
         isLoading: false,
         pressComments: action.payload.data
+      };
+    case `${ADD_AUD_COMMENT}_FULFILLED`:
+      return {
+        ...state,
+        isLoading: false,
+        audienceComments: action.payload.data
       };
     default: 
       return state;

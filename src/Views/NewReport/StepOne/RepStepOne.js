@@ -10,8 +10,8 @@ class RepStepOne extends Component {
   constructor() {
     super();
     this.state = {
-      attendance: '',
-      ratio: '',
+      attendance: 0,
+      ratio: 0,
       reaction: ''
     }
   }
@@ -28,7 +28,7 @@ class RepStepOne extends Component {
   render() {
   const { screenings, screening, addReport } = this.props;
   const { attendance, ratio, reaction } = this.state;
-  console.log(screening);
+  // console.log(screening);
   let screeningList = screenings.map((screening, i) => (
     <option
       className="screening-option-cont"
@@ -78,7 +78,7 @@ class RepStepOne extends Component {
               <p>: 1</p>
             </div>
           </div>
-          <div className="stat-row-cont">
+          <div className="reac-row-cont">
             <p className="reaction-tt">Overall Reaction:</p>
             <select 
               defaultValue="default"

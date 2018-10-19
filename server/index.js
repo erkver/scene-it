@@ -28,7 +28,8 @@ const {
   getReport,
   addReport,
   addScene,
-  addPressComment
+  addPressComment,
+  addAudComment
 } = require('./ctrl/reportCtrl');
 
 app.use(json());
@@ -98,5 +99,6 @@ app.get('/api/report/:id', getReport);
 app.post('/api/report', addReport);
 app.post('/api/scene', addScene);
 app.post('/api/comment/press', addPressComment);
+app.post('/api/comment/audience', addAudComment);
 
 app.listen(port, () => console.log(`Server is listening on port ${port}`));

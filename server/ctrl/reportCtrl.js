@@ -61,11 +61,32 @@ module.exports = {
       reportId, 
       comment
     } = req.body;
-    db.comments.add_press_comment([
+    db.comments.press.add_press_comment([
       name,
       outlet,
       reportId,
       comment]).then(response => {
+        console.log(response);
+        return res.status(200).json(response);
+      }).catch(err => {
+        res.status(500).send({ errorMessage: "Something went wrong" });
+        console.log(err);
+      });
+  },
+  addAudComment: (req, res) => {
+    const db = req.app.get("db");
+    const {
+      gender,
+      age,
+      comment,
+      reportId
+    } = req.body;
+    db.comments.audience.add_audience_comment([
+      gender,
+      age,
+      comment,
+      reportId
+      ]).then(response => {
         console.log(response);
         return res.status(200).json(response);
       }).catch(err => {

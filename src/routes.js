@@ -10,6 +10,7 @@ import NewScreening from "./Views/NewScreening/NewScreening";
 import RepStepOne from "./Views/NewReport/StepOne/RepStepOne";
 import RepStepTwo from "./Views/NewReport/StepTwo/RepStepTwo";
 import RepStepThree from "./Views/NewReport/StepThree/RepStepThree";
+import RepStepFour from "./Views/NewReport/StepFour/RepStepFour";
 import { connect } from "react-redux";
 
 
@@ -66,6 +67,7 @@ export default (
     <Route path="/admin/add/report/step1" component={RepStepOne} />
     <Route path="/admin/add/report/step2" component={RepStepTwo} />
     <Route path="/admin/add/report/step3" component={RepStepThree} />
+    <Route path="/admin/add/report/step4" component={RepStepFour} />
     <Route path="/admin/add/screening" component={NewScreening} />
     <Route path="*" render={() => <h4>404 Not Found!</h4>} />
   </Switch>

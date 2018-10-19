@@ -15,7 +15,7 @@ class RepStepTwo extends Component {
   render() {
     const { scene } = this.state;
     const { report } = this.props;
-    console.log(report[0] && report[0].tr_id);
+    // console.log(report[0] && report[0].tr_id);
     return (
       <div className="step2-cont">
         <h1>Create Report</h1>
@@ -33,7 +33,7 @@ class RepStepTwo extends Component {
             this.setState({scene: ""})}} 
             >Add Scene</button>
           <div className="link-cont">
-            <Link to='/admin/reports' className="submit-btn" >Cancel Report</Link>
+            <Link to='/admin/reports/review' className="submit-btn" >Review Report</Link>
             <Link 
               to='/admin/add/report/step3' 
               className="submit-btn" >Next Step</Link>

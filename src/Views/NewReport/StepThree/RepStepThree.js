@@ -5,7 +5,7 @@ import { addPressComment } from "../../../Ducks/reportReducer";
 import "./RepStepThree.scss";
 
 
-class RepStepTwo extends Component {
+class RepStepThree extends Component {
   constructor() {
     super();
     this.state = {
@@ -17,7 +17,7 @@ class RepStepTwo extends Component {
   render() {
     const { comment, name, outlet } = this.state;
     const { report } = this.props;
-    console.log(this.props);
+    // console.log(this.props);
     return (
       <div className="step3-cont">
         <h1>Create Report</h1>
@@ -51,15 +51,14 @@ class RepStepTwo extends Component {
             />
           </div>
           <button onClick={() => {
-            console.log(name, outlet, report[0].tr_id, comment);
             addPressComment(name, outlet, report[0].tr_id, comment);
             this.setState({ name: "", outlet: "", comment: "" })
           }}
           >Add Comment</button>
           <div className="link-cont">
-            <Link to='/admin/reports' className="submit-btn" >Cancel Report</Link>
+            <Link to='/admin/reports/review' className="submit-btn" >Review Report</Link>
             <Link
-              to='/admin/add/report/step3'
+              to='/admin/add/report/step4'
               className="submit-btn" >Next Step</Link>
           </div>
         </div>
@@ -76,4 +75,4 @@ const mapStateToProps = ({
   ...userReducer
 });
 
-export default withRouter(connect(mapStateToProps, { addPressComment })(RepStepTwo));
+export default withRouter(connect(mapStateToProps, { addPressComment })(RepStepThree));
