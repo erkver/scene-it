@@ -1,0 +1,2 @@
+DELETE FROM testPComment
+WHERE tPC_ID = $1;

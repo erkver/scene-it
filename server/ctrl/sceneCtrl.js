@@ -1,49 +1,9 @@
 module.exports = {
-  getReports: (req, res) => {
+  getScenes: (req, res) => {
     const db = req.app.get("db");
-    db.reports
-      .get_reports()
-      .then(response => {
-        return res.status(200).json(response);
-      })
-      .catch(err => {
-        res.status(500).send({ errorMessage: "Something went wrong" });
-        console.log(err);
-      });
-  },
-  getReport: (req, res) => {
-    const db = req.app.get("db");
-    const { tR_id } = req.params;
-    db.reports
-      .get_report([tR_id])
-      .then(response => {
-        return res.status(200).json(response);
-      })
-      .catch(err => {
-        res.status(500).send({ errorMessage: "Something went wrong" });
-        console.log(err);
-      });
-  },
-  addReport: (req, res) => {
-    const db = req.app.get("db");
-    const { attendance, ratio, reaction, movieId } = req.body;
-    db.reports
-      .add_report([attendance, ratio, reaction, movieId])
-      .then(response => {
-        // console.log(response);
-        return res.status(200).json(response);
-      })
-      .catch(err => {
-        res.status(500).send({ errorMessage: "Something went wrong" });
-        console.log(err);
-      });
-  },
-  editReport: (req, res) => {
-    const db = req.app.get("db");
-    const { attendance, ratio, reaction, movieId } = req.body;
-    const { tR_id } = req.params;
-    db.reports
-      .delete_report([tR_id, attendance, ratio, reaction, movieId])
+    const { reportId } = req.body;
+    db.scenes
+      .get_scenes([reportId])
       .then(response => {
         console.log(response);
         return res.status(200).json(response);
@@ -53,12 +13,56 @@ module.exports = {
         console.log(err);
       });
   },
-  deleteReport: (req, res) => {
+  getScene: (req, res) => {
     const db = req.app.get("db");
-    const { tR_id } = req.params;
-    db.reports
-      .delete_report([tR_id])
+    const { tS_id } = req.params;
+    db.scenes
+      .get_scene([tS_id])
       .then(response => {
+        console.log(response);
+        return res.status(200).json(response);
+      })
+      .catch(err => {
+        res.status(500).send({ errorMessage: "Something went wrong" });
+        console.log(err);
+      });
+  },
+  addScene: (req, res) => {
+    const db = req.app.get("db");
+    const { scene, reportId } = req.body;
+    db.scenes
+      .add_scenes([scene, reportId])
+      .then(response => {
+        console.log(response);
+        return res.status(200).json(response);
+      })
+      .catch(err => {
+        res.status(500).send({ errorMessage: "Something went wrong" });
+        console.log(err);
+      });
+  },
+  editScene: (req, res) => {
+    const db = req.app.get("db");
+    const { scene, reportId } = req.body;
+    const { tS_id } = req.params;
+    db.scenes
+      .edit_scene([tS_id, scene, reportId])
+      .then(response => {
+        console.log(response);
+        return res.status(200).json(response);
+      })
+      .catch(err => {
+        res.status(500).send({ errorMessage: "Something went wrong" });
+        console.log(err);
+      });
+  },
+  deleteScene: (req, res) => {
+    const db = req.app.get("db");
+    const { tS_id } = req.params;
+    db.scenes
+      .delete_scene([tS_id])
+      .then(response => {
+        console.log(response);
         return res.status(200).json(response);
       })
       .catch(err => {
@@ -66,4 +70,4 @@ module.exports = {
         console.log(err);
       });
   }
-};
+}

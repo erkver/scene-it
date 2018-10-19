@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
-import { addPressComment } from "../../../Ducks/reportReducer";
+import { addPressComment } from "../../../Ducks/pressCommentReducer";
 import "./RepStepThree.scss";
 
 
@@ -69,10 +69,12 @@ class RepStepThree extends Component {
 
 const mapStateToProps = ({
   reportReducer,
-  userReducer
+  userReducer,
+  pressCommentReducer
 }) => ({
   ...reportReducer,
-  ...userReducer
+  ...userReducer,
+  ...pressCommentReducer
 });
 
 export default withRouter(connect(mapStateToProps, { addPressComment })(RepStepThree));

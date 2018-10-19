@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
-import { addScene } from "../../../Ducks/reportReducer";
+import { addScene } from "../../../Ducks/sceneReducer";
 import "./RepStepTwo.scss";
 
 
@@ -46,10 +46,12 @@ class RepStepTwo extends Component {
 
 const mapStateToProps = ({
   reportReducer,
-  userReducer
+  userReducer,
+  sceneReducer
 }) => ({
   ...reportReducer,
-  ...userReducer
+  ...userReducer,
+  ...sceneReducer
 });
 
 export default withRouter(connect(mapStateToProps, { addScene })(RepStepTwo));

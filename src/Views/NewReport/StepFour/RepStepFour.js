@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
-import { addAudComment } from "../../../Ducks/reportReducer";
+import { addAudComment } from "../../../Ducks/audCommentReducer";
 import "./RepStepFour.scss";
 
 class RepStepFour extends Component {
@@ -16,7 +16,7 @@ class RepStepFour extends Component {
   render() {
     const { comment, gender, age } = this.state;
     const { report } = this.props;
-    console.log(this.props);
+    console.log(this.state);
     return (
       <div className="step4-cont">
         <h1>Create Report</h1>
@@ -60,7 +60,7 @@ class RepStepFour extends Component {
             Add Comment
           </button>
           <div className="link-cont">
-            <Link to="/admin/add/report/review" className="submit-btn">
+            <Link to={`/admin/report/${report[0].tr_id}`} className="submit-btn">
               Review All Report Info
             </Link>
           </div>
@@ -70,9 +70,13 @@ class RepStepFour extends Component {
   }
 }
 
-const mapStateToProps = ({ reportReducer, userReducer }) => ({
+const mapStateToProps = ({ 
+  reportReducer, 
+  userReducer, 
+  audCommentReducer }) => ({
   ...reportReducer,
-  ...userReducer
+  ...userReducer, 
+  ...audCommentReducer
 });
 
 export default withRouter(

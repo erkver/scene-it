@@ -27,10 +27,33 @@ const {
   getReports,
   getReport,
   addReport,
-  addScene,
-  addPressComment,
-  addAudComment
+  editReport,
+  deleteReport,
 } = require('./ctrl/reportCtrl');
+
+const {
+  getScenes,
+  getScene,
+  addScene,
+  editScene,
+  deleteScene
+} = require('./ctrl/sceneCtrl');
+
+const {
+  getPressComments,
+  getPressComment,
+  addPressComment,
+  editPressComment,
+  deletePressComment
+} = require('./ctrl/pressCommentCtrl');
+
+const {
+  getAudComments,
+  getAudComment,
+  addAudComment,
+  editAudComment,
+  deleteAudComment
+} = require('./ctrl/audCommentCtrl')
 
 app.use(json());
 massive(process.env.CONNECTION_STRING).then(db => app.set("db", db)).catch(err => console.log(err));
@@ -97,8 +120,29 @@ app.post("/api/favorite", addFavorite);
 app.get('/api/reports', getReports);
 app.get('/api/report/:id', getReport);
 app.post('/api/report', addReport);
+app.put("/api/report/:id", editReport);
+app.delete("/api/report/:id", deleteReport);
+
+//Scene endpoints
+app.get('/api/scenes', getScenes);
+app.get('/api/scene/:id', getScene);
 app.post('/api/scene', addScene);
+app.put('/api/scene/:id', editScene);
+app.delete('/api/scene/:id', deleteScene);
+
+//PressComm endpoints
+app.get('/api/comments/press', getPressComments);
+app.get('/api/comment/press/:id', getPressComment);
 app.post('/api/comment/press', addPressComment);
+app.put("/api/comment/press/:id", editPressComment);
+app.delete("/api/comment/press/:id", deletePressComment);
+
+//AudComm endpoints
+app.get('/api/comments/audience', getAudComments);
+app.get('/api/comment/audience/:id', getAudComment);
 app.post('/api/comment/audience', addAudComment);
+app.put("/api/comment/audience/:id", editAudComment);
+app.delete("/api/comment/audience/:id", deleteAudComment);
+
 
 app.listen(port, () => console.log(`Server is listening on port ${port}`));

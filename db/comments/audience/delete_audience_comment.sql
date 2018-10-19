@@ -1,0 +1,2 @@
+DELETE FROM testAComment
+WHERE tAC_ID = $1;

@@ -1,49 +1,9 @@
 module.exports = {
-  getReports: (req, res) => {
+  getAudComments: (req, res) => {
     const db = req.app.get("db");
-    db.reports
-      .get_reports()
-      .then(response => {
-        return res.status(200).json(response);
-      })
-      .catch(err => {
-        res.status(500).send({ errorMessage: "Something went wrong" });
-        console.log(err);
-      });
-  },
-  getReport: (req, res) => {
-    const db = req.app.get("db");
-    const { tR_id } = req.params;
-    db.reports
-      .get_report([tR_id])
-      .then(response => {
-        return res.status(200).json(response);
-      })
-      .catch(err => {
-        res.status(500).send({ errorMessage: "Something went wrong" });
-        console.log(err);
-      });
-  },
-  addReport: (req, res) => {
-    const db = req.app.get("db");
-    const { attendance, ratio, reaction, movieId } = req.body;
-    db.reports
-      .add_report([attendance, ratio, reaction, movieId])
-      .then(response => {
-        // console.log(response);
-        return res.status(200).json(response);
-      })
-      .catch(err => {
-        res.status(500).send({ errorMessage: "Something went wrong" });
-        console.log(err);
-      });
-  },
-  editReport: (req, res) => {
-    const db = req.app.get("db");
-    const { attendance, ratio, reaction, movieId } = req.body;
-    const { tR_id } = req.params;
-    db.reports
-      .delete_report([tR_id, attendance, ratio, reaction, movieId])
+    const { reportId } = req.body;
+    db.comments.audience
+      .get_audience_comments([reportId])
       .then(response => {
         console.log(response);
         return res.status(200).json(response);
@@ -53,12 +13,56 @@ module.exports = {
         console.log(err);
       });
   },
-  deleteReport: (req, res) => {
+  getAudComment: (req, res) => {
     const db = req.app.get("db");
-    const { tR_id } = req.params;
-    db.reports
-      .delete_report([tR_id])
+    const { tAC_id } = req.params;
+    db.comments.audience
+      .get_audience_comment([tAC_id])
       .then(response => {
+        console.log(response);
+        return res.status(200).json(response);
+      })
+      .catch(err => {
+        res.status(500).send({ errorMessage: "Something went wrong" });
+        console.log(err);
+      });
+  },
+  addAudComment: (req, res) => {
+    const db = req.app.get("db");
+    const { gender, age, comment, reportId } = req.body;
+    db.comments.audience
+      .add_audience_comment([gender, age, comment, reportId])
+      .then(response => {
+        console.log(response);
+        return res.status(200).json(response);
+      })
+      .catch(err => {
+        res.status(500).send({ errorMessage: "Something went wrong" });
+        console.log(err);
+      });
+  },
+  editAudComment: (req, res) => {
+    const db = req.app.get("db");
+    const { gender, age, comment, reportId } = req.body;
+    const { tAC_id } = req.params;
+    db.comments.audience
+      .edit_audience_comment([tAC_id, gender, age, comment, reportId])
+      .then(response => {
+        console.log(response);
+        return res.status(200).json(response);
+      })
+      .catch(err => {
+        res.status(500).send({ errorMessage: "Something went wrong" });
+        console.log(err);
+      });
+  },
+  deleteAudComment: (req, res) => {
+    const db = req.app.get("db");
+    const { tAC_id } = req.params;
+    db.comments.audience
+      .delete_audience_comment([tAC_id])
+      .then(response => {
+        console.log(response);
         return res.status(200).json(response);
       })
       .catch(err => {

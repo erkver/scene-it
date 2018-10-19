@@ -7,7 +7,9 @@ import adminReducer from "./adminReducer";
 import theatreReducer from "./theatreReducer";
 import screeningReducer from "./screeningReducer";
 import reportReducer from "./reportReducer";
-
+import pressCommentReducer from "./pressCommentReducer";
+import audCommentReducer from "./audCommentReducer";
+import sceneReducer from "./sceneReducer";
 
 const combinedReducers = combineReducers({
   userReducer,
@@ -15,7 +17,10 @@ const combinedReducers = combineReducers({
   adminReducer,
   theatreReducer,
   screeningReducer,
-  reportReducer
+  reportReducer,
+  pressCommentReducer,
+  audCommentReducer,
+  sceneReducer
 });
 
 export default createStore(combinedReducers, applyMiddleware(promiseMiddleware()));
