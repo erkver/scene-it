@@ -9,6 +9,7 @@ import AdminScreening from "./Views/AdminScreening/AdminScreening";
 import NewScreening from "./Views/NewScreening/NewScreening";
 import RepStepOne from "./Views/NewReport/StepOne/RepStepOne";
 import RepStepTwo from "./Views/NewReport/StepTwo/RepStepTwo";
+import RepStepThree from "./Views/NewReport/StepThree/RepStepThree";
 import { connect } from "react-redux";
 
 
@@ -16,9 +17,9 @@ const mapStateToProps = ({ userReducer }) => ({ ...userReducer });
 
 export default (
   <Switch>
-    <Route 
-      path="/" 
-      exact 
+    <Route
+      path="/"
+      exact
       component={AdminHome}
       // component={connect(mapStateToProps)(props => {
       //   if(props.user.data && props.user.data.isadmin) {
@@ -34,25 +35,25 @@ export default (
     <Route
       path="/profile"
       component={connect(mapStateToProps)(props => {
-        if(props.isAuthed) {
+        if (props.isAuthed) {
           return <Profile {...props} />;
         } else {
           return <Redirect to="/" />;
         }
       })}
     />
-    <Route 
-      path="/watchlist" 
+    <Route
+      path="/watchlist"
       component={connect(mapStateToProps)(props => {
         if (props.isAuthed) {
           return <Watchlist {...props} />;
         } else {
           return <Redirect to="/" />;
         }
-      })} 
+      })}
     />
-    <Route 
-      path='/admin/screening/:id'
+    <Route
+      path="/admin/screening/:id"
       component={AdminScreening}
       // component={connect(mapStateToProps)(props => {
       //   if (props.user[0] && props.user.data.isadmin) {
@@ -60,12 +61,12 @@ export default (
       //   } else {
       //     return <Redirect to="/" />;
       //   }
-      // })} 
+      // })}
     />
-    <Route path='/admin/add/report/step1' component={RepStepOne} />
-    <Route path='/admin/add/report/step2' component={RepStepTwo} />
-    {/* <Route path='/admin/add/report/3' component={NewReport} /> */}
-    <Route path='/admin/add/screening' component={NewScreening} />
+    <Route path="/admin/add/report/step1" component={RepStepOne} />
+    <Route path="/admin/add/report/step2" component={RepStepTwo} />
+    <Route path="/admin/add/report/step3" component={RepStepThree} />
+    <Route path="/admin/add/screening" component={NewScreening} />
     <Route path="*" render={() => <h4>404 Not Found!</h4>} />
   </Switch>
 );

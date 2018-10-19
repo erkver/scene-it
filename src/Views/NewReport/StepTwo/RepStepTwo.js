@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
-import { getScreenings, getScreening } from "../../../Ducks/screeningReducer";
+import { addScene } from "../../../Ducks/reportReducer";
 import "./RepStepTwo.scss";
 
 
@@ -14,6 +14,8 @@ class RepStepTwo extends Component {
   }
   render() {
     const { scene } = this.state;
+    const { report } = this.props;
+    console.log(report[0] && report[0].tr_id);
     return (
       <div className="step2-cont">
         <h1>Create Report</h1>
@@ -26,10 +28,15 @@ class RepStepTwo extends Component {
             rows="3"
             onChange={e => this.setState({ scene: e.target.value })}
           />
-          <button>Add Scene</button>
+          <button onClick={() => {
+            addScene(scene, report[0].tr_id); 
+            this.setState({scene: ""})}} 
+            >Add Scene</button>
           <div className="link-cont">
             <Link to='/admin/reports' className="submit-btn" >Cancel Report</Link>
-            <Link to='/admin/add/report/2' className="submit-btn">Next Step</Link>
+            <Link 
+              to='/admin/add/report/step3' 
+              className="submit-btn" >Next Step</Link>
           </div>
         </div>
       </div>
@@ -38,13 +45,11 @@ class RepStepTwo extends Component {
 }
 
 const mapStateToProps = ({
-  screeningReducer,
   reportReducer,
   userReducer
 }) => ({
-  ...screeningReducer,
   ...reportReducer,
   ...userReducer
 });
 
-export default withRouter(connect(mapStateToProps, { getScreenings, getScreening })(RepStepTwo));
+export default withRouter(connect(mapStateToProps, { addScene })(RepStepTwo));

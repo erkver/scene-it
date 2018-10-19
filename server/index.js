@@ -26,7 +26,9 @@ const { addFavorite } = require('./ctrl/favoritesCtrl');
 const {
   getReports,
   getReport,
-  addReport
+  addReport,
+  addScene,
+  addPressComment
 } = require('./ctrl/reportCtrl');
 
 app.use(json());
@@ -94,5 +96,7 @@ app.post("/api/favorite", addFavorite);
 app.get('/api/reports', getReports);
 app.get('/api/report/:id', getReport);
 app.post('/api/report', addReport);
+app.post('/api/scene', addScene);
+app.post('/api/comment/press', addPressComment);
 
 app.listen(port, () => console.log(`Server is listening on port ${port}`));

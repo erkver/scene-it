@@ -35,7 +35,39 @@ module.exports = {
       reaction,
       movieId
     ]).then(response => {
+      // console.log(response);
       return res.status(200).json(response);
+      }).catch(err => {
+        res.status(500).send({ errorMessage: "Something went wrong" });
+        console.log(err);
+      });
+  },
+  addScene: (req, res) => {
+    const db = req.app.get("db");
+    const { scene, reportId } = req.body;
+    db.scenes.add_scenes([scene, reportId]).then(response => {
+      console.log(response);
+      return res.status(200).json(response);
+    }).catch(err => {
+      res.status(500).send({ errorMessage: "Something went wrong" });
+      console.log(err);
+    });
+  },
+  addPressComment: (req, res) => {
+    const db = req.app.get("db");
+    const { 
+      name, 
+      outlet, 
+      reportId, 
+      comment
+    } = req.body;
+    db.comments.add_press_comment([
+      name,
+      outlet,
+      reportId,
+      comment]).then(response => {
+        console.log(response);
+        return res.status(200).json(response);
       }).catch(err => {
         res.status(500).send({ errorMessage: "Something went wrong" });
         console.log(err);
