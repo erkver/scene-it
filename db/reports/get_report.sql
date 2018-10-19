@@ -1,3 +1,3 @@
 SELECT *
-FROM reports
-WHERE report_id = $1;
+FROM testReport
+WHERE tR_id = $1;

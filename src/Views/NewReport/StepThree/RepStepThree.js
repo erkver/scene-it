@@ -20,7 +20,7 @@ class RepStepThree extends Component {
     // console.log(this.props);
     return (
       <div className="step3-cont">
-        <h1>Create Report</h1>
+        <h1>Create Press Comment</h1>
         <div className="press-card-cont" >
           <div className="press-comm-cont">
             <p>Press comment:</p>
@@ -58,7 +58,7 @@ class RepStepThree extends Component {
           <div className="link-cont">
             <Link to='/admin/reports/review' className="submit-btn" >Review Report</Link>
             <Link
-              to='/admin/add/report/step4'
+              to='/admin/report/step4'
               className="submit-btn" >Next Step</Link>
           </div>
         </div>

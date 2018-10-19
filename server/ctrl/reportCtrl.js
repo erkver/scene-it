@@ -13,9 +13,9 @@ module.exports = {
   },
   getReport: (req, res) => {
     const db = req.app.get("db");
-    const { tR_id } = req.params;
+    const { id } = req.params;
     db.reports
-      .get_report([tR_id])
+      .get_report([id])
       .then(response => {
         return res.status(200).json(response);
       })
@@ -40,10 +40,10 @@ module.exports = {
   },
   editReport: (req, res) => {
     const db = req.app.get("db");
-    const { attendance, ratio, reaction, movieId } = req.body;
-    const { tR_id } = req.params;
+    const { attendance, ratio, reaction } = req.body;
+    const { tr_id } = req.params;
     db.reports
-      .delete_report([tR_id, attendance, ratio, reaction, movieId])
+      .edit_report([tr_id, attendance, ratio, reaction])
       .then(response => {
         console.log(response);
         return res.status(200).json(response);
@@ -55,9 +55,9 @@ module.exports = {
   },
   deleteReport: (req, res) => {
     const db = req.app.get("db");
-    const { tR_id } = req.params;
+    const { tr_id } = req.params;
     db.reports
-      .delete_report([tR_id])
+      .delete_report([tr_id])
       .then(response => {
         return res.status(200).json(response);
       })

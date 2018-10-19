@@ -64,10 +64,10 @@ export default (
       //   }
       // })}
     />
-    <Route path="/admin/add/report/step1" component={RepStepOne} />
-    <Route path="/admin/add/report/step2" component={RepStepTwo} />
-    <Route path="/admin/add/report/step3" component={RepStepThree} />
-    <Route path="/admin/add/report/step4" component={RepStepFour} />
+    <Route path="/admin/report/step1" component={RepStepOne} />
+    <Route path="/admin/report/step2" component={RepStepTwo} />
+    <Route path="/admin/report/step3" component={RepStepThree} />
+    <Route path="/admin/report/step4" component={RepStepFour} />
     <Route path="/admin/report/:id" component={RepReview} />
     <Route path="/admin/add/screening" component={NewScreening} />
     <Route path="*" render={() => <h4>404 Not Found!</h4>} />
