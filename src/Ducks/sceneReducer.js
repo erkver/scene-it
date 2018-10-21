@@ -9,7 +9,7 @@ const DELETE_SCENE = "DELETE_SCENE";
 export function getScenes(reportId) {
   return {
     type: GET_SCENES,
-    payload: axios.get('/api/scenes', {reportId})
+    payload: axios.get(`/api/scenes?r=${reportId}`)
   }
 };
 

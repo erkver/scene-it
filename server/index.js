@@ -124,7 +124,7 @@ app.put("/api/report/:id", editReport);
 app.delete("/api/report/:id", deleteReport);
 
 //Scene endpoints
-app.get('/api/scenes', getScenes);
+app.get("/api/scenes", getScenes);
 app.get('/api/scene/:id', getScene);
 app.post('/api/scene', addScene);
 app.put('/api/scene/:id', editScene);

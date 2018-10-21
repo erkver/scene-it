@@ -1,9 +1,10 @@
 module.exports = {
   getScenes: (req, res) => {
     const db = req.app.get("db");
-    const { reportId } = req.body;
+    const { r } = req.query;
+    console.log(req.query);
     db.scenes
-      .get_scenes([reportId])
+      .get_scenes([+r])
       .then(response => {
         console.log(response);
         return res.status(200).json(response);

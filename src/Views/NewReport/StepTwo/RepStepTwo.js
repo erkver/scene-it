@@ -18,9 +18,7 @@ class RepStepTwo extends Component {
   componentDidMount() {
     const { getScreening, report, getScenes, scenes } = this.props;
     getScreening(report[0].movieid);
-    if(scenes[0]) {
-      getScenes();
-    }
+    getScenes(report[0].tr_id);
   }
 
   render() {
@@ -29,36 +27,37 @@ class RepStepTwo extends Component {
     console.log(this.props);
     let sceneList = scenes.map((scene, i) => (
       <div className="scene-list-cont" key={i}>
-        {/* <Scene 
-          scene={scene}
+        <Scene 
+          repScene={scene}
           user={user}
-        /> */}
-        {scene.scene}
+        />
       </div>
     ));
     return (
       <div className="step2-cont">
         <h1>{!screening[0] ? `${screening[0].title} - Scenes` : "Scenes"}</h1>
         <div className="scene-row-cont" >
-          <p>Important Scenes:</p>
-          <textarea
-            required
-            placeholder="Add one scene at a time"
-            value={scene}
-            rows="3"
-            onChange={e => this.setState({ scene: e.target.value })}
-          />
-          <button onClick={() => {
-            addScene(scene, report[0].tr_id); 
-            this.setState({scene: ""})}} 
-            >Add Scene</button>
-          <div className="link-cont">
-            <Link to='/admin/reports/review' className="submit-btn" >Review Report</Link>
-            <Link 
-              to='/admin/report/step3' 
-              className="submit-btn" >Next Step</Link>
+          <div className="scene-input-cont">
+            <p>Important Scenes:</p>
+            <textarea
+              required
+              placeholder="Add one scene at a time"
+              value={scene}
+              rows="3"
+              onChange={e => this.setState({ scene: e.target.value })}
+            />
+            <button onClick={() => {
+              addScene(scene, report[0].tr_id); 
+              this.setState({scene: ""})}} 
+              >Add Scene</button>
+            <div className="link-cont">
+              <Link to='/admin/reports/review' className="submit-btn" >Review Report</Link>
+              <Link 
+                to='/admin/report/step3' 
+                className="submit-btn" >Next Step</Link>
+            </div>
           </div>
-            {sceneList}
+          {sceneList}
         </div>
       </div>
     )

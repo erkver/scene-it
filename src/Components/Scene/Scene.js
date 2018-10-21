@@ -14,21 +14,22 @@ class Scene extends Component {
   }
 
   componentDidMount() {
-    const { scene } = this.props;
-    if(scene[0]) {
-      this.setState({editScene: scene});
+    const { repScene } = this.props;
+    if(repScene[0]) {
+      this.setState({editScene: repScene});
     }
   }
 
   render() {
-    const { scene, editScene, deleteScene } = this.props;
+    const { repScene, editScene, deleteScene } = this.props;
     const { edit, sceneInput } = this.state;
     console.log(this.props);
+    console.log(this.state);
     return (
       <div className="ind-scene-cont">
         {!edit ? 
         <>
-          <p>{scene.scene}</p>
+          <p>{repScene.scene}</p>
           <button 
             onClick={() => this.setState({edit: !this.state.edit})}>Edit Scene</button>
         </>
@@ -43,11 +44,11 @@ class Scene extends Component {
             onClick={() => this.setState({ edit: !this.state.edit })}>Cancel edit</button>
           <button
             onClick={() => {
-              editScene(scene.ts_id, sceneInput); 
+              editScene(repScene.ts_id, sceneInput); 
               this.setState({edit: !this.state.edit})}}>Submit edit</button>
           <button
             onClick={() => {
-              deleteScene(scene.ts_id); 
+              deleteScene(repScene.ts_id); 
               this.setState({edit: !this.state.edit})}}>Delete scene</button>
         </>
         }
