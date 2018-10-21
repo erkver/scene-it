@@ -41,9 +41,9 @@ module.exports = {
   editReport: (req, res) => {
     const db = req.app.get("db");
     const { attendance, ratio, reaction } = req.body;
-    const { tr_id } = req.params;
+    const { id } = req.params;
     db.reports
-      .edit_report([tr_id, attendance, ratio, reaction])
+      .edit_report([id, attendance, ratio, reaction])
       .then(response => {
         console.log(response);
         return res.status(200).json(response);
@@ -55,9 +55,9 @@ module.exports = {
   },
   deleteReport: (req, res) => {
     const db = req.app.get("db");
-    const { tr_id } = req.params;
+    const { id } = req.params;
     db.reports
-      .delete_report([tr_id])
+      .delete_report([id])
       .then(response => {
         return res.status(200).json(response);
       })

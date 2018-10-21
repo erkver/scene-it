@@ -2,7 +2,7 @@ import React,{ Component } from "react";
 import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
 import { getScreenings, getScreening } from "../../../Ducks/screeningReducer";
-import { addReport, getReport } from "../../../Ducks/reportReducer";
+import { addReport, getReport, editReport } from "../../../Ducks/reportReducer";
 import "./RepStepOne.scss";
 
 
@@ -17,17 +17,14 @@ class RepStepOne extends Component {
   }
 
   componentDidMount() {
-    const { getScreenings, getScreening, getReport, report, screening } = this.props;
-    getScreenings();
-    getScreening(72);
-    getReport(22);
-    setTimeout(() => {
-      this.setState({ attendance: report[0].attendance, ratio: report[0].ratio, reaction: report[0].reaction })
-    }, 2000); 
-    // if(report[0]) {
-    //   getScreening(report[0].movieId);
-    //   this.setState({attendance: report[0].attendance, ratio: report[0].ratio, reaction: report[0].reaction});
-    // }
+    const { getScreenings, getScreening, report } = this.props;
+      if(report[0]) {
+        // console.log(report[0].movieid);
+        getScreening(report[0].movieid);
+        this.setState({ attendance: report[0].attendance, ratio: report[0].ratio, reaction: report[0].reaction});
+      } else {
+        getScreenings()
+      }
   }
 
   handleMovie = e => {
@@ -38,8 +35,8 @@ class RepStepOne extends Component {
   render() {
   const { screenings, screening, addReport, report } = this.props;
   const { attendance, ratio, reaction } = this.state;
-  console.log(this.props);
-  console.log(this.state);
+  // console.log(this.props);
+  // console.log(this.state);
   let screeningList = screenings.map((screening, i) => (
     <option
       className="screening-option-cont"
@@ -47,7 +44,7 @@ class RepStepOne extends Component {
   ));
     return (
       <div className="new-report-cont">
-        <h1>Create Report</h1>
+        <h1>{!report[0] ? "Create Report" : "Edit Report"}</h1>
         <div className="new-report-inner-cont">
           <div className="report-row-cont">
             <p className="screening-select">Title:</p>
@@ -62,7 +59,7 @@ class RepStepOne extends Component {
                 </select>
               </>
               : <>
-              {screening[0].title}
+                <p className="title-text">{screening[0] && screening[0].title}</p>
               </>
             }
           </div>
@@ -99,7 +96,7 @@ class RepStepOne extends Component {
           <div className="reac-row-cont">
             <p className="reaction-tt">Overall Reaction:</p>
             <select 
-              defaultValue={reaction}
+              value={reaction}
               onChange={e => this.setState({reaction: e.target.value})}>
                 <option disabled hidden value="default" >Select reaction</option>
                 <option value="Excellent">Excellent</option>
@@ -109,13 +106,25 @@ class RepStepOne extends Component {
                 <option value="Poor">Poor</option>
             </select>
           </div>
-          <div className="link-cont">
-            <Link to='/admin/reports' className="submit-btn" >Cancel Report</Link>
-            <Link 
-              to='/admin/report/step2'
-              onClick={() => addReport(+attendance, +ratio, reaction, screening[0].id)} 
-              className="submit-btn">Next Step</Link>
-          </div>
+          {!report[0] ?
+            <div className="link-cont">
+              <Link to='/admin/reports' className="submit-btn" >Cancel Report</Link>
+              <Link 
+                to='/admin/report/step2'
+                onClick={() => addReport(+attendance, +ratio, reaction, screening[0].id)} 
+                className="submit-btn">Next Step</Link>
+            </div>
+            : <div className="link-cont">
+              <Link 
+                to={`/admin/report/${report[0].tr_id}`}
+                onClick={() => editReport(report[0].tr_id, +attendance, +ratio, reaction)} 
+                className="submit-btn" >Review Report</Link>
+              <Link
+                to='/admin/report/step2'
+                onClick={() => editReport(report[0].tr_id, +attendance, +ratio, reaction)}
+                className="submit-btn">Edit Next Step</Link>
+            </div>
+          }
         </div>
       </div>
     )
@@ -138,4 +147,5 @@ export default withRouter(
       getScreenings, 
       getScreening, 
       addReport, 
-      getReport})(RepStepOne));
+      getReport,
+      editReport})(RepStepOne));

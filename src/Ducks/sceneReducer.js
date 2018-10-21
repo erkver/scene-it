@@ -27,10 +27,10 @@ export function addScene(scene, reportId) {
   }
 };
 
-export function editScene(tS_id, scene, reportId) {
+export function editScene(tS_id, scene) {
   return {
     type: EDIT_SCENE,
-    payload: axios.put(`/api/scene/${tS_id}`, { scene, reportId })
+    payload: axios.put(`/api/scene/${tS_id}`, { scene })
   }
 };
 

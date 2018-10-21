@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
-import { editReport } from "../../../Ducks/reportReducer";
+import { editReport, getReport } from "../../../Ducks/reportReducer";
 import { getScenes } from "../../../Ducks/sceneReducer";
 import { getPressComments } from "../../../Ducks/pressCommentReducer";
 import { getAudComments } from "../../../Ducks/audCommentReducer";
@@ -28,7 +28,7 @@ class RepReview extends Component {
     }
   }
   componentDidMount() {
-    const { getScenes, getPressComments, getAudComments, report } = this.props;
+    const { getScenes, getPressComments, getAudComments, getReport, report } = this.props;
     getScenes(report[0].tr_id);
     getPressComments(report[0].tr_id);
     getAudComments(report[0].tr_id);
@@ -42,33 +42,25 @@ class RepReview extends Component {
       pressComments, 
       audienceComments,
       editReport } = this.props;
-    const { 
-      newAttendance,
-      newRatio,
-      newReaction,
-      newScene,
-      newPressComment,
-      newName,
-      newOutlet,
-      newAudienceComment,
-      newGender,
-      newAge,
-      editInfo,
-      editScenes,
-      editPressComments,
-      editAudComments } = this.state;
+    // const { 
+    //   newAttendance,
+    //   newRatio,
+    //   newReaction,
+    //   newScene,
+    //   newPressComment,
+    //   newName,
+    //   newOutlet,
+    //   newAudienceComment,
+    //   newGender,
+    //   newAge,
+    //   editInfo,
+    //   editScenes,
+    //   editPressComments,
+    //   editAudComments } = this.state;
     let sceneList = scenes.map((scene, i) => {
       return (
         <div className="single-scene-cont" key={i}>
-          {!editScenes ?
-            <>
-            {scene.scene}
-            </>
-            : <>
-              {scene.scene}
-              <button>Edit </button>
-            </>
-          }
+          {scene}
         </div>
       )
     });
@@ -98,18 +90,18 @@ class RepReview extends Component {
             {/* <button 
               onClick={() => this.setState({editInfo: !this.state.editInfo})}>
               {!editInfo ? "Edit Report Info" : "Done Editing"}</button> */}
-            <Link to='/admin/report/step1'></Link>
+            <Link to='/admin/report/step1'>Edit Report</Link>
             <p>Film Title: {screening[0].title}</p>
             <p>Attendance: {report[0].attendance} / {screening[0].seat_count}</p>
             <p>Booking Ratio: {report[0].ratio} : 1</p>
             <p>Overall Reaction: {report[0].reaction}</p>
             {/* <button
               onClick={() => this.setState({ editScenes: !this.state.editScenes })}>{editScenes ? "Done Editing" : "Edit Scenes"}</button> */}
-            <Link to='/admin/report/step2'></Link>
+            <Link to='/admin/report/step2'>Edit Scene</Link>
             {sceneList}
-            <Link to='/admin/report/step3'></Link>
+            <Link to='/admin/report/step3'>Edit PComment</Link>
             {pressCommentList}
-            <Link to='/admin/report/step4'></Link>
+            <Link to='/admin/report/step4'>Edit AComment</Link>
             {audCommentList}
             {/* {!editInfo ?
               <>
@@ -201,6 +193,7 @@ export default withRouter(
       getScenes, 
       getPressComments, 
       getAudComments,
-      editReport
+      editReport,
+      getReport
     })
     (RepReview));

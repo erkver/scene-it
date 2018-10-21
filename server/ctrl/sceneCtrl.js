@@ -43,10 +43,10 @@ module.exports = {
   },
   editScene: (req, res) => {
     const db = req.app.get("db");
-    const { scene, reportId } = req.body;
-    const { tS_id } = req.params;
+    const { scene } = req.body;
+    const { id } = req.params;
     db.scenes
-      .edit_scene([tS_id, scene, reportId])
+      .edit_scene([id, scene])
       .then(response => {
         console.log(response);
         return res.status(200).json(response);

@@ -52,6 +52,11 @@
         select:focus {
           border: 2px solid $primary-btn;
         }
+
+        .title-text {
+          font-size: 24px;
+          font-weight: bold;
+        }
       }
 
       .stat-row-cont {
