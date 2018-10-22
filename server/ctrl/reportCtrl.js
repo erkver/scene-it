@@ -30,7 +30,7 @@ module.exports = {
     db.reports
       .add_report([attendance, ratio, reaction, movieId])
       .then(response => {
-        // console.log(response);
+        console.log("add:", response);
         return res.status(200).json(response);
       })
       .catch(err => {

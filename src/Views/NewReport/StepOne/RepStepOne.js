@@ -63,7 +63,7 @@ class RepStepOne extends Component {
               </>
             }
           </div>
-          <form className="stat-row-cont">
+          <div className="stat-row-cont">
             <p className="screening-select">Attendance:</p>
             <div className="seat-inline-cont" >
               <input
@@ -77,8 +77,8 @@ class RepStepOne extends Component {
                 onChange={e => this.setState({ attendance: e.target.value })} />
               <p>/ {!screening[0] ? 'Seat count' : screening[0].seat_count}</p>
             </div>
-          </form>
-          <form className="stat-row-cont">
+          </div>
+          <div className="stat-row-cont">
             <p className="ratio-tt">Booking Ratio:</p>
             <div className="ratio-inline-cont" >
               <input
@@ -92,7 +92,7 @@ class RepStepOne extends Component {
                 onChange={e => this.setState({ ratio: e.target.value })} />
               <p>: 1</p>
             </div>
-          </form>
+          </div>
           <div className="reac-row-cont">
             <p className="reaction-tt">Overall Reaction:</p>
             <select 

@@ -22,11 +22,17 @@ class Scene extends Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    if(this.props.repScene.scene !== prevProps.repScene.scene) {
+      this.props.getScenes(this.props.report[0].tr_id)
+    }
+  }
+
   render() {
-    const { repScene, editScene, deleteScene, sceneUpdate } = this.props;
+    const { repScene, editScene, deleteScene } = this.props;
     const { edit, sceneInput } = this.state;
-    console.log(repScene);
-    console.log(this.state);
+    // console.log(repScene.ts_id);
+    // console.log(this.state);
     return (
       <div className={!edit ? "ind-scene-cont" : "edit-ind-scene-cont"}>
         {!edit ? (
@@ -48,10 +54,7 @@ class Scene extends Component {
               />
               <button
                   onClick={() => {
-                    deleteScene(repScene.ts_id).then(response => {
-                      console.log(response);
-                      sceneUpdate(repScene.reportid);
-                    });
+                    deleteScene(repScene.ts_id);
                     this.setState({ edit: !this.state.edit });
                   }}
                 >
@@ -64,10 +67,7 @@ class Scene extends Component {
               </button>
               <button
                 onClick={() => {
-                  editScene(repScene.ts_id, sceneInput).then(response => {
-                    console.log(response);
-                    sceneUpdate(repScene.reportid);
-                  });
+                  editScene(repScene.ts_id, sceneInput);
                   this.setState({ edit: !this.state.edit });
                 }}
               >

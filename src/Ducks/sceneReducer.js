@@ -77,7 +77,7 @@ export default function sceneReducer(state = initialState, action) {
       return {
         ...state,
         isLoading: false,
-        scenes: action.payload.data
+        scene: action.payload.data
       };
     default: 
       return state;

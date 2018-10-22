@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
-import { addPressComment } from "../../../Ducks/pressCommentReducer";
+import { addPressComment, getPressComments } from "../../../Ducks/pressCommentReducer";
 import "./RepStepThree.scss";
 
 
@@ -14,6 +14,13 @@ class RepStepThree extends Component {
       outlet: ''
     }
   }
+
+  componentDidMount() {
+    const { getScreening, report, getPressComments, pressComments } = this.props;
+    getScreening(report[0].movieid);
+    getPressComments(report[0].tr_id);
+  }
+
   render() {
     const { comment, name, outlet } = this.state;
     const { report } = this.props;

@@ -15,27 +15,34 @@ class RepStepTwo extends Component {
     }
   }
 
-  componentDidMount() {
-    const { getScreening, report, getScenes, scenes } = this.props;
-    getScreening(report[0].movieid);
-    getScenes(report[0].tr_id);
-  }
+  // componentDidMount() {
+  //   const { getScreening, report, getScenes } = this.props;
+  //   getScreening(report[0].movieid);
+  //   getScenes(report[0].tr_id);
+  // }
 
-  sceneUpdate = reportid => {
-    const { getScenes } = this.props;
-    getScenes(reportid);
+  componentDidUpdate(prevProps) {
+    const { scenes, getScenes, report } = this.props;
+    // console.log("scenes:", scenes,
+    // "prevProps:", prevProps.scenes);
+    if(report[0] !== prevProps.report[0]) {
+      getScreening(report[0].movieid);
+      getScenes(report[0].tr_id);
+    } else if (scenes !== prevProps.scenes) {
+      getScenes(report[0].tr_id);
+
+    }
   }
 
   render() {
     const { scene } = this.state;
-    const { report, screening, scenes, user, getScenes } = this.props;
+    const { report, screening, scenes, user } = this.props;
     console.log(this.props);
     let sceneList = scenes.map((scene, i) => (
       <div className="scene-list-cont" key={i}>
         <Scene 
           repScene={scene}
           user={user}
-          sceneUpdate={this.sceneUpdate}
         />
       </div>
     ));
@@ -53,10 +60,7 @@ class RepStepTwo extends Component {
               onChange={e => this.setState({ scene: e.target.value })}
             />
             <button onClick={() => {
-              addScene(scene, report[0].tr_id).then(response => {
-                console.log(response);
-                getScenes(report[0].tr_id);
-              }); 
+              addScene(scene, report[0].tr_id);
               this.setState({scene: ""})}} 
               >Add Scene</button>
             <div className="link-cont">
