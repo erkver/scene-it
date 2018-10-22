@@ -1,2 +1,2 @@
 DELETE FROM testScenes
-WHERE tS_id = $1;
+WHERE ts_id = $1;

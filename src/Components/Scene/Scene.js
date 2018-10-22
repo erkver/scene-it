@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { editScene, deleteScene } from "../../Ducks/sceneReducer";
+import { editScene, deleteScene, getScenes } from "../../Ducks/sceneReducer";
 import "./Scene.scss";
 
 class Scene extends Component {
@@ -10,50 +10,74 @@ class Scene extends Component {
     this.state = {
       sceneInput: "",
       edit: false
-    }
+    };
   }
 
   componentDidMount() {
+    console.log(this.props);
     const { repScene } = this.props;
-    if(repScene[0]) {
-      this.setState({editScene: repScene});
+    if (repScene) {
+      console.log(this.props);
+      this.setState({ sceneInput: repScene.scene });
     }
   }
 
   render() {
-    const { repScene, editScene, deleteScene } = this.props;
+    const { repScene, editScene, deleteScene, sceneUpdate } = this.props;
     const { edit, sceneInput } = this.state;
-    console.log(this.props);
+    console.log(repScene);
     console.log(this.state);
     return (
-      <div className="ind-scene-cont">
-        {!edit ? 
-        <>
-          <p>{repScene.scene}</p>
-          <button 
-            onClick={() => this.setState({edit: !this.state.edit})}>Edit Scene</button>
-        </>
-        : <>
-          <textarea 
-            value={sceneInput}
-            onChange={e => this.setState({sceneInput: e.target.value})}
-            type="text"
-            rows="2"
-          />
-          <button
-            onClick={() => this.setState({ edit: !this.state.edit })}>Cancel edit</button>
-          <button
-            onClick={() => {
-              editScene(repScene.ts_id, sceneInput); 
-              this.setState({edit: !this.state.edit})}}>Submit edit</button>
-          <button
-            onClick={() => {
-              deleteScene(repScene.ts_id); 
-              this.setState({edit: !this.state.edit})}}>Delete scene</button>
-        </>
-        }
+      <div className={!edit ? "ind-scene-cont" : "edit-ind-scene-cont"}>
+        {!edit ? (
+          <>
+            <p>{repScene.scene}</p>
+            <button onClick={() => this.setState({ edit: !this.state.edit })}>
+              Edit Scene
+            </button>
+          </>
+        ) : (
+          <>
+            <div className="scene-text">
+              <textarea
+                value={sceneInput}
+                placeholder={sceneInput}
+                onChange={e => this.setState({ sceneInput: e.target.value })}
+                type="text"
+                rows="3"
+              />
+              <button
+                  onClick={() => {
+                    deleteScene(repScene.ts_id).then(response => {
+                      console.log(response);
+                      sceneUpdate(repScene.reportid);
+                    });
+                    this.setState({ edit: !this.state.edit });
+                  }}
+                >
+                  X
+              </button>
+            </div>
+            <div className="scene-btn-cont">
+              <button onClick={() => this.setState({ edit: !this.state.edit })}>
+                  Cancel edit
+              </button>
+              <button
+                onClick={() => {
+                  editScene(repScene.ts_id, sceneInput).then(response => {
+                    console.log(response);
+                    sceneUpdate(repScene.reportid);
+                  });
+                  this.setState({ edit: !this.state.edit });
+                }}
+              >
+                Submit edit
+              </button>
+            </div>
+          </>
+        )}
       </div>
-    )
+    );
   }
 }
 
@@ -72,6 +96,6 @@ const mapStateToProps = ({
 export default withRouter(
   connect(
     mapStateToProps,
-    { editScene, deleteScene }
+    { editScene, deleteScene, getScenes }
   )(Scene)
 );

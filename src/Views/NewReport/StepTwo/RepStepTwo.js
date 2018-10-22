@@ -21,15 +21,21 @@ class RepStepTwo extends Component {
     getScenes(report[0].tr_id);
   }
 
+  sceneUpdate = reportid => {
+    const { getScenes } = this.props;
+    getScenes(reportid);
+  }
+
   render() {
     const { scene } = this.state;
-    const { report, screening, scenes, user } = this.props;
+    const { report, screening, scenes, user, getScenes } = this.props;
     console.log(this.props);
     let sceneList = scenes.map((scene, i) => (
       <div className="scene-list-cont" key={i}>
         <Scene 
           repScene={scene}
           user={user}
+          sceneUpdate={this.sceneUpdate}
         />
       </div>
     ));
@@ -47,7 +53,10 @@ class RepStepTwo extends Component {
               onChange={e => this.setState({ scene: e.target.value })}
             />
             <button onClick={() => {
-              addScene(scene, report[0].tr_id); 
+              addScene(scene, report[0].tr_id).then(response => {
+                console.log(response);
+                getScenes(report[0].tr_id);
+              }); 
               this.setState({scene: ""})}} 
               >Add Scene</button>
             <div className="link-cont">
@@ -57,7 +66,15 @@ class RepStepTwo extends Component {
                 className="submit-btn" >Next Step</Link>
             </div>
           </div>
-          {sceneList}
+          <div className="bottom-scene-cont">
+            {!scenes[0] ?
+              <>
+              </>
+              :
+              <h3>Added Scenes:</h3>
+            }
+            {sceneList}
+          </div>
         </div>
       </div>
     )

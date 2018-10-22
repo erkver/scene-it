@@ -2,11 +2,11 @@ module.exports = {
   getScenes: (req, res) => {
     const db = req.app.get("db");
     const { r } = req.query;
-    console.log(req.query);
+    console.log("get request:", req.query);
     db.scenes
       .get_scenes([+r])
       .then(response => {
-        console.log(response);
+        console.log("get request:", response);
         return res.status(200).json(response);
       })
       .catch(err => {
@@ -34,7 +34,7 @@ module.exports = {
     db.scenes
       .add_scenes([scene, reportId])
       .then(response => {
-        console.log(response);
+        console.log("add:", response);
         return res.status(200).json(response);
       })
       .catch(err => {
@@ -49,7 +49,7 @@ module.exports = {
     db.scenes
       .edit_scene([id, scene])
       .then(response => {
-        console.log(response);
+        console.log("edit:", response);
         return res.status(200).json(response);
       })
       .catch(err => {
@@ -59,11 +59,12 @@ module.exports = {
   },
   deleteScene: (req, res) => {
     const db = req.app.get("db");
-    const { tS_id } = req.params;
+    const { id } = req.params;
+    console.log(id);
     db.scenes
-      .delete_scene([tS_id])
+      .delete_scene([id])
       .then(response => {
-        console.log(response);
+        console.log("delete:", response);
         return res.status(200).json(response);
       })
       .catch(err => {
