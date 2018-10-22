@@ -1,7 +1,7 @@
 @import '../../index';
 
 @media(min-width: 320px) {
-  .ind-pComm-cont {
+  .ind-aComm-cont {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -24,7 +24,7 @@
       margin-right: .3em;
     }
 
-    .pComm-text-cont{
+    .aComm-text-cont{
       height: 100%;
       width: 75%;
       display: flex;
@@ -33,7 +33,7 @@
       justify-content: space-evenly;
     }
   }
-  .edit-ind-pComm-cont {
+  .edit-ind-aComm-cont {
     display: flex;
     align-items: flex-start;
     flex-direction: column;
@@ -41,14 +41,14 @@
     height: 11em;
     width: 100%;
 
-    .pComm-text {
+    .aComm-text {
       width: 100%;
       height: 75%;
       display: flex;
       align-items: flex-start;
       justify-content: space-evenly;
 
-      .pComm-inputs-cont {
+      .aComm-inputs-cont {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -110,7 +110,7 @@
       }
     }
 
-    .pComm-btn-cont {
+    .aComm-btn-cont {
       display: flex;
       align-items: center;
       justify-content: space-evenly;

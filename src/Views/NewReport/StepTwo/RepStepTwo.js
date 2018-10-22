@@ -17,7 +17,7 @@ class RepStepTwo extends Component {
 
   componentDidMount() {
     const { getScreening, report, getScenes } = this.props;
-    console.log(report);
+    // console.log(report);
     getScreening(report[0] && +report[0].movieid);
     getScenes(report[0] && +report[0].tr_id);
   }
@@ -26,7 +26,7 @@ class RepStepTwo extends Component {
     const { scenes, scene, getScenes, report } = this.props;
     // console.log("scenes:", scenes,
     // "prevProps:", prevProps.scenes);
-    if(scenes.length !== prevProps.scenes.length) {
+    if (scenes.length !== prevProps.scenes.length || scene.length !== prevProps.scene.length) {
       getScenes(report[0].tr_id);
     }
   }
@@ -39,7 +39,7 @@ class RepStepTwo extends Component {
   render() {
     const { scene } = this.state;
     const { report, screening, scenes, user } = this.props;
-    console.log(this.props);
+    // console.log(this.props);
     let sceneList = scenes.map((scene, i) => (
       <div className="scene-list-cont" key={i}>
         <Scene 

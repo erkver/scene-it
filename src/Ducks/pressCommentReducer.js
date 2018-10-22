@@ -9,7 +9,7 @@ const DELETE_PRESS_COMMENT = "DELETE_PRESS_COMMENT";
 export function getPressComments(reportId) {
   return {
     type: GET_PRESS_COMMENTS,
-    payload: axios.get('/api/comments/press', {reportId})
+    payload: axios.get(`/api/comments/press?r=${reportId}`)
   }
 };
 
@@ -94,7 +94,7 @@ export default function pressCommentReducer(state = initialState, action) {
       return {
         ...state,
         isLoading: false,
-        pressComment: action.payload.data
+        pressComments: action.payload.data
       };
     default:
       return state;

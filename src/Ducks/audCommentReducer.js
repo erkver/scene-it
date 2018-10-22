@@ -41,16 +41,14 @@ export function editAudComment(
   tAC_id,
   name,
   age,
-  comment,
-  reportId
+  comment
 ) {
   return {
     type: EDIT_AUD_COMMENT,
     payload: axios.put(`/api/comment/audience/${tAC_id}`, {
       name,
       age,
-      comment,
-      reportId
+      comment
     })
   }
 };

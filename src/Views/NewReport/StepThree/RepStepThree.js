@@ -17,22 +17,35 @@ class RepStepThree extends Component {
   }
 
   componentDidMount() {
-    const { getScreening, report, getPressComments, pressComments } = this.props;
-    // getScreening(report[0].movieid);
+    const { report, getPressComments } = this.props;
     getPressComments(report[0] && +report[0].tr_id);
+  }
+
+  componentDidUpdate(prevProps) {
+    const { getPressComments, pressComments, report } = this.props;
+    // console.log("comments:", pressComments,
+    // "prevProps:", prevProps.pressComments);
+    if(pressComments.length !== prevProps.pressComments.length) {
+      getPressComments(report[0].tr_id);
+    }
+  }
+
+  updatePressComments = repId => {
+    const { getPressComments } = this.props;
+    getPressComments(repId);
   }
 
   render() {
     const { comment, name, outlet } = this.state;
     const { report, screening, pressComments } = this.props;
-    console.log(this.props);
+    // console.log(this.props);
     let pressCommList = pressComments.map((prComm, i) => (
       <div className="main-ind-prComm-cont" key={i}>
         <PressComment
           prComm={prComm}
         />
       </div>
-    ))
+    ));
     return (
       <div className="step3-cont">
         <h1>{screening[0] ? `${screening[0].title} - Press Comments` : "Press Comments"}</h1>
@@ -67,6 +80,7 @@ class RepStepThree extends Component {
             <button
               onClick={() => {
                 addPressComment(name, outlet, report[0].tr_id, comment);
+                // this.updatePressComments(report[0].tr_id);
                 this.setState({ name: "", outlet: "", comment: "" })
               }}
             >Add Comment</button>

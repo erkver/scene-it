@@ -35,7 +35,7 @@ class RepStepOne extends Component {
   render() {
   const { screenings, screening, addReport, report } = this.props;
   const { attendance, ratio, reaction } = this.state;
-  console.log(this.props);
+  // console.log(this.props);
   // console.log(this.state);
   let screeningList = screenings.map((screening, i) => (
     <option

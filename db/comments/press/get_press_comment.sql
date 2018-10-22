@@ -1,3 +1,3 @@
 SELECT *
-FROM testPComments
+FROM testPComment
 WHERE tPC_id = $1;

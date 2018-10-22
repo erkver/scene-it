@@ -21,48 +21,60 @@ class RepStepFour extends Component {
       <div className="step4-cont">
         <h1>Add Audience Comment</h1>
         <div className="aud-card-cont">
-          <div className="aud-comm-cont">
-            <p>Audience comment:</p>
-            <textarea
-              required
-              placeholder="Add one comment at a time"
-              value={comment}
-              rows="3"
-              onChange={e => this.setState({ comment: e.target.value })}
-            />
+          <div className="top-aComm-cont">
+            <div className="aud-comm-cont">
+              <p>Audience comment:</p>
+              <textarea
+                required
+                placeholder="Add one comment at a time"
+                value={comment}
+                rows="3"
+                onChange={e => this.setState({ comment: e.target.value })}
+              />
+            </div>
+            <div className="aud-comm-cont">
+              <p>Gender:</p>
+              <select
+                defaultValue="default"
+                onChange={e => this.setState({ gender: e.target.value })}>
+                <option disabled hidden value="default" >Select Gender</option>
+                <option>Male</option>
+                <option>Female</option>
+              </select>
+            </div>
+            <div className="aud-comm-cont">
+              <p>Age:</p>
+              <input
+                required
+                placeholder="Age"
+                type="number"
+                value={age}
+                onChange={e => this.setState({ age: e.target.value })}
+              />
+            </div>
+            <button
+              onClick={() => {
+                addAudComment(gender, age, comment, report[0].tr_id);
+                this.setState({ gender: "", age: 0, comment: "" });
+              }}
+            >
+              Add Comment
+            </button>
+            <div className="link-cont">
+              <Link to={`/admin/report/${report[0].tr_id}`} className="submit-btn">
+                Review All Report Info
+              </Link>
+            </div>
           </div>
-          <div className="aud-comm-cont">
-            <p>Gender:</p>
-            <select
-              defaultValue="default"
-              onChange={e => this.setState({ gender: e.target.value })}>
-              <option disabled hidden value="default" >Select Gender</option>
-              <option>Male</option>
-              <option>Female</option>
-            </select>
-          </div>
-          <div className="aud-comm-cont">
-            <p>Age:</p>
-            <input
-              required
-              placeholder="Age"
-              type="number"
-              value={age}
-              onChange={e => this.setState({ age: e.target.value })}
-            />
-          </div>
-          <button
-            onClick={() => {
-              addAudComment(gender, age, comment, report[0].tr_id);
-              this.setState({ gender: "", age: 0, comment: "" });
-            }}
-          >
-            Add Comment
-          </button>
-          <div className="link-cont">
-            <Link to={`/admin/report/${report[0].tr_id}`} className="submit-btn">
-              Review All Report Info
-            </Link>
+          <div className="bottom-aComm-cont">
+            {!audienceComments[0] ?
+              <>
+              </>
+              : <>
+                <h3>Add Press Comments</h3>
+              </>
+            }
+            {audienceCommList}
           </div>
         </div>
       </div>

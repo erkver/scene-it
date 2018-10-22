@@ -6,7 +6,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    height: 85vh;
+    min-height: 30em;
     margin: auto;
     width: 100vw;
 
@@ -20,7 +20,7 @@
     .aud-card-cont {
       background: $primary-card;
       width: 90%;
-      height: 90%;
+      min-height: 75vh;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
@@ -29,6 +29,8 @@
       border-radius: 10px;
       text-align: center;
       font-size: 16px;
+
+      .top-aComm-cont {
 
       .aud-comm-cont {
 
@@ -116,6 +118,28 @@
         text-decoration: none;
         justify-content: end;
         margin-left: .3em;
+      }
+    }
+
+      .bottom-aComm-cont {
+        width: 100%;
+        height: 55%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex: 1;
+        border-top: .75px solid $primary-border;
+
+        h3 {
+          margin: .5em 0 .5em .3em;
+        }
+
+        .main-ind-aComm-cont {
+          width: 100%;
+          font-size: 14px;
+          border-top: .75px solid $primary-border;
+        }
       }
     }
   }

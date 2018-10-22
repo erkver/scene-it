@@ -1,11 +1,11 @@
 module.exports = {
   getPressComments: (req, res) => {
     const db = req.app.get("db");
-    const { reportId } = req.body;
+    const { r } = req.query;
     db.comments.press
-      .get_press_comments([reportId])
+      .get_press_comments([r])
       .then(response => {
-        console.log(response);
+        console.log("get pComm:", response);
         return res.status(200).json(response);
       })
       .catch(err => {
@@ -15,11 +15,11 @@ module.exports = {
   },
   getPressComment: (req, res) => {
     const db = req.app.get("db");
-    const { tPC_id } = req.params;
+    const { id } = req.params;
     db.comments.press
-      .get_press_comment([tPC_id])
+      .get_press_comment([id])
       .then(response => {
-        console.log(response);
+        console.log("get pComm:", response);
         return res.status(200).json(response);
       })
       .catch(err => {
@@ -33,7 +33,7 @@ module.exports = {
     db.comments.press
       .add_press_comment([name, outlet, reportId, comment])
       .then(response => {
-        console.log(response);
+        console.log("add pComm:", response);
         return res.status(200).json(response);
       })
       .catch(err => {
@@ -44,11 +44,12 @@ module.exports = {
   editPressComment: (req, res) => {
     const db = req.app.get("db");
     const { name, outlet, comment } = req.body;
-    const { tPC_id } = req.params;
+    const { id } = req.params;
+    console.log("edit pComm:", id, name, outlet, comment);
     db.comments.press
-      .edit_press_comment([tPC_id, name, outlet, comment])
+      .edit_press_comment([id, name, outlet, comment])
       .then(response => {
-        console.log(response);
+        console.log("edit pComm:", response);
         return res.status(200).json(response);
       })
       .catch(err => {
@@ -58,11 +59,11 @@ module.exports = {
   },
   deletePressComment: (req, res) => {
     const db = req.app.get("db");
-    const { tPC_id } = req.params;
+    const { id } = req.params;
     db.comments.press
-      .delete_press_comment([tPC_id])
+      .delete_press_comment([id])
       .then(response => {
-        console.log(response);
+        console.log("delete pComm:", response);
         return res.status(200).json(response);
       })
       .catch(err => {

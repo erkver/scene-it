@@ -15,10 +15,10 @@ class Scene extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props);
+    // console.log(this.props);
     const { repScene } = this.props;
     if (repScene) {
-      console.log(this.props);
+      // console.log(this.props);
       this.setState({ sceneInput: repScene.scene });
     }
   }
@@ -27,12 +27,12 @@ class Scene extends Component {
     const { repScene, getScenes, report} = this.props;
     if(repScene.scene !== prevProps.repScene.scene) {
       getScenes(report[0].tr_id);
-      this.setState({sceneInput: repScene.scene})
+      this.setState({sceneInput: repScene.scene});
     }
   }
 
   render() {
-    const { repScene, editScene, deleteScene, updateScenes, report } = this.props;
+    const { repScene, editScene, deleteScene, report } = this.props;
     const { edit, sceneInput } = this.state;
     // console.log(repScene.ts_id);
     // console.log(this.state);
@@ -70,7 +70,6 @@ class Scene extends Component {
               <button
                 onClick={() => {
                   deleteScene(repScene.ts_id);
-                  updateScenes(report[0].tr_id)
                   this.setState({ edit: !this.state.edit });
                 }}>
                 Delete scene
