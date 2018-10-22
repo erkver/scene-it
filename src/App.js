@@ -6,9 +6,9 @@ import store from "./Ducks/store";
 import routes from "./routes";
 import Navbar from "./Components/Navbar/Navbar";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faCircleNotch, faSearchPlus } from "@fortawesome/free-solid-svg-icons";
+import { faCircleNotch, faSearchPlus, faAngleDoubleDown, faAngleDoubleUp } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faCircleNotch, faSearchPlus);
+library.add(faCircleNotch, faSearchPlus, faAngleDoubleDown, faAngleDoubleUp);
 
 class App extends Component {
   render() {

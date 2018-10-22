@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { editScene, deleteScene, getScenes } from "../../Ducks/sceneReducer";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./Scene.scss";
 
 class Scene extends Component {
@@ -23,13 +24,15 @@ class Scene extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if(this.props.repScene.scene !== prevProps.repScene.scene) {
-      this.props.getScenes(this.props.report[0].tr_id)
+    const { repScene, getScenes, report} = this.props;
+    if(repScene.scene !== prevProps.repScene.scene) {
+      getScenes(report[0].tr_id);
+      this.setState({sceneInput: repScene.scene})
     }
   }
 
   render() {
-    const { repScene, editScene, deleteScene } = this.props;
+    const { repScene, editScene, deleteScene, updateScenes, report } = this.props;
     const { edit, sceneInput } = this.state;
     // console.log(repScene.ts_id);
     // console.log(this.state);
@@ -39,7 +42,10 @@ class Scene extends Component {
           <>
             <p>{repScene.scene}</p>
             <button onClick={() => this.setState({ edit: !this.state.edit })}>
-              Edit Scene
+              <FontAwesomeIcon
+                icon="angle-double-down"
+                className="expand-arr"
+              />
             </button>
           </>
         ) : (
@@ -53,17 +59,21 @@ class Scene extends Component {
                 rows="3"
               />
               <button
-                  onClick={() => {
-                    deleteScene(repScene.ts_id);
-                    this.setState({ edit: !this.state.edit });
-                  }}
-                >
-                  X
+                onClick={() => this.setState({ edit: !this.state.edit })}
+                ><FontAwesomeIcon
+                    icon="angle-double-up"
+                    className="expand-arr"
+                  />
               </button>
             </div>
             <div className="scene-btn-cont">
-              <button onClick={() => this.setState({ edit: !this.state.edit })}>
-                  Cancel edit
+              <button
+                onClick={() => {
+                  deleteScene(repScene.ts_id);
+                  updateScenes(report[0].tr_id)
+                  this.setState({ edit: !this.state.edit });
+                }}>
+                Delete scene
               </button>
               <button
                 onClick={() => {

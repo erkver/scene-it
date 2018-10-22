@@ -24,73 +24,83 @@
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      justify-content: space-evenly;
+      justify-content: flex-start;
       border: solid 1px $primary-btn;
       border-radius: 10px;
-      text-align: center;
+      text-align: start;
       font-size: 16px;
 
-      .press-comm-cont {
-
-        p {
-          text-align: start;
-          margin-left: .3em;
-        }
-
-        textarea {
-          width: 20em;
-          border-radius: 5px;
-          border: solid 1px $primary-border; 
-          -webkit-transition: .3s;
-          transition: .3s;
-          outline: none;
-          background: white;
-          margin: .3em 0 0 .3em;
-          padding-left: .3em;
-        }
-
-        textarea:focus {
-          border: 2px solid $primary-btn;
-        }
-
-        input {
-          width: 20em;
-          height: 2.5em;
-          border-radius: 5px;
-          border: solid 1px $primary-border; 
-          -webkit-transition: .3s;
-          transition: .3s;
-          outline: none;
-          background: white;
-          margin: .3em 0 0 .3em;
-          padding-left: .3em;
-        }
-
-        input:focus {
-          border: 2px solid $primary-btn;
-        }
-      }
-      .link-cont {
+      .press-comm-add-cont {
         width: 100%;
-        height: 16%;
+        height: 68%;
+        margin-top: .3em;
         display: flex;
-        align-items: center;
-        justify-content: space-evenly;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-evenly; 
+        border-bottom: .75px solid $primary-border;    
 
-        .submit-btn {
-          background: $primary-btn;
-          border: none;
-          font-size: 14px;
-          color: white;
-          padding: 3%;
-          border-radius: 10px;
-          text-decoration: none;
-          margin: 0 auto;
-          width: 6.5em;
+          p {
+            text-align: start;
+            margin-left: .3em;
+          }
+
+          textarea {
+            width: 20em;
+            border-radius: 5px;
+            border: solid 1px $primary-border; 
+            -webkit-transition: .3s;
+            transition: .3s;
+            outline: none;
+            background: white;
+            margin: .3em 0 0 .3em;
+            padding-left: .3em;
+          }
+
+          textarea:focus {
+            border: 2px solid $primary-btn;
+          }
+
+          input {
+            width: 20em;
+            height: 2.5em;
+            border-radius: 5px;
+            border: solid 1px $primary-border; 
+            -webkit-transition: .3s;
+            transition: .3s;
+            outline: none;
+            background: white;
+            margin: .3em 0 0 .3em;
+            padding-left: .3em;
+          }
+
+          input:focus {
+            border: 2px solid $primary-btn;
+          }
+
+        .link-cont {
+          width: 100%;
+          height: 14%;
+          display: flex;
+          align-items: center;
+          justify-content: space-evenly;
+          text-align: center;
+
+          .submit-btn {
+            background: $primary-btn;
+            border: none;
+            font-size: 14px;
+            color: white;
+            padding: 3%;
+            border-radius: 10px;
+            text-decoration: none;
+            margin: 0 auto;
+            width: 6.5em;
+          }
         }
       }
 
-      button {
+    button {
         background: $primary-btn;
         border: none;
         font-size: 12px;
@@ -98,8 +108,27 @@
         padding: 3%;
         border-radius: 10px;
         text-decoration: none;
-        justify-content: end;
-        margin-left: .3em;
+        margin: .5em 0 .5em .3em;
+      }
+
+      .bottom-prComm-cont {
+        width: 100%;
+        height: 55%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex: 1;
+        border-top: .75px solid $primary-border;
+
+        h3 {
+          margin: .5em 0 .5em .3em;
+        }
+        .main-ind-prComm-cont {
+          width: 100%;
+          font-size: 14px;
+          border-bottom: .75px solid $primary-border;
+        }
       }
     }
   }

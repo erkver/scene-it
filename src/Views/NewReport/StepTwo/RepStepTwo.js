@@ -15,23 +15,25 @@ class RepStepTwo extends Component {
     }
   }
 
-  // componentDidMount() {
-  //   const { getScreening, report, getScenes } = this.props;
-  //   getScreening(report[0].movieid);
-  //   getScenes(report[0].tr_id);
-  // }
+  componentDidMount() {
+    const { getScreening, report, getScenes } = this.props;
+    console.log(report);
+    getScreening(report[0] && +report[0].movieid);
+    getScenes(report[0] && +report[0].tr_id);
+  }
 
   componentDidUpdate(prevProps) {
-    const { scenes, getScenes, report } = this.props;
+    const { scenes, scene, getScenes, report } = this.props;
     // console.log("scenes:", scenes,
     // "prevProps:", prevProps.scenes);
-    if(report[0] !== prevProps.report[0]) {
-      getScreening(report[0].movieid);
+    if(scenes.length !== prevProps.scenes.length) {
       getScenes(report[0].tr_id);
-    } else if (scenes !== prevProps.scenes) {
-      getScenes(report[0].tr_id);
-
     }
+  }
+
+  updateScenes = rID => {
+    const { getScenes } = this.props;
+    getScenes(rID);
   }
 
   render() {
@@ -43,12 +45,13 @@ class RepStepTwo extends Component {
         <Scene 
           repScene={scene}
           user={user}
+          updateScenes={this.updateScenes}
         />
       </div>
     ));
     return (
       <div className="step2-cont">
-        <h1>{!screening[0] ? `${screening[0].title} - Scenes` : "Scenes"}</h1>
+        <h1>{screening[0] ? `${screening[0].title} - Scenes` : "Scenes"}</h1>
         <div className="scene-row-cont" >
           <div className="scene-input-cont">
             <p>Important Scenes:</p>
@@ -61,6 +64,7 @@ class RepStepTwo extends Component {
             />
             <button onClick={() => {
               addScene(scene, report[0].tr_id);
+              this.updateScenes(report[0].tr_id);
               this.setState({scene: ""})}} 
               >Add Scene</button>
             <div className="link-cont">

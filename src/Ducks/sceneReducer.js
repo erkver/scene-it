@@ -62,10 +62,11 @@ export default function sceneReducer(state = initialState, action) {
         scene: action.payload.data
       }
     case `${ADD_SCENE}_FULFILLED`:
+      console.log(action.payload.data);
       return {
         ...state,
         isLoading: false,
-        scenes: action.payload.data
+        scene: action.payload.data
       };
     case `${EDIT_SCENE}_FULFILLED`:
       return {

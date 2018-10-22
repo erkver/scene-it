@@ -80,7 +80,6 @@ export default function reportReducer(state = initialState, action) {
         report: action.payload.data
       };
     case `${ADD_REPORT}_FULFILLED`:
-      console.log(action.payload.data);
       return {
         ...state,
         isLoading: false,

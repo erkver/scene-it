@@ -40,14 +40,12 @@ export function editPressComment(
   tPC_id,
   name,
   outlet,
-  reportId,
   comment) {
   return {
     type: EDIT_PRESS_COMMENT,
     payload: axios.put(`/api/comment/press/${tPC_id}`, {
       name,
-      outlet,
-      reportId,
+      outlet, 
       comment
     })
   }

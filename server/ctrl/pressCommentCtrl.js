@@ -43,10 +43,10 @@ module.exports = {
   },
   editPressComment: (req, res) => {
     const db = req.app.get("db");
-    const { name, outlet, reportId, comment } = req.body;
+    const { name, outlet, comment } = req.body;
     const { tPC_id } = req.params;
     db.comments.press
-      .edit_press_comment([tPC_id, name, outlet, reportId, comment])
+      .edit_press_comment([tPC_id, name, outlet, comment])
       .then(response => {
         console.log(response);
         return res.status(200).json(response);
