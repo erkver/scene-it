@@ -36,33 +36,51 @@
         flex-direction: column;
         align-items: flex-start;
         justify-content: space-evenly;
-        margin: auto;
+        margin: 0 auto;
+        border-bottom: .75px solid $primary-border;
         
         .report-card-cont-header {
           width: 100%;
           display: flex;
           align-items: center;
           justify-content: space-between;
-          margin: auto;
+          border-bottom: solid .75px $primary-border;
 
           h2{
             font-weight: bold;
           }
         }
         
-        .single-pComment-cont {
+        .single-comment-cont {
           width: 100%;
-          .pComm-name-cont{
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: space-evenly;
+          border-bottom: solid .25px $primary-border;
+          flex: 1;
+
+          p {
+            margin: .4em 0 .4em .3em;
+            text-align: start;
           }
         }
 
         p {
-          margin: .3em 0 .3em .3em;
+          margin: .4em 0 .4em .3em;
           font-size: 14px;
         }
+      }
+
+      .report-links {
+        font-size: 12px;
+        text-decoration: none;
+        width: 5em;
+        height: 2.5em;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        color: $primary-header;
       }
     }
   }

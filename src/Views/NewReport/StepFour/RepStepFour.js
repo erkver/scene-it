@@ -66,26 +66,28 @@ class RepStepFour extends Component {
                 <option value="Female">Female</option>
               </select>
             </div>
-            <div className="aud-comm-cont">
-              <p>Age:</p>
-              <input
-                required
-                placeholder="Age"
-                type="number"
-                value={age}
-                onChange={e => this.setState({ age: e.target.value })}
-              />
+            <div className="age-btn-cont">
+              <div className="age-comm-cont">
+                <p>Age:</p>
+                <input
+                  required
+                  placeholder="Age"
+                  type="number"
+                  value={age}
+                  onChange={e => this.setState({ age: e.target.value })}
+                />
+              </div>
+              <button
+                onClick={() => {
+                  addAudComment(gender, age, comment, report[0].tr_id);
+                  this.setState({ gender: "default", age: 0, comment: "" });
+                }}
+              >
+                Add Comment
+              </button>
             </div>
-            <button
-              onClick={() => {
-                // addAudComment(gender, age, comment, report[0].tr_id);
-                this.setState({ gender: "default", age: 0, comment: "" });
-              }}
-            >
-              Add Comment
-            </button>
             <div className="link-cont">
-              <Link to={`/admin/report/${report[0].tr_id}`} className="submit-btn">
+              <Link to={`/admin/report/${report[0] && report[0].tr_id}`} className="submit-btn">
                 Review All Report Info
               </Link>
             </div>

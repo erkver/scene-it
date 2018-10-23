@@ -62,16 +62,25 @@ class RepStepTwo extends Component {
               rows="3"
               onChange={e => this.setState({ scene: e.target.value })}
             />
-            <button onClick={() => {
-              addScene(scene, report[0].tr_id);
-              this.updateScenes(report[0].tr_id);
-              this.setState({scene: ""})}} 
-              >Add Scene</button>
+            <div className="add-btn-cont">
+              <Link
+                to={`/admin/report/${report[0] && report[0].tr_id}`}
+                className="submit-btn" >Review Report</Link>
+              <button 
+                className="submit-btn"
+                onClick={() => {
+                addScene(scene, report[0].tr_id);
+                this.updateScenes(report[0].tr_id);
+                this.setState({scene: ""})}} 
+                >Add Scene</button>
+            </div>
             <div className="link-cont">
-              <Link to='/admin/reports/review' className="submit-btn" >Review Report</Link>
+              <Link
+                to='/'
+                className="link-btn" >{`< Cancel Report`}</Link>
               <Link 
                 to='/admin/report/step3' 
-                className="submit-btn" >Next Step</Link>
+                className="link-btn" >Next Step ></Link>
             </div>
           </div>
           <div className="bottom-scene-cont">

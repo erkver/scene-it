@@ -77,18 +77,25 @@ class RepStepThree extends Component {
                 onChange={e => this.setState({ outlet: e.target.value })}
               />
             </div>
-            <button
-              onClick={() => {
-                addPressComment(name, outlet, report[0].tr_id, comment);
-                // this.updatePressComments(report[0].tr_id);
-                this.setState({ name: "", outlet: "", comment: "" })
-              }}
-            >Add Comment</button>
+            <div className="add-btn-cont">
+              <Link
+                to={`/admin/report/${report[0] && report[0].tr_id}`}
+                className="submit-btn" >Review Report</Link>
+              <button
+                onClick={() => {
+                  addPressComment(name, outlet, report[0].tr_id, comment);
+                  this.updatePressComments(report[0].tr_id);
+                  this.setState({ name: "", outlet: "", comment: "" })
+                }}
+              >Add Comment</button>
+            </div>
             <div className="link-cont">
-              <Link to='/admin/reports/review' className="submit-btn" >Review Report</Link>
+              <Link 
+                to='/'
+                className="link-btn" >{`< Previous Step`}</Link>
               <Link
                 to='/admin/report/step4'
-                className="submit-btn" >Next Step</Link>
+                className="link-btn" >Next Step ></Link>
             </div>
           </div>
           <div className="bottom-prComm-cont">

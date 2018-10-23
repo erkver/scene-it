@@ -11,7 +11,7 @@ class AdminHome extends Component {
   componentDidMount() {
     this.props.getScreenings();
     this.props.getUser();
-    this.props.getReport(23);
+    // this.props.getReport(65);
   }
 
   render() {

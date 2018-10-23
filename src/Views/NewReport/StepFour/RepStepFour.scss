@@ -34,101 +34,113 @@
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        justify-content: space-evenly;
-        width: 100%;
-        height: 52vh;
-        margin-top: .3em;
+        justify-content: space-around;
+        width: 96%;
+        height: 45vh;
+        margin: auto;
 
-      .aud-comm-cont {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
+        .aud-comm-cont {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          width: 100%;
 
-        p {
-          text-align: start;
-          margin-left: .3em;
+          p {
+            text-align: start;
+            margin-bottom: .5em;
+          }
+
+          textarea {
+            width: 97%;
+            border-radius: 5px;
+            border: solid 1px $primary-border; 
+            -webkit-transition: .3s;
+            transition: .3s;
+            outline: none;
+            background: white;
+            padding-left: .3em;
+          }
+
+          textarea:focus {
+            border: 2px solid $primary-btn;
+          }
+
+          select {
+            width: 8.4em;
+            height: 2.2em;
+            border-radius: 5px;
+            border: solid 1px $primary-border; 
+            -webkit-transition: .3s;
+            transition: .3s;
+            outline: none;
+            background: white;
+          }
+
+          select:focus {
+            border: 2px solid $primary-btn;
+          }
         }
 
-        textarea {
-          width: 20em;
-          border-radius: 5px;
-          border: solid 1px $primary-border; 
-          -webkit-transition: .3s;
-          transition: .3s;
-          outline: none;
-          background: white;
-          margin: .3em 0 0 .3em;
-          padding-left: .3em;
+        .age-btn-cont {
+          display: flex;
+          width:100%;
+          align-items: flex-end;
+          justify-content: space-between;
+
+            .age-comm-cont {
+
+            p {
+              text-align: start;
+              margin-bottom: .5em;
+            }
+
+            input {
+              width: 8em;
+              height: 2em;
+              border-radius: 5px;
+              border: solid 1px $primary-border; 
+              -webkit-transition: .3s;
+              transition: .3s;
+              outline: none;
+              background: white;
+              padding-left: .3em;
+            }
+          
+            input:focus {
+              border: 2px solid $primary-btn;
+            }
+          }
+
+          button {
+            background: $primary-btn;
+            border: none;
+            font-size: 12px;
+            color: white;
+            padding: 3%;
+            border-radius: 10px;
+            text-decoration: none;
+            justify-content: end;
+          }
         }
 
-        textarea:focus {
-          border: 2px solid $primary-btn;
-        }
+        .link-cont {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-evenly;
+          margin-top: .5em;
 
-        select {
-          width: 8.4em;
-          height: 2.2em;
-          border-radius: 5px;
-          border: solid 1px $primary-border; 
-          -webkit-transition: .3s;
-          transition: .3s;
-          outline: none;
-          background: white;
-          margin: .3em 0 0 .3em;
+          .submit-btn {
+            background: $primary-btn;
+            border: none;
+            font-size: 16px;
+            color: white;
+            padding: 3%;
+            border-radius: 7.5px;
+            text-decoration: none;
+            margin: 0 auto;
+          }
         }
-
-        select:focus {
-          border: 2px solid $primary-btn;
-        }
-
-        input {
-          width: 8em;
-          height: 2em;
-          border-radius: 5px;
-          border: solid 1px $primary-border; 
-          -webkit-transition: .3s;
-          transition: .3s;
-          outline: none;
-          background: white;
-          margin: .3em 0 0 .3em;
-          padding-left: .3em;
-        }
-
-        input:focus {
-          border: 2px solid $primary-btn;
-        }
-      }
-      .link-cont {
-        width: 100%;
-        height: 16%;
-        display: flex;
-        align-items: center;
-        justify-content: space-evenly;
-
-        .submit-btn {
-          background: $primary-btn;
-          border: none;
-          font-size: 16px;
-          color: white;
-          padding: 3%;
-          border-radius: 10px;
-          text-decoration: none;
-          margin: 0 auto;
-          width: 10em;
-        }
-      }
-
-      button {
-        background: $primary-btn;
-        border: none;
-        font-size: 12px;
-        color: white;
-        padding: 3%;
-        border-radius: 10px;
-        text-decoration: none;
-        justify-content: end;
-        margin-left: .3em;
-      }
     }
 
       .bottom-aComm-cont {

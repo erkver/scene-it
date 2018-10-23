@@ -5,9 +5,9 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 4em;
     width: 100%;
     margin: .5em 0;
+    text-align: start;
 
     p {
       margin-left: .3em;
@@ -20,17 +20,17 @@
       color: black;
       padding: 2%;
       text-decoration: none;
-      width: 3.5em;
-      margin-right: .3em;
+      width: 15%;
     }
 
     .aComm-text-cont{
       height: 100%;
-      width: 75%;
+      width: 85%;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       justify-content: space-evenly;
+
     }
   }
 
@@ -39,12 +39,11 @@
     align-items: flex-start;
     flex-direction: column;
     justify-content: space-evenly;
-    height: 11em;
     width: 100%;
+    margin: .5em 0;
 
     .aComm-text {
       width: 100%;
-      height: 70%;
       display: flex;
       align-items: flex-start;
       justify-content: space-evenly;
@@ -54,7 +53,6 @@
         flex-direction: column;
         align-items: center;
         justify-content: space-evenly;
-        height: 100%;
 
         .name-outlet-cont {
           display: flex;
@@ -105,6 +103,7 @@
           outline: none;
           background: white;
           font-family: 'Didact Gothic', sans-serif;
+          margin: .3em 0 .3em 0;;
         }
 
         textarea:focus {
