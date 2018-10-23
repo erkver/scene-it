@@ -1,11 +1,11 @@
 module.exports = {
   getAudComments: (req, res) => {
     const db = req.app.get("db");
-    const { reportId } = req.body;
+    const { r } = req.query;
     db.comments.audience
-      .get_audience_comments([reportId])
+      .get_audience_comments([r])
       .then(response => {
-        console.log(response);
+        console.log("get aComm:", response);
         return res.status(200).json(response);
       })
       .catch(err => {
@@ -33,7 +33,7 @@ module.exports = {
     db.comments.audience
       .add_audience_comment([gender, age, comment, reportId])
       .then(response => {
-        console.log(response);
+        console.log("add aComm:", response);
         return res.status(200).json(response);
       })
       .catch(err => {
@@ -43,12 +43,12 @@ module.exports = {
   },
   editAudComment: (req, res) => {
     const db = req.app.get("db");
-    const { gender, age, comment, reportId } = req.body;
-    const { tAC_id } = req.params;
+    const { gender, age, comment } = req.body;
+    const { id } = req.params;
     db.comments.audience
-      .edit_audience_comment([tAC_id, gender, age, comment, reportId])
+      .edit_audience_comment([id, gender, age, comment])
       .then(response => {
-        console.log(response);
+        console.log("edit aComm:", response);
         return res.status(200).json(response);
       })
       .catch(err => {
@@ -58,11 +58,11 @@ module.exports = {
   },
   deleteAudComment: (req, res) => {
     const db = req.app.get("db");
-    const { tAC_id } = req.params;
+    const { id } = req.params;
     db.comments.audience
-      .delete_audience_comment([tAC_id])
+      .delete_audience_comment([id])
       .then(response => {
-        console.log(response);
+        console.log("delete aComm:", response);
         return res.status(200).json(response);
       })
       .catch(err => {

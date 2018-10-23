@@ -21,10 +21,10 @@ class PressComment extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props);
+    // console.log(this.props);
     const { prComm } = this.props;
     if(prComm) {
-      console.log(this.props);
+      // console.log(this.props);
       this.setState({
         pCommentInput: prComm.comment,
         pName: prComm.name,
@@ -33,7 +33,7 @@ class PressComment extends Component {
   }
 
   render() {
-    const { prComm, editPressComment, deletePressComment, report } = this.props;
+    const { prComm, editPressComment, deletePressComment } = this.props;
     const { edit, pCommentInput, pName, pOutlet } = this.state;
     // console.log(prComm);
     // console.log(this.state);

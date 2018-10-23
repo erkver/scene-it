@@ -9,7 +9,7 @@ const DELETE_AUD_COMMENT = "DELETE_AUD_COMMENT";
 export function getAudComments(reportId) {
   return {
     type: GET_AUD_COMMENTS,
-    payload: axios.get('/api/comments/audience', {reportId})
+    payload: axios.get(`/api/comments/audience?r=${reportId}`)
   }
 };
 
@@ -21,7 +21,7 @@ export function getAudComment(tAC_id) {
 };
 
 export function addAudComment(
-  name,
+  gender,
   age,
   comment,
   reportId
@@ -29,7 +29,7 @@ export function addAudComment(
   return {
     type: ADD_AUD_COMMENT,
     payload: axios.post('/api/comment/audience', {
-      name,
+      gender,
       age,
       comment,
       reportId
@@ -39,14 +39,14 @@ export function addAudComment(
 
 export function editAudComment(
   tAC_id,
-  name,
+  gender,
   age,
   comment
 ) {
   return {
     type: EDIT_AUD_COMMENT,
     payload: axios.put(`/api/comment/audience/${tAC_id}`, {
-      name,
+      gender,
       age,
       comment
     })

@@ -32,7 +32,7 @@ class Scene extends Component {
   }
 
   render() {
-    const { repScene, editScene, deleteScene, report } = this.props;
+    const { repScene, editScene, deleteScene } = this.props;
     const { edit, sceneInput } = this.state;
     // console.log(repScene.ts_id);
     // console.log(this.state);

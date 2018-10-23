@@ -1,25 +1,49 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
-import { addAudComment } from "../../../Ducks/audCommentReducer";
+import { getAudComments, addAudComment } from "../../../Ducks/audCommentReducer";
 import "./RepStepFour.scss";
+import AudComment from "../../../Components/AudComment/AudComment";
 
 class RepStepFour extends Component {
   constructor() {
     super();
     this.state = {
       comment: "",
-      gender: "",
+      gender: "default",
       age: 0
-    };
+    }
   }
+
+  componentDidMount() {
+    const { report, getAudComments } = this.props;
+    getAudComments(report[0] && +report[0].tr_id);
+  }
+
+  componentDidUpdate(prevProps) {
+    const { getAudComments, audienceComments, report } = this.props;
+    // console.log("comments:", pressComments,
+    // "prevProps:", prevProps.pressComments);
+    if (audienceComments.length !== prevProps.audienceComments.length) {
+      getAudComments(report[0].tr_id);
+    }
+  }
+
   render() {
     const { comment, gender, age } = this.state;
-    const { report } = this.props;
-    console.log(this.state);
+    const { report, screening, audienceComments } = this.props;
+    // console.log(this.state);
+    // console.log(this.props);
+    let audienceCommList = audienceComments.map((aComm, i) => (
+      <div className="main-single-aComm-cont" key={i}>
+        <AudComment 
+          aComm={aComm}
+        />
+      </div>
+    ))
     return (
       <div className="step4-cont">
-        <h1>Add Audience Comment</h1>
+        <h1>{screening[0] ? `${screening[0].title} - Audience Comments` : "Audience Comments"}</h1>
         <div className="aud-card-cont">
           <div className="top-aComm-cont">
             <div className="aud-comm-cont">
@@ -35,11 +59,11 @@ class RepStepFour extends Component {
             <div className="aud-comm-cont">
               <p>Gender:</p>
               <select
-                defaultValue="default"
+                value={gender}
                 onChange={e => this.setState({ gender: e.target.value })}>
                 <option disabled hidden value="default" >Select Gender</option>
-                <option>Male</option>
-                <option>Female</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
               </select>
             </div>
             <div className="aud-comm-cont">
@@ -54,8 +78,8 @@ class RepStepFour extends Component {
             </div>
             <button
               onClick={() => {
-                addAudComment(gender, age, comment, report[0].tr_id);
-                this.setState({ gender: "", age: 0, comment: "" });
+                // addAudComment(gender, age, comment, report[0].tr_id);
+                this.setState({ gender: "default", age: 0, comment: "" });
               }}
             >
               Add Comment
@@ -71,7 +95,7 @@ class RepStepFour extends Component {
               <>
               </>
               : <>
-                <h3>Add Press Comments</h3>
+                <h3>Addded Audience Comments</h3>
               </>
             }
             {audienceCommList}
@@ -85,15 +109,17 @@ class RepStepFour extends Component {
 const mapStateToProps = ({ 
   reportReducer, 
   userReducer, 
-  audCommentReducer }) => ({
+  audCommentReducer,
+  screeningReducer }) => ({
   ...reportReducer,
   ...userReducer, 
-  ...audCommentReducer
+  ...audCommentReducer,
+  ...screeningReducer
 });
 
 export default withRouter(
   connect(
     mapStateToProps,
-    { addAudComment }
+    { getAudComments, addAudComment }
   )(RepStepFour)
 );

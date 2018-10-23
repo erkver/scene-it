@@ -96,7 +96,7 @@ class RepStepThree extends Component {
             <>
             </>
             : <>
-            <h3>Add Press Comments</h3>
+            <h3>Added Press Comments</h3>
             </>
             }
             {pressCommList}
