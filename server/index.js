@@ -21,7 +21,7 @@ const {
 } = require("./ctrl/screeningCtrl");
 
 const { getTheatres, getTheatre } = require("./ctrl/theatreCtrl");
-const { getFavorites, addFavorite } = require('./ctrl/favoritesCtrl');
+const { getFavorites, addFavorite, deleteFavorite } = require('./ctrl/favoritesCtrl');
 
 const {
   getReports,
@@ -116,6 +116,7 @@ app.get("/api/theatres/:id", getTheatre);
 //Favorites endpoints
 app.get("/api/favorites", getFavorites);
 app.post("/api/favorite", addFavorite);
+app.delete("/api/favorite/:id", deleteFavorite);
 
 //Report endpoints
 app.get('/api/reports', getReports);

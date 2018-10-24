@@ -11,6 +11,7 @@ class AdminScreening extends Component {
     const { getScreening } = this.props;
     const { id } = this.props.match.params;
     getScreening(+id);
+    
   }
   render() {
     const { screening } = this.props;
@@ -31,7 +32,7 @@ class AdminScreening extends Component {
             <p className="info-text">Runtime: {e.runtime} minutes</p>
             <p className="info-text">Screening Date: {e.screening_date}</p>
             <p className="info-text">Theatre: {e.theatre_name}</p>
-            <p className="info-text">Seat Count: {e.seat_count}</p>
+            <p className="info-text">Fill: {}/{e.seat_count}</p>
             <Link 
               className="edit-btn" 
               to={`/admin/screening/edit/${e.id}`}>Edit Screening</Link>

@@ -1,7 +1,7 @@
 module.exports = {
   getFavorites: (req, res) => {
     const db = req.app.get('db');
-    const { u } = req.query;
+    const { u, m } = req.query;
     console.log("favs: ", req.query)
     if (req.query.u) {
       db.favorites
@@ -37,4 +37,16 @@ module.exports = {
         console.log(err);
       });
   },
+  deleteFavorite: (req, res) => {
+    const db = req.app.get("db");
+    const { id } = req.params;
+    console.log(id);
+    db.favorites.delete_favorite([id]).then(response => {
+      console.log("delete fav:", response)
+      return res.status(200).json(response);
+    }).catch(err => {
+      res.status(500).send({ errorMessage: "Something went wrong" });
+      console.log(err);
+    });
+  }
 }

@@ -8,8 +8,8 @@ import "./Watchlist.scss";
 
 class Watchlist extends Component {
   componentDidMount() {
-    const { getFavorites } = this.props;
-    getFavorites();
+    const { getFavorites, user } = this.props;
+    getFavorites(user.user_id);
   }
 
   render() {

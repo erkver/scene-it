@@ -33,16 +33,6 @@
           width: 45%;
         }
 
-        Link {
-          background: $primary-btn;
-          border: none;
-          font-size: 20px;
-          color: white;
-          padding: 4%;
-          border-radius: 10px;
-          text-decoration: none;
-        }
-
         p {
           width: 96%;
           display: flex;
@@ -69,6 +59,13 @@
           font-size: 20px;
           font-weight: bold;
           margin: .5em auto;
+        }
+
+        .del-link {
+          font-size: 14px;
+          margin: .5em auto;
+          text-decoration: none;
+          color: black;
         }
     }
   }

@@ -4,7 +4,7 @@ import "./Favorite.scss";
 
 export default function Favorite(props) {
   const { fav, user, getScreening } = props;
-  // console.log(props);
+  console.log(props);
   return (
     <div className="fav-cont">
       <div className="inner-fav-cont">

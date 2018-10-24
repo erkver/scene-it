@@ -24,10 +24,10 @@ export default (
       exact
       component={connect(mapStateToProps)(props => {
         if (props.user.data && props.user.data.isadmin) {
-          console.log(props.user);
+          // console.log(props.user);
           return <AdminHome {...props} />;
         } else {
-          console.log(props.user);
+          // console.log(props.user);
           return <Home {...props} />;
         }
       })}

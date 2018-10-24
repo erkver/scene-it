@@ -1,7 +1,9 @@
 import axios from "axios";
 
-const GET_FAVORITES = "GET_FAVORITES"
+const GET_FAVORITES = "GET_FAVORITES";
+const GET_FILL = "GET_FILL";
 const ADD_FAVORITE = "ADD_FAVORITE";
+const DELETE_FAVORITE = "DELETE_FAVORITE";
 
 export function getFavorites(userId) {
   return {
@@ -10,16 +12,30 @@ export function getFavorites(userId) {
   }
 }
 
-export function addFavorite( movieId, userId) {
+export function getFill(movieId) {
+  return {
+    type: GET_FILL,
+    payload: axios.get(`/api/favorite?m=${movieId}`)
+  }
+}
+export function addFavorite(movieId, userId) {
   return {
     type: ADD_FAVORITE,
     payload: axios.post('/api/favorite', {movieId,userId})
   }
 }
 
+export function deleteFavorite(fav_id) {
+  return {
+    type: DELETE_FAVORITE,
+    payload: axios.delete(`/api/favorite/${fav_id}`)
+  }
+}
+
 const initialState = {
   favorites: [],
   favorite: [],
+  fill: 0,
   isLoading: false
 }
 
@@ -36,12 +52,34 @@ export default function userReducer(state = initialState, action) {
         isLoading: false,
         favorites: action.payload.data
       };
+    case `${GET_FILL}_PENDING`:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case `${GET_FILL}_FULFILLED`:
+      return {
+        ...state,
+        isLoading: false,
+        fill: action.payload.data
+      };
     case `${ADD_FAVORITE}_PENDING`:
       return {
         ...state,
         isLoading: true
       };
     case `${ADD_FAVORITE}_FULFILLED`:
+      return {
+        ...state,
+        isLoading: false,
+        favorites: action.payload.data
+      };
+    case `${DELETE_FAVORITE}_PENDING`:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case `${DELETE_FAVORITE}_FULFILLED`:
       return {
         ...state,
         isLoading: false,
