@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { addFavorite } from "../../Ducks/favoritesReducer";
+import { addFavorite, getFavorites } from "../../Ducks/favoritesReducer";
 import { withRouter } from "react-router-dom";
 import { getScreening } from "../../Ducks/screeningReducer";
 import './Screening.scss';
@@ -14,17 +14,27 @@ class Screening extends Component {
   }
 
   componentDidMount() {
-    const { getScreening } = this.props;
+    const { getScreening, getFavorites, user, screening } = this.props;
+    
     const { id } = this.props.match.params;
-    getScreening(+id);
+    getScreening(+id).then(response => {
+      console.log(response);
+      const { data } = response.value;
+        getFavorites(data[0].userid).then(res => {
+        const { data } = res.value;
+        console.log(screening);
+        ((data[0].movieid === response.value.data[0].id && data[0].userid === user.user_id) ? this.setState({claimed: true}) : this.setState({claimed: false}));
+        })
+    });
   }
+
 
   render() {
     let btnText = 'Get Passes!';
     if(this.state.claimed) {
       btnText = 'Claimed!'
     }
-    const { screening, isAuthed, user } = this.props;
+    const { screening, isAuthed } = this.props;
     console.log(this.props);
     let screeningInfo = screening.map((e, i) => (
       <div key={i} className="main-screening-cont">
@@ -51,22 +61,7 @@ class Screening extends Component {
                 alert("Must be logged in to get passes!")
                 :
                 this.setState({ claimed: !this.state.claimed }); 
-                addFavorite(
-                  e.id,
-                  e.title,
-                  e.img_url,
-                  e.release_date,
-                  e.synopsis,
-                  true,
-                  e.screening_date,
-                  e.theatre_name,
-                  e.theatre_address,
-                  e.studio,
-                  e.genre,
-                  e.mov_url,
-                  e.runtime,
-                  e.userid
-                )
+                addFavorite(e.id, e.userid)
               }}>{btnText}
             </button>
             :
@@ -83,6 +78,12 @@ class Screening extends Component {
   }
 }
 
-const mapStateToProps = ({ userReducer, favoritesReducer, screeningReducer }) => ({ ...userReducer, favoritesReducer, ...screeningReducer });
+const mapStateToProps = ({ 
+  userReducer, 
+  favoritesReducer, 
+  screeningReducer }) => ({ 
+  ...userReducer, 
+  ...favoritesReducer, 
+  ...screeningReducer });
 
-export default withRouter(connect(mapStateToProps, {addFavorite, getScreening})(Screening));
+export default withRouter(connect(mapStateToProps, {addFavorite, getScreening, getFavorites})(Screening));

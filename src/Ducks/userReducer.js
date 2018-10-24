@@ -25,7 +25,7 @@ export default function userReducer(state = initialState, action) {
       return {
         ...state,
         isAuthed: true,
-        user: action.payload
+        user: action.payload.data
       };
     case `${GET_USER}_REJECTED`:
       return {

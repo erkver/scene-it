@@ -11,7 +11,6 @@ class AdminScreening extends Component {
     const { getScreening } = this.props;
     const { id } = this.props.match.params;
     getScreening(+id);
-    
   }
   render() {
     const { screening } = this.props;

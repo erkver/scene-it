@@ -25,7 +25,7 @@ class NewScreening extends Component {
   }
 
   componentDidMount() {
-    const { getMovies, getTheatres, getUser, getScreening, screening } = this.props;
+    const { getMovies, getTheatres, getUser, getScreening } = this.props;
     const { id } = this.props.match.params;
     getMovies();
     getTheatres();
