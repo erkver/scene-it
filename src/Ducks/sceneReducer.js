@@ -49,11 +49,21 @@ const initialState = {
 
 export default function sceneReducer(state = initialState, action) {
   switch(action.type) {
+    case `${GET_SCENES}_PENDING`:
+      return {
+        ...state,
+        isLoading: true
+      };
     case `${GET_SCENES}_FULFILLED`:
       return {
         ...state,
         isLoading: false,
         scenes: action.payload.data
+      };
+    case `${GET_SCENE}_PENDING`:
+      return {
+        ...state,
+        isLoading: true
       };
     case `${GET_SCENE}_FULFILLED`:
       return {
@@ -61,6 +71,11 @@ export default function sceneReducer(state = initialState, action) {
         isLoading: false,
         scene: action.payload.data
       }
+    case `${ADD_SCENE}_PENDING`:
+      return {
+        ...state,
+        isLoading: true
+      };
     case `${ADD_SCENE}_FULFILLED`:
       console.log(action.payload.data);
       return {
@@ -68,11 +83,21 @@ export default function sceneReducer(state = initialState, action) {
         isLoading: false,
         scene: action.payload.data
       };
+    case `${EDIT_SCENE}_PENDING`:
+      return {
+        ...state,
+        isLoading: true
+      };
     case `${EDIT_SCENE}_FULFILLED`:
       return {
         ...state,
         isLoading: false,
         scenes: action.payload.data
+      };
+    case `${DELETE_SCENE}_PENDING`:
+      return {
+        ...state,
+        isLoading: true
       };
     case `${DELETE_SCENE}_FULFILLED`:
       return {

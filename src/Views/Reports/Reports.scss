@@ -1,7 +1,7 @@
 @import '../../index.scss';
 
 @media(min-width: 320px) {
-  .movie-list-cont {
+  .report-list-cont {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -13,7 +13,7 @@
       margin: 10px 0 ;
     }
   }
-  .main-movie-cont {
+  .main-report-cont {
     width: 95%;
     display: flex;
     flex-direction: column;

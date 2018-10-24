@@ -85,11 +85,21 @@ const initialState = {
 
 export default function screeningReducer(state = initialState, action) {
   switch (action.type) {
+    case `${GET_SCREENINGS}_PENDING`:
+      return {
+        ...state,
+        isLoading: true
+      };
     case `${GET_SCREENINGS}_FULFILLED`:
       return {
         ...state,
         isLoading: false,
         screenings: action.payload.data
+      };
+    case `${GET_SCREENING}_PENDING`:
+      return {
+        ...state,
+        isLoading: true
       };
     case `${GET_SCREENING}_FULFILLED`:
       return {
@@ -97,17 +107,32 @@ export default function screeningReducer(state = initialState, action) {
         isLoading: false,
         screening: action.payload.data
       };
+    case `${GET_SCREENING_INFO}_PENDING`:
+      return {
+        ...state,
+        isLoading: true
+      };
     case `${GET_SCREENING_INFO}_FULFILLED`:
       return {
         ...state,
         isLoading: false,
         screeningInfo: action.payload.data
+      };
+    case `${ADD_SCREENING}_PENDING`:
+      return {
+        ...state,
+        isLoading: true
       };      
     case `${ADD_SCREENING}_FULFILLED`:
       return {
         ...state,
         isLoading: false,
-        screenings: action.payload.data
+        screening: action.payload.data
+      };
+    case `${EDIT_SCREENING}_PENDING`:
+      return {
+        ...state,
+        isLoading: true
       };
     case `${EDIT_SCREENING}_FULFILLED`:
       return {

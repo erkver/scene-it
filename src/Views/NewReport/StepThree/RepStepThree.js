@@ -79,7 +79,7 @@ class RepStepThree extends Component {
             </div>
             <div className="add-btn-cont">
               <Link
-                to={`/admin/report/${report[0] && report[0].tr_id}`}
+                to={`/admin/report/final/${report[0] && report[0].tr_id}`}
                 className="submit-btn" >Review Report</Link>
               <button
                 onClick={() => {

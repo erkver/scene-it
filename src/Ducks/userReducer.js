@@ -16,6 +16,11 @@ const initialState = {
 
 export default function userReducer(state = initialState, action) {
   switch(action.type) {
+    case `${GET_USER}_PENDING`:
+      return {
+        ...state,
+        isAuthed: false
+      };
     case `${GET_USER}_FULFILLED`:
       return {
         ...state,

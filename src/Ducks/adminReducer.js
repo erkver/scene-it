@@ -26,11 +26,21 @@ const initialState = {
 
 export default function adminReducer(state = initialState, action) {
   switch (action.type) {
+    case `${GET_MOVIES}_PENDING`:
+      return {
+        ...state,
+        isLoading: true
+      };
     case `${GET_MOVIES}_FULFILLED`:
       return {
         ...state,
         isLoading: false,
         movies: action.payload.data.results
+      };
+    case `${GET_MOVIE}_PENDING`:
+      return {
+        ...state,
+        isLoading: true
       };
     case `${GET_MOVIE}_FULFILLED`:
       return {

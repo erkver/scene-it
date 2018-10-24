@@ -68,11 +68,21 @@ const initialState = {
 
 export default function audCommentReducer(state = initialState, action) {
   switch (action.type) {
+    case `${GET_AUD_COMMENTS}_PENDING`:
+      return {
+        ...state,
+        isLoading: true
+      };
     case `${GET_AUD_COMMENTS}_FULFILLED`:
       return {
         ...state,
         isLoading: false,
         audienceComments: action.payload.data
+      };
+    case `${GET_AUD_COMMENT}_PENDING`:
+      return {
+        ...state,
+        isLoading: true
       };
     case `${GET_AUD_COMMENT}_FULFILLED`:
       return {
@@ -80,17 +90,32 @@ export default function audCommentReducer(state = initialState, action) {
         isLoading: false,
         audienceComment: action.payload.data
       };
+    case `${ADD_AUD_COMMENT}_PENDING`:
+      return {
+        ...state,
+        isLoading: true
+      };
     case `${ADD_AUD_COMMENT}_FULFILLED`:
       return {
         ...state,
         isLoading: false,
         audienceComments: action.payload.data
       };
+    case `${EDIT_AUD_COMMENT}_PENDING`:
+      return {
+        ...state,
+        isLoading: true
+      };
     case `${EDIT_AUD_COMMENT}_FULFILLED`:
       return {
         ...state,
         isLoading: false,
         audienceComments: action.payload.data
+      };
+    case `${DELETE_AUD_COMMENT}_PENDING`:
+      return {
+        ...state,
+        isLoading: true
       };
     case `${DELETE_AUD_COMMENT}_FULFILLED`:
       return {

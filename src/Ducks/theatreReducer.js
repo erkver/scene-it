@@ -25,11 +25,21 @@ const initialState = {
 
 export default function theatreReducer(state = initialState, action) {
   switch (action.type) {
+    case `${GET_THEATRES}_PENDING`:
+      return {
+        ...state,
+        isLoading: true
+      };
     case `${GET_THEATRES}_FULFILLED`:
       return {
         ...state,
         isLoading: false,
         theatres: action.payload.data
+      };
+    case `${GET_THEATRE}_PENDING`:
+      return {
+        ...state,
+        isLoading: true
       };
     case `${GET_THEATRE}_FULFILLED`:
       return {

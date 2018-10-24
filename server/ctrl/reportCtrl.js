@@ -1,15 +1,31 @@
 module.exports = {
   getReports: (req, res) => {
     const db = req.app.get("db");
-    db.reports
-      .get_reports()
+    const { r } = req.query;
+    console.log("report: ", req.query)
+    if(req.query.r) {
+      db.reports
+      .get_reports(r)
       .then(response => {
+        console.log("query:", response);
         return res.status(200).json(response);
       })
       .catch(err => {
         res.status(500).send({ errorMessage: "Something went wrong" });
         console.log(err);
       });
+    } else {
+      db.reports
+        .get_reports()
+        .then(response => {
+          console.log("get:", response);
+          return res.status(200).json(response);
+        })
+        .catch(err => {
+          res.status(500).send({ errorMessage: "Something went wrong" });
+          console.log(err);
+        });
+      }
   },
   getReport: (req, res) => {
     const db = req.app.get("db");

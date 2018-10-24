@@ -87,7 +87,7 @@ class RepStepFour extends Component {
               </button>
             </div>
             <div className="link-cont">
-              <Link to={`/admin/report/${report[0] && report[0].tr_id}`} className="submit-btn">
+              <Link to={`/admin/report/final/${report[0] && report[0].tr_id}`} className="submit-btn">
                 Review All Report Info
               </Link>
             </div>

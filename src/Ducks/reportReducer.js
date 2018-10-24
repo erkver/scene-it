@@ -20,6 +20,7 @@ export function getReport(tr_id) {
   }
 };
 
+
 export function addReport(
   attendance,
   ratio,
@@ -67,11 +68,21 @@ const initialState = {
 
 export default function reportReducer(state = initialState, action) {
   switch(action.type) {
+    case `${GET_REPORTS}_PENDING`:
+      return {
+        ...state,
+        isLoading: true
+      };
     case `${GET_REPORTS}_FULFILLED`:
       return {
         ...state,
         isLoading: false,
         reports: action.payload.data
+      };
+    case `${GET_REPORT}_PENDING`:
+      return {
+        ...state,
+        isLoading: true
       };
     case `${GET_REPORT}_FULFILLED`:
       return {
@@ -79,17 +90,32 @@ export default function reportReducer(state = initialState, action) {
         isLoading: false,
         report: action.payload.data
       };
+    case `${ADD_REPORT}_PENDING`:
+      return {
+        ...state,
+        isLoading: true
+      };
     case `${ADD_REPORT}_FULFILLED`:
       return {
         ...state,
         isLoading: false,
         report: action.payload.data
       };
+    case `${EDIT_REPORT}_PENDING`:
+      return {
+        ...state,
+        isLoading: true
+      };
     case `${EDIT_REPORT}_FULFILLED`:
       return {
         ...state,
         isLoading: false,
         reports: action.payload.data
+      };
+    case `${DELETE_REPORT}_PENDING`:
+      return {
+        ...state,
+        isLoading: true
       };
     case `${DELETE_REPORT}_FULFILLED`:
       return {

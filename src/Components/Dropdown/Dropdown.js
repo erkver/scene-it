@@ -37,7 +37,7 @@ class Dropdown extends Component {
               onClick={() => handleClick()}>Home</Link>
             <Link
               className="menu-link"
-              to="/"
+              to="/admin/reports"
               onClick={() => handleClick()}>View Reports</Link>
             <Link
               className="menu-link"

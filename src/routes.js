@@ -12,6 +12,7 @@ import RepStepTwo from "./Views/NewReport/StepTwo/RepStepTwo";
 import RepStepThree from "./Views/NewReport/StepThree/RepStepThree";
 import RepStepFour from "./Views/NewReport/StepFour/RepStepFour";
 import RepReview from "./Views/NewReport/ReviewReport/RepReview";
+import Reports from "./Views/Reports/Reports";
 import { connect } from "react-redux";
 
 const mapStateToProps = ({ userReducer }) => ({ ...userReducer });
@@ -53,6 +54,7 @@ export default (
         }
       })}
     />
+    <Route path="/admin/screening/edit/:id" component={NewScreening} />
     <Route
       path="/admin/screening/:id"
       component={AdminScreening}
@@ -64,11 +66,13 @@ export default (
       //   }
       // })}
     />
+
+    <Route path="/admin/reports" component={Reports} />
     <Route path="/admin/report/step1" component={RepStepOne} />
     <Route path="/admin/report/step2" component={RepStepTwo} />
     <Route path="/admin/report/step3" component={RepStepThree} />
     <Route path="/admin/report/step4" component={RepStepFour} />
-    <Route path="/admin/report/:id" component={RepReview} />
+    <Route path="/admin/report/final/:id" component={RepReview} />
     <Route path="/admin/add/screening" component={NewScreening} />
     <Route path="*" render={() => <h4>404 Not Found!</h4>} />
   </Switch>

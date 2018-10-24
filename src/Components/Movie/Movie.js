@@ -4,13 +4,16 @@ import { Link } from "react-router-dom";
 
 export default function Movie (props) {
   let divName = 'movie-cont';
+  let innerDivName = 'inner-movie-cont'
   const { movie, getScreeningInfo, user, getScreening } = props;
   if(user.data && user.data.isadmin){
     divName = 'admin-movie-cont'
+    innerDivName = 'admin-inner-mov-cont'
   };
   // console.log(props);
   return (
-    <div className={divName}>
+    <div className="admin-movie-cont">
+      <div className="admin-inner-mov-cont">
       {/* {!(user.data && user.data.isadmin)
       ? <>
         {/* <img 
@@ -37,15 +40,17 @@ export default function Movie (props) {
         </>
       }  */}
 
-      <p>{movie.title}</p>
-      <p>Release Date: {movie.release_date}</p>
-      <p>Fill info</p>
-      <p>Passes Redeemed: 0/200</p>
-      <p>Booking Ratio 1:1</p>
-      <Link
-        to={`/admin/screening/${movie.id}`}
-        className="info-btn"
-        onClick={() => { console.log(movie.id); getScreening(movie.id) }}>More Info</Link>
+        <p>Film: {movie.title}</p>
+        <p>Screening Date: {movie.screening_date}</p>
+        <p>Passes Redeemed: 0/{movie.seat_count}</p>
+        <p>Booking Ratio 1:1</p>
+        <div className="btn-cont">
+          <Link
+            to={`/admin/screening/${movie.id}`}
+            className="info-btn"
+            onClick={() => getScreening(movie.id)}>More Info ></Link>
+        </div>
+      </div>
     </div>
   );
 }

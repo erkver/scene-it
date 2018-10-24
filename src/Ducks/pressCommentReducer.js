@@ -66,11 +66,21 @@ const initialState = {
 
 export default function pressCommentReducer(state = initialState, action) {
   switch(action.type) {
+    case `${GET_PRESS_COMMENTS}_PENDING`:
+      return {
+        ...state,
+        isLoading: true
+      };
     case `${GET_PRESS_COMMENTS}_FULFILLED`:
       return {
         ...state,
         isLoading: false,
         pressComments: action.payload.data
+      };
+    case `${GET_PRESS_COMMENT}_PENDING`:
+      return {
+        ...state,
+        isLoading: true
       };
     case `${GET_PRESS_COMMENT}_FULFILLED`:
       return {
@@ -78,17 +88,32 @@ export default function pressCommentReducer(state = initialState, action) {
         isLoading: false,
         pressComment: action.payload.data
       };
+    case `${ADD_PRESS_COMMENT}_PENDING`:
+      return {
+        ...state,
+        isLoading: true
+      };
     case `${ADD_PRESS_COMMENT}_FULFILLED`:
       return {
         ...state,
         isLoading: false,
         pressComments: action.payload.data
       };
+    case `${EDIT_PRESS_COMMENT}_PENDING`:
+      return {
+        ...state,
+        isLoading: true
+      };
     case `${EDIT_PRESS_COMMENT}_FULFILLED`:
       return {
         ...state,
         isLoading: false,
         pressComments: action.payload.data
+      };
+    case `${DELETE_PRESS_COMMENT}_PENDING`:
+      return {
+        ...state,
+        isLoading: true
       };
     case `${DELETE_PRESS_COMMENT}_FULFILLED`:
       return {

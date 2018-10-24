@@ -64,7 +64,7 @@ class RepStepTwo extends Component {
             />
             <div className="add-btn-cont">
               <Link
-                to={`/admin/report/${report[0] && report[0].tr_id}`}
+                to={`/admin/report/final/${report[0] && report[0].tr_id}`}
                 className="submit-btn" >Review Report</Link>
               <button 
                 className="submit-btn"
@@ -77,7 +77,7 @@ class RepStepTwo extends Component {
             <div className="link-cont">
               <Link
                 to='/'
-                className="link-btn" >{`< Cancel Report`}</Link>
+                className="link-btn" >{`< Previous Step`}</Link>
               <Link 
                 to='/admin/report/step3' 
                 className="link-btn" >Next Step ></Link>

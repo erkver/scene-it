@@ -116,7 +116,7 @@ class RepStepOne extends Component {
             </div>
             : <div className="link-cont">
               <Link 
-                to={`/admin/report/${report[0].tr_id}`}
+                to={`/admin/report/final/${report[0].tr_id}`}
                 onClick={() => editReport(report[0].tr_id, +attendance, +ratio, reaction)} 
                 className="submit-btn" >Review Report</Link>
               <Link
