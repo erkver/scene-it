@@ -6,8 +6,7 @@
     left: 0;
     top: 50px;
     transition: transform .2s cubic-bezier(0, .52, 0, 1);
-    width: 40vw;
-    height: 42vh;
+    width: 42vw;
     background: $primary-header;
     overflow: scroll;
     z-index: 1000;
@@ -15,21 +14,20 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 0;
-    
+    margin: auto;
+    border-top: solid .5px white;
 
     .menu-link {
-      // text-decoration: none;
       color: white; 
       font-size: 18px;
-      border-top: solid .5px white;
-      height: 100%;
+      border-bottom: solid .5px white;
       width: 100%;
       display: flex;
       align-items: center;
       justify-content: start;
       text-decoration: none;
-      padding-left: .8em;
+      padding: .5em .2em;
+      margin: auto;
     }
   }
 

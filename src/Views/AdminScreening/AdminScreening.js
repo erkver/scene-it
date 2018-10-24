@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getScreening } from "../../Ducks/screeningReducer";
-import "./AdminScreening.scss";
 import { withRouter, Link } from "react-router-dom";
-import "react-datepicker/dist/react-datepicker.css";
 import { getTheatres } from "../../Ducks/theatreReducer";
+import "react-datepicker/dist/react-datepicker.css";
+import "./AdminScreening.scss";
 
 class AdminScreening extends Component {
   componentDidMount() {

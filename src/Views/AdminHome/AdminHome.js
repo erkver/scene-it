@@ -24,7 +24,7 @@ class AdminHome extends Component {
 
   render() {
     const { getScreening, user, screenings } = this.props;
-    console.log(this.props);
+    // console.log(this.props);
     let screeningList = screenings.map((movie, i) => (
       <div className="main-movie-cont" key={i}>
         <Movie

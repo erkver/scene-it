@@ -1,6 +1,6 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-// import Home from "./Views/Home/Home";
+import Home from "./Views/Home/Home";
 import Profile from "./Views/Profile/Profile";
 import Watchlist from "./Views/Watchlist/Watchlist";
 import Screening from "./Views/Screening/Screening";
@@ -22,16 +22,15 @@ export default (
     <Route
       path="/"
       exact
-      component={AdminHome}
-      // component={connect(mapStateToProps)(props => {
-      //   if(props.user.data && props.user.data.isadmin) {
-      //     console.log(props.user);
-      //     return <AdminHome {...props} />;
-      //   } else {
-      //     console.log(props.user);
-      //     return <Home {...props} />;
-      //   }
-      // })}
+      component={connect(mapStateToProps)(props => {
+        if (props.user.data && props.user.data.isadmin) {
+          console.log(props.user);
+          return <AdminHome {...props} />;
+        } else {
+          console.log(props.user);
+          return <Home {...props} />;
+        }
+      })}
     />
     <Route path="/screening/:id" component={Screening} />
     <Route
@@ -57,23 +56,85 @@ export default (
     <Route path="/admin/screening/edit/:id" component={NewScreening} />
     <Route
       path="/admin/screening/:id"
-      component={AdminScreening}
-      // component={connect(mapStateToProps)(props => {
-      //   if (props.user[0] && props.user.data.isadmin) {
-      //     return <AdminHome {...props} />;
-      //   } else {
-      //     return <Redirect to="/" />;
-      //   }
-      // })}
+      component={connect(mapStateToProps)(props => {
+        if (props.user[0] && props.user.data.isadmin) {
+          return <AdminScreening {...props} />;
+        } else {
+          return <Redirect to="/" />;
+        }
+      })}
     />
 
-    <Route path="/admin/reports" component={Reports} />
-    <Route path="/admin/report/step1" component={RepStepOne} />
-    <Route path="/admin/report/step2" component={RepStepTwo} />
-    <Route path="/admin/report/step3" component={RepStepThree} />
-    <Route path="/admin/report/step4" component={RepStepFour} />
-    <Route path="/admin/report/final/:id" component={RepReview} />
-    <Route path="/admin/add/screening" component={NewScreening} />
+    <Route
+      path="/admin/reports"
+      component={connect(mapStateToProps)(props => {
+        if (props.user[0] && props.user.data.isadmin) {
+          return <Reports {...props} />;
+        } else {
+          return <Redirect to="/" />;
+        }
+      })}
+    />
+    <Route
+      path="/admin/report/step1"
+      component={connect(mapStateToProps)(props => {
+        if (props.user[0] && props.user.data.isadmin) {
+          return <RepStepOne {...props} />;
+        } else {
+          return <Redirect to="/" />;
+        }
+      })}
+    />
+    <Route
+      path="/admin/report/step2"
+      component={connect(mapStateToProps)(props => {
+        if (props.user[0] && props.user.data.isadmin) {
+          return <RepStepTwo {...props} />;
+        } else {
+          return <Redirect to="/" />;
+        }
+      })}
+    />
+    <Route
+      path="/admin/report/step3"
+      component={connect(mapStateToProps)(props => {
+        if (props.user[0] && props.user.data.isadmin) {
+          return <RepStepThree {...props} />;
+        } else {
+          return <Redirect to="/" />;
+        }
+      })}
+    />
+    <Route
+      path="/admin/report/step4"
+      component={connect(mapStateToProps)(props => {
+        if (props.user[0] && props.user.data.isadmin) {
+          return <RepStepFour {...props} />;
+        } else {
+          return <Redirect to="/" />;
+        }
+      })}
+    />
+    <Route
+      path="/admin/report/final/:id"
+      component={connect(mapStateToProps)(props => {
+        if (props.user[0] && props.user.data.isadmin) {
+          return <RepReview {...props} />;
+        } else {
+          return <Redirect to="/" />;
+        }
+      })}
+    />
+    <Route
+      path="/admin/add/screening"
+      component={connect(mapStateToProps)(props => {
+        if (props.user[0] && props.user.data.isadmin) {
+          return <NewScreening {...props} />;
+        } else {
+          return <Redirect to="/" />;
+        }
+      })}
+    />
     <Route path="*" render={() => <h4>404 Not Found!</h4>} />
   </Switch>
 );
