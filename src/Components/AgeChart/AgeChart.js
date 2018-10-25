@@ -1,31 +1,31 @@
 import React, { Component } from "react";
-import { Doughnut } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
-class GenderChart extends Component {
+class AgeChart extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      genderData: props.genderData
+      ageData: props.ageData
     }
   }
 
   componentDidUpdate(prevProps) {
-    if(this.props.genderData.datasets[0] !== prevProps.genderData.datasets[0]) {
-      this.setState({ genderData: this.props.genderData });
+    if (this.props.ageData.datasets[0] !== prevProps.ageData.datasets[0]) {
+      this.setState({ ageData: this.props.ageData });
     }
   }
 
   render() {
-    const { genderData } = this.state;
-    console.log(genderData);
+    const { ageData } = this.state;
+    console.log(ageData);
     console.log(this.props);
     return (
       <div>
         <h2>Interested attendees by gender</h2>
-        <Doughnut 
-          data={genderData} 
+        <Bar
+          data={ageData}
           options={{
             tooltips: {
               callbacks: {
@@ -57,4 +57,4 @@ const mapStateToProps = ({
   ...userReducer,
 });
 
-export default withRouter(connect(mapStateToProps)(GenderChart));
+export default withRouter(connect(mapStateToProps)(AgeChart));

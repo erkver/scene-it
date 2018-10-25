@@ -2,7 +2,8 @@ import axios from "axios";
 
 const GET_MOVIES = "GET_MOVIES";
 const GET_MOVIE = "GET_MOVIE";
-const GET_ALL_USERS = "GET_ALL_USERS";
+const GET_USERS_BY_GEN = "GET_USERS_BY_GEN";
+const GET_USERS_BY_AGE = "GET_USERS_BY_AGE";
 
 export function getMovies() {
   return {
@@ -18,17 +19,25 @@ export function getMovie(id) {
   };
 }
 
-export function getAllUsers(movieid) {
+export function getUsersByGen(movieid) {
   return {
-    type: GET_ALL_USERS,
-    payload: axios.get(`/api/data?mov=${movieid}`)
+    type: GET_USERS_BY_GEN,
+    payload: axios.get(`/api/data?g=${movieid}`)
+  };
+}
+
+export function getUsersByAge(movieid) {
+  return {
+    type: GET_USERS_BY_AGE,
+    payload: axios.get(`/api/data?a=${movieid}`)
   };
 }
 
 const initialState = {
   movies: [],
   movie: [],
-  users: [],
+  gender: [],
+  age: [],
   isLoading: false
 };
 
@@ -56,16 +65,27 @@ export default function adminReducer(state = initialState, action) {
         isLoading: false,
         movie: action.payload.data
       };
-    case `${GET_ALL_USERS}_PENDING`:
+    case `${GET_USERS_BY_GEN}_PENDING`:
       return {
         ...state,
-        isAuthed: false
+        isLoading: true
       };
-    case `${GET_ALL_USERS}_FULFILLED`:
+    case `${GET_USERS_BY_GEN}_FULFILLED`:
       return {
         ...state,
-        isAuthed: true,
-        users: action.payload.data
+        isLoading: false,
+        gender: action.payload.data
+      }; 
+    case `${GET_USERS_BY_AGE}_PENDING`:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case `${GET_USERS_BY_AGE}_FULFILLED`:
+      return {
+        ...state,
+        isLoading: false,
+        age: action.payload.data
       }; 
     default:
       return state;
