@@ -1,15 +1,24 @@
 import axios from 'axios';
 
 const GET_SCREENINGS = "GET_SCREENINGS";
-const GET_SCREENING = "GET_SCREENING";
+const SEARCH_SCREENINGS = "SEARCH_SCREENINGS"
+;const GET_SCREENING = "GET_SCREENING";
 const GET_SCREENING_INFO = "GET_SCREENING_INFO";
 const ADD_SCREENING = "ADD_SCREENING";
 const EDIT_SCREENING = 'EDIT_SCREENING';
+const CLEAR_SCREENINGS = 'CLEAR_SCREENINGS';
 
 export function getScreenings() {
   return {
     type: GET_SCREENINGS,
     payload: axios.get("/api/screenings")
+  };
+}
+
+export function seatchScreenings(query) {
+  return {
+    type: GET_SCREENINGS,
+    payload: axios.get(`/api/screenings?q=${query}`)
   };
 }
 
@@ -76,6 +85,13 @@ export function editScreening(
   };
 }
 
+export function clearScreenings() {
+  return {
+    type: CLEAR_SCREENINGS,
+    payload: {screenings: initialState, screening: initialState}
+  }
+}
+
 const initialState = {
   screenings: [],
   screening: [],
@@ -91,6 +107,17 @@ export default function screeningReducer(state = initialState, action) {
         isLoading: true
       };
     case `${GET_SCREENINGS}_FULFILLED`:
+      return {
+        ...state,
+        isLoading: false,
+        screenings: action.payload.data
+      };
+    case `${SEARCH_SCREENINGS}_PENDING`:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case `${SEARCH_SCREENINGS}_FULFILLED`:
       return {
         ...state,
         isLoading: false,
@@ -139,6 +166,12 @@ export default function screeningReducer(state = initialState, action) {
         ...state,
         isLoading: false,
         screenings: action.payload.data
+      };
+    case CLEAR_SCREENINGS:
+      return {
+        ...state,
+        screenings: action.payload,
+        screening: action.payload
       };
     default: 
       return state;

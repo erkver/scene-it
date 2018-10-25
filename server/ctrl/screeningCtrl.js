@@ -4,13 +4,23 @@ const { API_KEY } = process.env;
 module.exports = {
   getScreenings: (req, res) => {
     const db = req.app.get('db');
-    db.screenings.get_screenings().then(response => {
-      // console.log(response);
-      return res.status(200).json(response);
-    }).catch(err => {
-      res.status(500).send({errorMessage: "Something went wrong"});
-      console.log(err);
-    });
+    const { q } = req.query;
+    if(req.query.q) {
+      db.screenings.screening_search([`%${q}%`]).then(response => {
+        return res.status(200).json(response);
+      }).catch(err => {
+        res.status(500).send({ errorMessage: "Something went wrong" });
+        console.log(err);
+      });
+    } else {
+      db.screenings.get_screenings().then(response => {
+        // console.log(response);
+        return res.status(200).json(response);
+      }).catch(err => {
+        res.status(500).send({errorMessage: "Something went wrong"});
+        console.log(err);
+      });
+    }
   },
   getScreening: (req, res) => {
     const db = req.app.get('db');

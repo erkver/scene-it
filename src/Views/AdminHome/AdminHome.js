@@ -24,22 +24,23 @@ class AdminHome extends Component {
 
   render() {
     const { getScreening, user, screenings } = this.props;
-    // console.log(this.props);
+    console.log(this.props);
     let screeningList = screenings.map((movie, i) => (
       <div className="main-movie-cont" key={i}>
-        <Movie
-          movie={movie}
-          getScreening={getScreening}
-          user={user}
-        />
+        <Movie movie={movie} getScreening={getScreening} user={user} />
       </div>
     ));
     return (
       <div className="movie-list-cont">
-        <div>
-          <h1 className="list-text">Screenings</h1>
-        </div>
-        {screeningList}
+        {screenings[0]
+        ?
+        <>
+          <div>
+            <h1 className="list-text">Screenings</h1>
+          </div>
+          {screeningList}
+        </>
+         : <p>Loading...</p>}
       </div>
     );
   }

@@ -14,7 +14,7 @@ export default function Movie (props) {
   return (
     <div className={divName}>
       <div className={innerDivName}>
-      {!(user.data && user.data.isadmin)
+      {!(user && user.isadmin)
       ? <>
         <img 
           src={movie.img_url} 

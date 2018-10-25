@@ -1,16 +1,18 @@
 import React, {Component} from "react";
 import { Link } from "react-router-dom";
-import "./Dropdown.scss";
 import { connect } from "react-redux";
+import { clearReports } from "../../Ducks/reportReducer";
+import { clearScreenings } from "../../Ducks/screeningReducer";
+import "./Dropdown.scss";
 
 class Dropdown extends Component {
   render() {
     // console.log(this.props);
     const { REACT_APP_LOGOUT } = process.env;
-    const { visibility, handleClick, user } = this.props;
+    const { visibility, handleClick, user, clearReports, clearScreenings } = this.props;
     return (
       <div id="main-dropdown-cont" className={visibility}>
-        {!(user.data && user.data.isadmin)
+        {!(user && user.isadmin)
         ? <>
             <Link
               className="menu-link"
@@ -42,11 +44,11 @@ class Dropdown extends Component {
             <Link
               className="menu-link"
               to="/admin/add/screening"
-              onClick={() => handleClick()}>Add New Screening</Link>
+              onClick={() => {clearScreenings(); handleClick()}}>Add New Screening</Link>
             <Link
               className="menu-link"
               to="/admin/report/step1"
-              onClick={() => handleClick()}>Create New Report</Link>
+              onClick={() => {clearReports(); handleClick()}}>Create New Report</Link>
             <a
               className="menu-link"
               href={REACT_APP_LOGOUT}
@@ -58,6 +60,12 @@ class Dropdown extends Component {
   }
 }
 
-const mapStateToProps = ({ userReducer }) => ({ ...userReducer });
+const mapStateToProps = ({ 
+  userReducer,
+  screeningReducer,
+  reportReducer }) => ({ 
+  ...userReducer,
+  ...screeningReducer,
+  ...reportReducer });
 
-export default connect(mapStateToProps)(Dropdown);
+export default connect(mapStateToProps, {clearReports, clearScreenings})(Dropdown);

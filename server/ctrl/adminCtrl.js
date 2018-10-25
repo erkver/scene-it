@@ -3,7 +3,7 @@ const { API_KEY } = process.env;
 
 module.exports = {
   getMovies: (req, res) => {
-    axios.get(`https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}&language=en-US`).then(response => {
+    axios.get(`https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}&language=en-US&page=4`).then(response => {
       // console.log(response.data);
       return res.status(200).json(response.data);
     }).catch(err => {
@@ -24,5 +24,18 @@ module.exports = {
         res.status(500).send({ errorMessage: "Something went wrong" });
         console.log(err);
       });
+  },
+  getAllUsers: (req, res) => {
+    const db = req.app.get("db");
+    const { mov } = req.query;
+    if(req.query.mov) {
+      db.users.get_all_users([mov]).then(response => {
+        console.log("users passed");
+        return res.status(200).json(response);
+      }).catch(err => {
+        res.status(500).send({ errorMessage: "Something went wrong" });
+        console.log(err);
+      });
+    }
   }
 }

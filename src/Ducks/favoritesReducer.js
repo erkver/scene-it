@@ -15,9 +15,10 @@ export function getFavorites(userId) {
 export function getFill(movieId) {
   return {
     type: GET_FILL,
-    payload: axios.get(`/api/favorite?m=${movieId}`)
+    payload: axios.get(`/api/favorites?m=${movieId}`)
   }
 }
+
 export function addFavorite(movieId, userId) {
   return {
     type: ADD_FAVORITE,
@@ -39,7 +40,7 @@ const initialState = {
   isLoading: false
 }
 
-export default function userReducer(state = initialState, action) {
+export default function favoritesReducer(state = initialState, action) {
   switch (action.type) {
     case `${GET_FAVORITES}_PENDING`:
       return {
@@ -51,6 +52,12 @@ export default function userReducer(state = initialState, action) {
         ...state,
         isLoading: false,
         favorites: action.payload.data
+      };
+    case `${GET_FILL}_REJECTED`:
+      return {
+        ...state,
+        isLoading: false,
+        errMessage: action.payload.data.message
       };
     case `${GET_FILL}_PENDING`:
       return {

@@ -2,7 +2,7 @@ module.exports = {
   getFavorites: (req, res) => {
     const db = req.app.get('db');
     const { u, m } = req.query;
-    console.log("favs: ", req.query)
+    console.log("favs: ", req.query.m)
     if (req.query.u) {
       db.favorites
         .get_favorites(u)
@@ -14,6 +14,14 @@ module.exports = {
           res.status(500).send({ errorMessage: "Something went wrong" });
           console.log(err);
         });
+    } else if(req.query.m) {
+      db.favorites.get_fill([m]).then(response => {
+        console.log("get fill:", response[0].total);
+        return res.status(200).json(response[0].total);
+      }).catch(err => {
+        res.status(500).send({ errorMessage: "Something went wrong" });
+        console.log(err);
+      });
     } else {
       db.favorites
         .get_favorites()

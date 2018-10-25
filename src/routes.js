@@ -1,5 +1,6 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 import Home from "./Views/Home/Home";
 import Profile from "./Views/Profile/Profile";
 import Watchlist from "./Views/Watchlist/Watchlist";
@@ -13,7 +14,7 @@ import RepStepThree from "./Views/NewReport/StepThree/RepStepThree";
 import RepStepFour from "./Views/NewReport/StepFour/RepStepFour";
 import RepReview from "./Views/NewReport/ReviewReport/RepReview";
 import Reports from "./Views/Reports/Reports";
-import { connect } from "react-redux";
+import ScreeningData from "./Views/ScreeningData/ScreeningData";
 
 const mapStateToProps = ({ userReducer }) => ({ ...userReducer });
 
@@ -23,16 +24,16 @@ export default (
       path="/"
       exact
       component={connect(mapStateToProps)(props => {
-        if (props.user.data && props.user.data.isadmin) {
-          // console.log(props.user);
+        if (props.user && props.user.isadmin) {
+          console.log(props.user && props.user.isadmin);
+          // return <Redirect to="/admin" />
           return <AdminHome {...props} />;
         } else {
-          // console.log(props.user);
+          console.log(props.user && props.user.isadmin);
           return <Home {...props} />;
         }
       })}
     />
-    <Route path="/screening/:id" component={Screening} />
     <Route
       path="/profile"
       component={connect(mapStateToProps)(props => {
@@ -53,11 +54,34 @@ export default (
         }
       })}
     />
-    <Route path="/admin/screening/edit/:id" component={NewScreening} />
+    <Route path="/screening/:id" component={Screening} />
+    <Route
+      path="/admin/screening/edit/:id"
+      component={connect(mapStateToProps)(props => {
+        if (props.user && props.user.isadmin) {
+          // console.log(props.user && props.user.isadmin);
+          return <NewScreening {...props} />;
+        } else {
+          // console.log(props.user && props.user.isadmin);
+          return <Home {...props} />;
+        }
+      })}
+    />
+    <Route
+      path="/admin/screening/data"
+      component={ScreeningData}
+    // component={connect(mapStateToProps)(props => {
+    //   if (props.user && props.user.isadmin) {
+    //     return <NewScreening {...props} />;
+    //   } else {
+    //     return <Redirect to="/" />;
+    //   }
+    // })}
+    />
     <Route
       path="/admin/screening/:id"
       component={connect(mapStateToProps)(props => {
-        if (props.user[0] && props.user.data.isadmin) {
+        if (props.user && props.user.isadmin) {
           return <AdminScreening {...props} />;
         } else {
           return <Redirect to="/" />;
@@ -68,7 +92,7 @@ export default (
     <Route
       path="/admin/reports"
       component={connect(mapStateToProps)(props => {
-        if (props.user[0] && props.user.data.isadmin) {
+        if (props.user && props.user.isadmin) {
           return <Reports {...props} />;
         } else {
           return <Redirect to="/" />;
@@ -78,7 +102,7 @@ export default (
     <Route
       path="/admin/report/step1"
       component={connect(mapStateToProps)(props => {
-        if (props.user[0] && props.user.data.isadmin) {
+        if (props.user && props.user.isadmin) {
           return <RepStepOne {...props} />;
         } else {
           return <Redirect to="/" />;
@@ -88,7 +112,7 @@ export default (
     <Route
       path="/admin/report/step2"
       component={connect(mapStateToProps)(props => {
-        if (props.user[0] && props.user.data.isadmin) {
+        if (props.user && props.user.isadmin) {
           return <RepStepTwo {...props} />;
         } else {
           return <Redirect to="/" />;
@@ -98,7 +122,7 @@ export default (
     <Route
       path="/admin/report/step3"
       component={connect(mapStateToProps)(props => {
-        if (props.user[0] && props.user.data.isadmin) {
+        if (props.user && props.user.isadmin) {
           return <RepStepThree {...props} />;
         } else {
           return <Redirect to="/" />;
@@ -108,7 +132,7 @@ export default (
     <Route
       path="/admin/report/step4"
       component={connect(mapStateToProps)(props => {
-        if (props.user[0] && props.user.data.isadmin) {
+        if (props.user && props.user.isadmin) {
           return <RepStepFour {...props} />;
         } else {
           return <Redirect to="/" />;
@@ -118,7 +142,7 @@ export default (
     <Route
       path="/admin/report/final/:id"
       component={connect(mapStateToProps)(props => {
-        if (props.user[0] && props.user.data.isadmin) {
+        if (props.user && props.user.isadmin) {
           return <RepReview {...props} />;
         } else {
           return <Redirect to="/" />;
@@ -128,13 +152,14 @@ export default (
     <Route
       path="/admin/add/screening"
       component={connect(mapStateToProps)(props => {
-        if (props.user[0] && props.user.data.isadmin) {
+        if (props.user && props.user.isadmin) {
           return <NewScreening {...props} />;
         } else {
           return <Redirect to="/" />;
         }
       })}
     />
+
     <Route path="*" render={() => <h4>404 Not Found!</h4>} />
   </Switch>
 );

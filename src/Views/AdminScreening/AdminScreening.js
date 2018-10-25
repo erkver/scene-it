@@ -3,18 +3,19 @@ import { connect } from "react-redux";
 import { getScreening } from "../../Ducks/screeningReducer";
 import { withRouter, Link } from "react-router-dom";
 import { getTheatres } from "../../Ducks/theatreReducer";
+import { getFill } from "../../Ducks/favoritesReducer";
 import "react-datepicker/dist/react-datepicker.css";
 import "./AdminScreening.scss";
 
 class AdminScreening extends Component {
   componentDidMount() {
-    const { getScreening } = this.props;
+    const { getScreening, getFill } = this.props;
     const { id } = this.props.match.params;
     getScreening(+id);
-    
+    getFill(+id);
   }
   render() {
-    const { screening } = this.props;
+    const { screening, fill } = this.props;
     // const { date, seatCount, selectedTheatre } = this.state;
     console.log(this.props);
     let screeningInfo = screening.map((e, i) => (
@@ -32,7 +33,7 @@ class AdminScreening extends Component {
             <p className="info-text">Runtime: {e.runtime} minutes</p>
             <p className="info-text">Screening Date: {e.screening_date}</p>
             <p className="info-text">Theatre: {e.theatre_name}</p>
-            <p className="info-text">Fill: {}/{e.seat_count}</p>
+            <p className="info-text">Fill: {fill}/{e.seat_count}</p>
             <Link 
               className="edit-btn" 
               to={`/admin/screening/edit/${e.id}`}>Edit Screening</Link>
@@ -50,11 +51,13 @@ class AdminScreening extends Component {
 const mapStateToProps = ({
   screeningReducer,
   theatreReducer,
-  userReducer
+  userReducer,
+  favoritesReducer
 }) => ({
   ...screeningReducer,
   ...theatreReducer,
-  ...userReducer
+  ...userReducer,
+  ...favoritesReducer
 });
 
-export default withRouter(connect(mapStateToProps, {getTheatres, getScreening})(AdminScreening));
+export default withRouter(connect(mapStateToProps, {getTheatres, getScreening, getFill})(AdminScreening));

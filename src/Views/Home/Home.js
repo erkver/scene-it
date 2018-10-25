@@ -8,8 +8,9 @@ import "./Home.scss";
 
 class Home extends Component {
   componentDidMount() {
-    this.props.getScreenings();
-    this.props.getUser();
+    const { getScreenings, getUser } = this.props;
+    getScreenings();
+    getUser();
   }
     
   render() {

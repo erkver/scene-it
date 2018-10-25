@@ -1,0 +1,56 @@
+@import '../../index';
+
+@media(min-width: 320px) {
+  .main-single-screening-cont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    margin: auto;
+    width: 100vw;
+  
+    h1 {
+      font-size: 20px;
+      font-weight: bold;
+      margin: 10px 0;
+      text-align: center;
+    }
+    .single-screening-cont {
+      background: $primary-card;
+      width: 90%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-evenly;
+      border: solid 1px $primary-btn;
+      border-radius: 10px;
+      text-align: center;
+    
+      img {
+        border: solid 1px $primary-btn;
+        margin: .5em 0;
+        height: 40%;
+        width: 45%;
+      }
+
+      p {
+        width: 96%;
+        display: flex;
+        text-align: start;
+        margin: .3em 0;
+        font-size: 14px;
+      }
+
+      .edit-btn {
+        background: $primary-btn;
+        border: none;
+        font-size: 14px;
+        color: white;
+        padding: 3%;
+        border-radius: 10px;
+        text-decoration: none;
+        margin: .5em 0;
+      }
+    }
+  }
+}

@@ -10,7 +10,7 @@ const massive = require("massive");
 const { json } = require("body-parser");
 
 const { strat, getUser, logout } = require("./ctrl/authCtrl");
-const { getMovies, getMovie } = require("./ctrl/adminCtrl.js");
+const { getMovies, getMovie, getAllUsers } = require("./ctrl/adminCtrl.js");
 
 const {
   getScreenings,
@@ -101,6 +101,7 @@ app.get('/logout', logout);
 //Admin endpoints
 app.get('/api/movies', getMovies);
 app.get('/api/movie/:id', getMovie);
+app.get('/api/data', getAllUsers);
 
 //Screening endpoints
 app.get('/api/screenings', getScreenings);

@@ -16,6 +16,7 @@ class Navbar extends Component {
   handleClick = () => {
     this.setState({visible: !this.state.visible})
   }
+  
   render() {
     const { isAuthed } = this.props;
     const { REACT_APP_LOGIN } = process.env;

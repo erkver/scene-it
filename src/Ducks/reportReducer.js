@@ -5,6 +5,7 @@ const GET_REPORT = "GET_REPORT";
 const ADD_REPORT = "ADD_REPORT";
 const EDIT_REPORT = "EDIT_REPORT";
 const DELETE_REPORT =  "DELETE_REPORT";
+const CLEAR_REPORTS =  "CLEAR_REPORTS";
 
 export function getReports() {
   return {
@@ -19,7 +20,6 @@ export function getReport(tr_id) {
     payload: axios.get(`/api/report/${tr_id}`)
   }
 };
-
 
 export function addReport(
   attendance,
@@ -59,6 +59,13 @@ export function deleteReport(tr_id) {
     payload: axios.delete(`/api/report/${tr_id}`)
   }
 };
+
+export function clearReports() {
+  return {
+    type: CLEAR_REPORTS,
+    payload: {reports: initialState, report: initialState}
+  }
+}
 
 const initialState = {
   reports: [],
@@ -122,6 +129,12 @@ export default function reportReducer(state = initialState, action) {
         ...state,
         isLoading: false,
         reports: action.payload.data
+      };
+    case CLEAR_REPORTS:
+      return {
+        ...state,
+        reports: action.payload, 
+        report: action.payload
       };
     default: 
       return state;

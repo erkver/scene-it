@@ -16,7 +16,9 @@ class NewScreening extends Component {
     this.state = {
       startDate: moment(),
       selectedTheatre: {},
-      seatCount: 0
+      seatCount: 0,
+      newMov: false,
+      // tID
     }
     this.handleDate = this.handleDate.bind(this);
     this.handleMovie = this.handleMovie.bind(this);
@@ -26,6 +28,7 @@ class NewScreening extends Component {
 
   componentDidMount() {
     const { getMovies, getTheatres, getUser, getScreening } = this.props;
+    const { path } = this.props.match;
     const { id } = this.props.match.params;
     getMovies();
     getTheatres();
@@ -34,6 +37,7 @@ class NewScreening extends Component {
       console.log(res);
       const { data } = res.value;
       this.setState({ startDate: moment(data[0].screening_date), selectedTheatre: {theatre_name: data[0].theatre_name, theatre_id: data[0].theatre_id}, seatCount: data[0].seat_count })});
+    path.includes('add') ? this.setState({newMov: true}) : this.setState({newMov: false})
   }
 
   handleDate(date) {
@@ -57,87 +61,94 @@ class NewScreening extends Component {
 
   render() {
     const { movies, theatres, addScreening, movie, user, screening } = this.props;
-    const { startDate, seatCount, selectedTheatre } = this.state;
+    const { startDate, seatCount, selectedTheatre, newMov } = this.state;
     console.log(this.state);
     console.log(this.props);
+
     let movieList = movies.map((movie, i) => (
       <option 
         className="movie-option-cont" 
         key={i}
-        value={movie.title}
+        // value={movie.title}
       >{movie.title}</option>
     ));
     let theatreList = theatres.map((theatre, i) => (
       <option 
-      className="theatre-option-cont" 
-      key={i}
-      value={theatre.theatre_name}
-      onClick={() => this.setState({selectedTheatre: theatre})}>{theatre.theatre_name}</option>
+        className="theatre-option-cont" 
+        key={i}
+        value={theatre.theatre_name}
+        onClick={() => this.setState({selectedTheatre: theatre.theatre_name})}
+      >{theatre.theatre_name}</option>
     ));
-    let prevScreening = screening.map((e, i) => (
-      <div className="new-screening-cont" key={i}>
-        <h1 className="title-text">Edit Screening</h1>
-        <div className="new-screening-inner-cont">
-          <div className="mov-row-cont">
-            <p className="desc-text">Title:</p>
-            <h3>{e.title}</h3>
-          </div>
-          <div className="mov-row-cont">
-            <p className="desc-text">Theatre:</p>
-            <select
-              required
-              // value={selectedTheatre[0].theatre_name}
-              onChange={this.handleTheatre} >
-              <option disabled hidden value="default" >Select theatre</option>
-              {theatreList}
-            </select>
-          </div>
-          <div className="mov-row-cont">
-            <p className="desc-text">Screening Date and Time:</p>
-            <DatePicker
-              // openToDate={moment(e.screening_date)}
-              selected={startDate}
-              onChange={this.handleDate}
-              showTimeSelect
-              timeFormat="HH:mm"
-              timeIntervals={30}
-              dateFormat="LLL"
-              timeCaption="time"
-              className="date-cont"
-              placeholderText="Click to select date"
-              required
-            />
-          </div>
-          <div className="mov-row-cont">
-            <p className="desc-text">Seat Count:</p>
-            <input
-              type="number"
-              min="0"
-              required
-              placeholder="#"
-              className="seat-input"
-              value={seatCount}
-              onChange={e => this.setState({ seatCount: e.target.value })} />
-          </div>
-          <Link
-            to='/'
-            className="submit-btn"
-            onClick={() => {
-              editScreening(
-                e.id,
-                moment(startDate).format('ll'),
-                selectedTheatre[0].theatre_id,
-                +seatCount
-              );
-              this.clearInputs()
-            }}
-          >Submit Edit</Link>
-        </div>
-      </div>
-    ));
+    let prevScreening = "edit"
+    // screening.map((e, i) => (
+    //   <div className="new-screening-cont" key={i}>
+    //     <h1 className="title-text">Edit Screening</h1>
+    //     <div className="new-screening-inner-cont">
+    //       <div className="mov-row-cont">
+    //         <p className="desc-text">Title:</p>
+    //         <h3>{e.title}</h3>
+    //       </div>
+    //       <div className="mov-row-cont">
+    //         <p className="desc-text">Theatre:</p>
+    //         <select
+    //           required
+    //           // value={selectedTheatre[0].theatre_name}
+    //           onChange={this.handleTheatre} >
+    //           <option disabled hidden value="default" >Select theatre</option>
+    //           {theatreList}
+    //         </select>
+    //       </div>
+    //       <div className="mov-row-cont">
+    //         <p className="desc-text">Screening Date and Time:</p>
+    //         <DatePicker
+    //           // openToDate={moment(e.screening_date)}
+    //           selected={startDate}
+    //           onChange={this.handleDate}
+    //           showTimeSelect
+    //           timeFormat="HH:mm"
+    //           timeIntervals={30}
+    //           dateFormat="LLL"
+    //           timeCaption="time"
+    //           className="date-cont"
+    //           placeholderText="Click to select date"
+    //           required
+    //         />
+    //       </div>
+    //       <div className="mov-row-cont">
+    //         <p className="desc-text">Seat Count:</p>
+    //         <input
+    //           type="number"
+    //           min="0"
+    //           required
+    //           placeholder="#"
+    //           className="seat-input"
+    //           value={seatCount}
+    //           onChange={e => this.setState({ seatCount: e.target.value })} />
+    //       </div>
+    //       <Link
+    //         to='/'
+    //         className="submit-btn"
+    //         onClick={() => {
+    //           editScreening(
+    //             e.id,
+    //             moment(startDate).format('ll'),
+    //             selectedTheatre[0].theatre_id,
+    //             +seatCount
+    //           );
+    //           this.clearInputs()
+    //         }}
+    //       >Submit Edit</Link>
+    //     </div>
+    //   </div>
+    // ));
     return (
       <div className="new-screening-cont">
-      {!screening[0] ?
+      {!newMov ?
+        <>
+          {prevScreening}
+        </>
+        :
         <>
           <h1 className="title-text">Add Screening</h1>
           <div className="new-screening-inner-cont">
@@ -145,7 +156,7 @@ class NewScreening extends Component {
               <p className="desc-text">Title:</p>
               <select 
                 required
-                value="default"
+                defaultValue="default"
                 onChange={this.handleMovie}>
                 <option disabled hidden value="default" >Select movie</option>
                 {movieList}
@@ -155,8 +166,9 @@ class NewScreening extends Component {
               <p className="desc-text">Theatre:</p>
               <select 
                 required
-                value="default"
-                onChange={this.handleTheatre} >
+                value={!selectedTheatre[0] ? "default" : selectedTheatre[0].theatre_name}
+                onChange={this.handleTheatre} 
+                >
                 <option disabled hidden value="default" >Select theatre</option>
                 {theatreList}
               </select>
@@ -190,30 +202,27 @@ class NewScreening extends Component {
             <Link
               to='/' 
               className="submit-btn"
-              onClick={() => {addScreening(
-                movie.title, 
-                `http://image.tmdb.org/t/p/w200/${movie.poster_path}`, 
-                moment(movie.release_date).format('ll'), 
-                movie.overview, 
-                true, 
-                startDate._d, 
-                user.data.user_id, 
-                movie.production_companies[0].name, 
-                movie.genres[0].name, 
-                movie.homepage, 
-                movie.runtime,
-                selectedTheatre[0].theatre_id,
-                +seatCount
-                ); 
-                this.clearInputs()
+                onClick={() => {
+                  addScreening(
+                    movie.title, 
+                    `http://image.tmdb.org/t/p/w200/${movie.poster_path}`, 
+                    moment(startDate).format('lll'), 
+                    movie.overview, 
+                    true, 
+                    startDate._d, 
+                    user.user_id, 
+                    movie.production_companies[0].name, 
+                    movie.genres[0].name, 
+                    movie.homepage, 
+                    movie.runtime,
+                    selectedTheatre[0].theatre_id,
+                    +seatCount
+                  ); 
+                  this.clearInputs()
               }}
               >Submit Screening</Link>
             </div>
           </>
-        : 
-        <>
-          {prevScreening}
-        </>
       }
       </div>
     );
