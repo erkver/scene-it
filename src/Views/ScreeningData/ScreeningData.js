@@ -12,7 +12,7 @@ class ScreeningData extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      genderData: this.getGenderData()
+      genderData: {}
     };
   }
 
@@ -20,45 +20,28 @@ class ScreeningData extends Component {
     const { getScreening, getAllUsers } = this.props;
     // const { id } = this.props.match.params;
     getScreening(77);
-    getAllUsers(77).then(response => {
-      console.log(response);
-      const { data } = response.value;
-      let males = ((data.filter(user => user.gender.includes('Male')).length / data.length) * 100);
-      let females = ((data.filter(user => user.gender.includes('Female')).length / data.length) * 100);
-      this.getGenderData(males, females);
+    getAllUsers(77)
+    .then(response => {
+      this.getGenderData();
     });
   }
 
-  componentDidUpdate(prevProps) {
-    const { genderData } = this.state;
+  getGenderData = () => {
     const { users } = this.props;
-    if(genderData.length !== prevProps.genderData.length) {
-      let males = ((users.filter(user => user.gender.includes('Male')).length / users.length) * 100);
-      let females = ((users.filter(user => user.gender.includes('Female')).length / users.length) * 100);
-      this.getGenderData(males, females);
-    }
-  }
-
-  getGenderData(males, females) {
-    // const { users } = this.props;
-    console.log(males, females);
-    return {genderData: {
-      labels: [
-        'Male',
-        'Female'
-      ],
-      datasets: [{
-        data: [males , females],
-        backgroundColor: [
-          '#347dc1',
-          '#cc6594'
-        ],
-        hoverBackgroundColor: [
-          '#2768a4',
-          '#b85887'
+    // console.log(Math.round(males), Math.round(females));
+    // console.log(arr);
+    this.setState({
+      genderData: {
+        labels: ["Male", "Female"],
+        datasets: [
+          {
+            data: users,
+            backgroundColor: ["#347dc1", "#cc6594"],
+            hoverBackgroundColor: ["#2768a4", "#b85887"]
+          }
         ]
-      }]
-    }}
+      }
+    });
   }
 
   render() {
@@ -68,11 +51,25 @@ class ScreeningData extends Component {
     console.log(this.state);
     return (
       <div className="main-single-data-cont">
-        <h1 className="title-text">{screening.title} Screening Data</h1>
+        <h1 className="title-text">{screening[0] && screening[0].title} Screening Data</h1>
         <div className="single-data-cont">
           <GenderChart
             genderData={genderData}
           />
+          {users[0] > users[1]
+            ?
+            <>
+              <p>This screening is popular among</p>
+              <p className="male">males</p>
+              <p>and account for {`${users[0]}%`} of interested attendees</p>
+            </>
+            :
+            <>
+              <p>This screening is popular among</p>
+              <p className="female">females</p>
+              <p>and account for {`${users[1]}%`} of interested attendees</p>
+            </>
+          }
         </div>
       </div>
     );

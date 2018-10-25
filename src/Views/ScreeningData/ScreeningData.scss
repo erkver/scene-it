@@ -1,11 +1,11 @@
 @import '../../index';
 
 @media(min-width: 320px) {
-  .main-single-screening-cont {
+  .main-single-data-cont {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
+    height: 85vh;
     margin: auto;
     width: 100vw;
   
@@ -15,7 +15,8 @@
       margin: 10px 0;
       text-align: center;
     }
-    .single-screening-cont {
+
+    .single-data-cont {
       background: $primary-card;
       width: 90%;
       display: flex;
@@ -25,20 +26,27 @@
       border: solid 1px $primary-btn;
       border-radius: 10px;
       text-align: center;
-    
-      img {
-        border: solid 1px $primary-btn;
+
+      h2 {
         margin: .5em 0;
-        height: 40%;
-        width: 45%;
       }
 
       p {
-        width: 96%;
         display: flex;
+        flex-direction: column;
         text-align: start;
-        margin: .3em 0;
         font-size: 14px;
+        margin: .5em 0;
+      }
+
+      .male {
+        display: flex;
+        align-items: center;
+        color: #347dc1;
+        text-transform: uppercase;
+        font-size: 28px;
+        font-weight: bold;
+        margin: .2em 0;
       }
 
       .edit-btn {

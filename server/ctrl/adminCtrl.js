@@ -30,8 +30,11 @@ module.exports = {
     const { mov } = req.query;
     if(req.query.mov) {
       db.users.get_all_users([mov]).then(response => {
-        console.log("users passed");
-        return res.status(200).json(response);
+        // console.log(response);
+        let males = ((response.filter(user => user.gender.includes('Male')).length / response.length) * 100);
+        let females = ((response.filter(user => user.gender.includes('Female')).length / response.length) * 100);
+        let percentage = [Math.round(males), Math.round(females)]
+        return res.status(200).json(percentage);
       }).catch(err => {
         res.status(500).send({ errorMessage: "Something went wrong" });
         console.log(err);
