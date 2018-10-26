@@ -27,7 +27,7 @@ module.exports = {
   },
   getAllUsers: (req, res) => {
     const db = req.app.get("db");
-    const { g, a } = req.query;
+    const { g, a, e, genre } = req.query;
     if(req.query.g) {
       db.users.get_all_users([g]).then(response => {
         // console.log(response);
@@ -66,6 +66,70 @@ module.exports = {
           let allFemales = [femaleAgeOne, femaleAgeTwo, femaleAgeThree, femaleAgeFour, femaleAgeFive];
           console.log(all, allMales, allFemales)
           return res.status(200).json([all, allMales, allFemales]);
+        })
+        .catch(err => {
+          res.status(500).send({ errorMessage: "Something went wrong" });
+          console.log(err);
+        });
+    } else if(req.query.e) {
+      db.users.get_all_users([e]).then(response => {
+        console.log('eth success');
+        let males = response.filter(user => user.gender.includes('Male'));
+        let females = response.filter(user => user.gender.includes('Female'));
+        let ethOne = Math.round((response.filter(user => user.race.includes('Asain')).length / response.length) * 100);
+        let ethTwo = Math.round((response.filter(user => user.race.includes('Hispanic')).length / response.length) * 100);
+        let ethThree = Math.round((response.filter(user => user.race.includes('African')).length / response.length) * 100);
+        let ethFour = Math.round((response.filter(user => user.race.includes('Caucasian')).length / response.length) * 100);
+        let ethFive = Math.round((response.filter(user => user.race.includes('Native')).length / response.length) * 100);
+        let ethSix = Math.round((response.filter(user => user.race.includes('Middle Eastern')).length / response.length) * 100);
+        let maleEthOne = Math.round((males.filter(user => user.race.includes('Asain')).length / response.length) * 100);
+        let maleEthTwo = Math.round((males.filter(user => user.race.includes('Hispanic')).length / response.length) * 100);
+        let maleEthThree = Math.round((males.filter(user => user.race.includes('African')).length / response.length) * 100);
+        let maleEthFour = Math.round((males.filter(user => user.race.includes('Caucasian')).length / response.length) * 100);
+        let maleEthFive = Math.round((males.filter(user => user.race.includes('Native')).length / response.length) * 100);
+        let maleEthSix = Math.round((males.filter(user => user.race.includes('Middle Eastern')).length / response.length) * 100);
+        let femaleEthOne = Math.round((females.filter(user => user.race.includes('Asain')).length / response.length) * 100);
+        let femaleEthTwo = Math.round((females.filter(user => user.race.includes('Hispanic')).length / response.length) * 100);
+        let femaleEthThree = Math.round((females.filter(user => user.race.includes('African')).length / response.length) * 100);
+        let femaleEthFour = Math.round((females.filter(user => user.race.includes('Caucasian')).length / response.length) * 100);
+        let femaleEthFive = Math.round((females.filter(user => user.race.includes('Native')).length / response.length) * 100);
+        let femaleEthSix = Math.round((females.filter(user => user.race.includes('Middle Eastern')).length / response.length) * 100);
+        let all = [ethOne, ethTwo, ethThree, ethFour, ethFive, ethSix];
+        let allMales = [maleEthOne, maleEthTwo, maleEthThree, maleEthFour, maleEthFive, maleEthSix];
+        let allFemales = [femaleEthOne, femaleEthTwo, femaleEthThree, femaleEthFour, femaleEthFive, femaleEthSix];
+        console.log("eth:", all, allMales, allFemales);
+        return res.status(200).json([all, allMales, allFemales]);
+      }).catch(err => {
+        res.status(500).send({ errorMessage: "Something went wrong" });
+        console.log(err);
+      });
+    } else if(req.query.genre) {
+      db.users
+        .get_all_users([genre])
+        .then(response => {
+          let males = response.filter(user => user.gender.includes('Male'));
+          let females = response.filter(user => user.gender.includes('Female'));
+          let genOne = response.filter(user => user.fav_genre.includes('Action'));
+          let genTwo = response.filter(user => user.fav_genre.includes('Comedy'));
+          let genThree = response.filter(user => user.fav_genre.includes('Drama'));
+          let genFour = response.filter(user => user.fav_genre.includes('Sci-Fi'));
+          let genFive = response.filter(user => user.fav_genre.includes('Romance'));
+          let sum = genOne.length + genTwo.length + genThree.length + genFour.length + genFive.length
+          let maleGenOne = Math.round((males.filter(user => user.fav_genre.includes('Action')).length / sum) * 100);
+          let maleGenTwo = Math.round((males.filter(user => user.fav_genre.includes('Comedy')).length / sum) * 100);
+          let maleGenThree = Math.round((males.filter(user => user.fav_genre.includes('Drama')).length / sum) * 100);
+          let maleGenFour = Math.round((males.filter(user => user.fav_genre.includes('Sci-Fi')).length / sum) * 100);
+          let maleGenFive = Math.round((males.filter(user => user.fav_genre.includes('Romance')).length / sum) * 100);
+          let femaleGenOne = Math.round((females.filter(user => user.fav_genre.includes('Action')).length / sum) * 100);
+          let femaleGenTwo = Math.round((females.filter(user => user.fav_genre.includes('Comedy')).length / sum) * 100);
+          let femaleGenThree = Math.round((females.filter(user => user.fav_genre.includes('Drama')).length / sum) * 100);
+          let femaleGenFour = Math.round((females.filter(user => user.fav_genre.includes('Sci-Fi')).length / sum) * 100);
+          let femaleGenFive = Math.round((females.filter(user => user.fav_genre.includes('Romance')).length / sum) * 100);
+          let genres = [Math.round((genOne.length / sum) * 100), Math.round((genTwo.length / sum) * 100), Math.round((genThree.length / sum) * 100), Math.round((genFour.length / sum) * 100), Math.round((genFive.length / sum) * 100)];
+          let maleGenres = [maleGenOne, maleGenTwo, maleGenThree, maleGenFour, maleGenFive]
+          let femaleGenres = [femaleGenOne, femaleGenTwo, femaleGenThree, femaleGenFour, femaleGenFive]
+          console.log("genres:", genres, maleGenres, femaleGenres)
+          return res.status(200).json([genres, maleGenres, femaleGenres]);
         })
         .catch(err => {
           res.status(500).send({ errorMessage: "Something went wrong" });

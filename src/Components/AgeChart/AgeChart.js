@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Bar } from "react-chartjs-2";
-import { withRouter } from "react-router-dom";
-import { connect } from "react-redux";
+
 
 class AgeChart extends Component {
   constructor(props) {
@@ -12,35 +11,48 @@ class AgeChart extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.ageData.datasets[0] !== prevProps.ageData.datasets[0]) {
+    const { ageData } = this.props;
+    if (ageData.datasets[0] !== prevProps.ageData.datasets[0]) {
       this.setState({ ageData: this.props.ageData });
     }
   }
 
   render() {
     const { ageData } = this.state;
-    console.log(ageData);
+    // console.log(ageData);
     console.log(this.props);
     return (
       <div>
-        <h2>Interested attendees by gender</h2>
+        <h2>Age</h2>
         <Bar
           data={ageData}
           options={{
             tooltips: {
+              mode: 'label',
               callbacks: {
-                label: function (tooltipItem, data) {
-                  let dataset = data.datasets[tooltipItem.datasetIndex];
-                  let meta = dataset._meta[Object.keys(dataset._meta)[0]];
-                  let total = meta.total;
-                  let currentValue = dataset.data[tooltipItem.index];
-                  let percentage = parseFloat((currentValue / total * 100).toFixed(1));
-                  return `${percentage}%`;
-                },
-                title: function (tooltipItem, data) {
-                  return data.labels[tooltipItem[0].index];
+                label: function(tooltipItem, data) {
+                  return data['datasets'][0]['data'][tooltipItem['index']] + '%'
                 }
               }
+            },
+            scales: {
+              yAxes: [{
+                ticks: {
+                  callback: function (value) {
+                    return `${value}%`
+                  }
+                },
+                scaleLabel: {
+                  display: true,
+                  labelString: "Percentage"
+                }
+              }],
+              xAxes: [{
+                scaleLabel: {
+                  display: true,
+                  labelString: "Age Ranges"
+                }
+              }]
             }
           }}
         />
@@ -49,12 +61,5 @@ class AgeChart extends Component {
   }
 }
 
-const mapStateToProps = ({
-  adminReducer,
-  userReducer,
-}) => ({
-  ...adminReducer,
-  ...userReducer,
-});
 
-export default withRouter(connect(mapStateToProps)(AgeChart));
+export default AgeChart;

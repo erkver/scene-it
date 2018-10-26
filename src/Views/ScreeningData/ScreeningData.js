@@ -3,11 +3,13 @@ import { connect } from "react-redux";
 import { getScreening } from "../../Ducks/screeningReducer";
 import { withRouter, Link } from "react-router-dom";
 import { getTheatres } from "../../Ducks/theatreReducer";
-import { getUsersByGen, getUsersByAge } from "../../Ducks/adminReducer";
+import { getUsersByGen, getUsersByAge, getUsersByEth, getUsersByGenre } from "../../Ducks/adminReducer";
 import GenderChart from "../../Components/GenderChart/GenderChart";
-import "react-datepicker/dist/react-datepicker.css";
-import "./ScreeningData.scss";
 import AgeChart from "../../Components/AgeChart/AgeChart";
+import EthChart from "../../Components/EthChart/EthChart";
+import GenreChart from "../../Components/GenreChart/GenreChart";
+import "./ScreeningData.scss";
+
 
 class ScreeningData extends Component {
   constructor(props) {
@@ -15,31 +17,36 @@ class ScreeningData extends Component {
     this.state = {
       genderData: {},
       ageData: {},
-      ageSelect: "all"
+      ethData: {},
+      genreData: {},
+      ageSelect: "all",
+      ethSelect: "all",
+      genreSelect: 'all'
     };
   }
 
   componentDidMount() {
-    const { getScreening, getUsersByGen, getUsersByAge } = this.props;
+    const { getScreening, getUsersByGen, getUsersByAge, getUsersByEth, getUsersByGenre } = this.props;
     // const { id } = this.props.match.params;
     getScreening(83);
     getUsersByGen(83)
     .then(response => {
+      // console.log(response);
       this.getGenderData();
     });
     getUsersByAge(83).then(res => {
-      console.log(res);
+      // console.log(res);
       this.getAgeData();
     });
+    getUsersByEth(83).then(response => {
+      // console.log(reponse_)
+      this.getEthData();
+    });
+    getUsersByGenre(83).then(res => {
+      console.log(res);
+      this.getGenreData();
+    })
   }
-
-  // componentDidUpdate(prevProps) {
-  //   const { ageSelect } = this.state;
-  //   console.log(prevProps);
-  //   if(ageSelect !== prevProps.ageSelect) {
-  //     this.getAgeData();
-  //   }
-  // } 
 
   getGenderData = () => {
     const { gender } = this.props;
@@ -60,19 +67,19 @@ class ScreeningData extends Component {
   getAgeData = () => {
     const { age } = this.props;
     const { ageSelect } = this.state;
-    if(ageSelect === 'all') {
+    if(ageSelect === 'female') {
       this.setState({
         ageData: {
           labels: ["18-24", "25-34", "35-44", "45-54", "55+"],
           datasets: [
             {
-              label: "All",
-              data: age[0],
-              backgroundColor: "rgba(52,125,193,0.2)",
-              borderColor: "rgba(52,125,193,1)",
+              label: "Females",
+              data: age[2],
+              backgroundColor: "rgba(204,101,148,0.2)",
+              borderColor: "rgba(204,101,148,1)",
               borderWidth: 1,
-              hoverBackgroundColor: "rgba(39,104,164,0.4)",
-              hoverBorderColor: "rgba(39,104,164,1)"
+              hoverBackgroundColor: "rgba(184,88,135,0.4)",
+              hoverBorderColor: "rgba(184,88,135,1)"
             }
           ]
         }
@@ -94,14 +101,106 @@ class ScreeningData extends Component {
           ]
         }
       });
-    } else if(ageSelect === 'female') {
+    } else {
       this.setState({
         ageData: {
           labels: ["18-24", "25-34", "35-44", "45-54", "55+"],
           datasets: [
             {
+              label: "All",
+              data: age[0],
+              backgroundColor: "rgba(106,112,110,0.2)",
+              borderColor: "rgba(106,112,110,1)",
+              borderWidth: 1,
+              hoverBackgroundColor: "rgba(76,59,77,0.4)",
+              hoverBorderColor: "rgba(76,59,77,1)"
+            }
+          ]
+        }
+      });
+    }
+  }
+
+  getEthData = () => {
+    const { eth } = this.props;
+    const { ethSelect } = this.state;
+    if (ethSelect === 'female') {
+      this.setState({
+        ethData: {
+          labels: ["Asian", "Hispanic", "African-American", "Caucasian", "Native American", "Middle Eastern" ],
+          datasets: [
+            {
               label: "Females",
-              data: age[2],
+              data: eth[2],
+              backgroundColor: "rgba(204,101,148,0.2)",
+              borderColor: "rgba(204,101,148,1)",
+              borderWidth: 1,
+              hoverBackgroundColor: "rgba(184,88,135,0.4)",
+              hoverBorderColor: "rgba(184,88,135,1)"
+            }
+          ]
+        }
+      });
+    } else if (ethSelect === "male") {
+      this.setState({
+        ethData: {
+          labels: ["Asian", "Hispanic", "African-American", "Caucasian", "Native American", "Middle Eastern" ],
+          datasets: [
+            {
+              label: "Males",
+              data: eth[1],
+              backgroundColor: "rgba(52,125,193,0.2)",
+              borderColor: "rgba(52,125,193,1)",
+              borderWidth: 1,
+              hoverBackgroundColor: "rgba(39,104,164,0.4)",
+              hoverBorderColor: "rgba(39,104,164,1)"
+            }
+          ]
+        }
+      });
+    } else if(ethSelect === "all") {
+      this.setState({
+        ethData: {
+          labels: ["Asian", "Hispanic", "African-American", "Caucasian", "Native American", "Middle Eastern" ],
+          datasets: [
+            {
+              label: "All",
+              data: eth[0],
+              backgroundColor: "rgba(106,112,110,0.2)",
+              borderColor: "rgba(106,112,110,1)",
+              borderWidth: 1,
+              hoverBackgroundColor: "rgba(76,59,77,0.4)",
+              hoverBorderColor: "rgba(76,59,77,1)"
+            }
+          ]
+        }
+      });
+    } else {
+      this.setState({
+        ethData: {
+          labels: ["Asian", "Hispanic", "African-American", "Caucasian", "Native American", "Middle Eastern"],
+          datasets: [
+            {
+              label: "All",
+              data: eth[0],
+              backgroundColor: "rgba(106,112,110,0.2)",
+              borderColor: "rgba(106,112,110,1)",
+              borderWidth: 1,
+              hoverBackgroundColor: "rgba(76,59,77,0.4)",
+              hoverBorderColor: "rgba(76,59,77,1)"
+            },
+            {
+              label: "Males",
+              data: eth[1],
+              backgroundColor: "rgba(52,125,193,0.2)",
+              borderColor: "rgba(52,125,193,1)",
+              borderWidth: 1,
+              hoverBackgroundColor: "rgba(39,104,164,0.4)",
+              hoverBorderColor: "rgba(39,104,164,1)"
+            },
+            {
+              label: "Females",
+              data: eth[2],
               backgroundColor: "rgba(204,101,148,0.2)",
               borderColor: "rgba(204,101,148,1)",
               borderWidth: 1,
@@ -114,40 +213,177 @@ class ScreeningData extends Component {
     }
   }
 
+  getGenreData = () => {
+    const { genre } = this.props;
+    const { genreSelect } = this.state;
+    if (genreSelect === 'female') {
+      this.setState({
+        genreData: {
+          labels: ["Action", "Comedy", "Drama", "Sci-Fi", "Romance"],
+          datasets: [
+            {
+              label: "Females",
+              data: genre[2],
+              backgroundColor: [
+                "#93B7BE",
+                "#C6C5B9",
+                "#F1FFFA",
+                "#454545",
+                "#785964"
+              ],
+              borderWidth: 1,
+              hoverBackgroundColor: [
+                "#B0DCE5",
+                "#C6C5B9",
+                "#F2FFFA",
+                "#6B6B6B",
+                "#9E7483"
+              ],
+              hoverBorderColor: "rgba(184,88,135,1)"
+            }
+          ]
+        }
+      });
+    } else if (genreSelect === "male") {
+      this.setState({
+        genreData: {
+          labels: ["Action", "Comedy", "Drama", "Sci-Fi", "Romance"],
+          datasets: [
+            {
+              label: "Males",
+              data: genre[1],
+              backgroundColor: [
+                "#93B7BE",
+                "#C6C5B9",
+                "#F1FFFA",
+                "#454545",
+                "#785964"
+              ],
+              borderColor: "rgba(52,125,193,1)",
+              borderWidth: 1,
+              hoverBackgroundColor: [
+                "#B0DCE5",
+                "#C6C5B9",
+                "#F2FFFA",
+                "#6B6B6B",
+                "#9E7483"
+              ],
+              hoverBorderColor: "rgba(39,104,164,1)"
+            }
+          ]
+        }
+      });
+    } else {
+      this.setState({
+        genreData: {
+          labels: ["Action", "Comedy", "Drama", "Sci-Fi", "Romance"],
+          datasets: [
+            {
+              label: "All",
+              data: genre[0],
+              backgroundColor: [
+                "#93B7BE",
+                "#C6C5B9",
+                "#F1FFFA",
+                "#454545",
+                "#785964"
+              ],
+              borderColor: "rgba(106,112,110,1)",
+              borderWidth: 1,
+              hoverBackgroundColor: [
+                "#B0DCE5",
+                "#C6C5B9",
+                "#F2FFFA",
+                "#6B6B6B",
+                "#9E7483"
+              ],
+              hoverBorderColor: "rgba(76,59,77,1)"
+            }
+          ]
+        }
+      });
+    }
+  }
+
   render() {
-    const { screening, gender } = this.props;
-    const { genderData, ageData } = this.state;
+    const { screening, gender, eth } = this.props;
+    const { genderData, ageData, ethData, genreData } = this.state;
+    // let max = Math.max(eth[0]);
+    // let ethInd = eth[0].indexOf(max);
     console.log(this.props);
     console.log(this.state);
     return (
       <div className="main-single-data-cont">
         <h1 className="title-text">{screening[0] && screening[0].title} Screening Data</h1>
         <div className="single-data-cont">
-          <GenderChart
-            genderData={genderData}
-          />
-          {gender[0] > gender[1]
-            ?
+        <h2>Users in interested in attending by:</h2>
+          <div className="chart-cont">
+            <GenderChart
+              genderData={genderData}
+            />
+            {gender[0] > gender[1]
+              ?
+              <>             
+                <p className="male">males</p>
+                <p>accounting for {`${gender[0]}%`} of interested attendees</p>
+              </>
+              :
+              <>
+                <p className="female">females</p>
+                <p>account for {`${gender[1]}%`} of interested attendees</p>
+              </>
+            }
+          </div>
+          <div className="chart-cont">
+            <AgeChart
+              ageData={ageData}
+            />
+            <div className="age-btn-cont">
+              <button 
+                onClick={() => {this.setState({ageSelect: 'all'}, () => this.getAgeData())}}>All users</button>
+              <button 
+                onClick={() => {this.setState({ ageSelect: "male" }, () => this.getAgeData())}}>Males</button>
+              <button 
+                onClick={() => { this.setState({ ageSelect: "female" }, () => this.getAgeData())}}>Females</button>
+            </div>
+            {/* {!eth[0] ?
             <>
-              <p>This screening is popular among</p>
-              <p className="male">males</p>
-              <p>accounting for {`${gender[0]}%`} of interested attendees</p>
             </>
             :
             <>
-              <p>This screening is popular among</p>
-              <p className="female">females</p>
-              <p>accounting for {`${gender[1]}%`} of interested attendees</p>
+              <p>{`${ethData.labels[ethInd]}`} year-olds account for {`${ethData[ethInd]}`}</p>
             </>
-          }
-          <AgeChart
-            ageData={ageData}
-          />
-          <div className="age-btn-cont">
-            <button onClick={() => {this.setState({ageSelect: "all"}); setTimeout(this.getAgeData(), 200)}}>All users</button>
-            <button onClick={() => {this.setState({ageSelect: "male"}); setTimeout(this.getAgeData(), 200)}}>Males</button>
-            <button onClick={() => {this.setState({ageSelect: "female"}); setTimeout(this.getAgeData(), 200)}}>Females</button>
+            } */}
           </div>
+          <div className="chart-cont">
+            <GenreChart
+              genreData={genreData}
+            />
+            <div className="age-btn-cont">
+              <button
+                onClick={() => { this.setState({ genreSelect: 'all' }, () => this.getGenreData()) }}>All users</button>
+              <button
+                onClick={() => { this.setState({ genreSelect: "male" }, () => this.getGenreData()) }}>Males</button>
+              <button
+                onClick={() => { this.setState({ genreSelect: "female" }, () => this.getGenreData()) }}>Females</button>
+            </div>
+          </div>
+          <div className="eth-cont">
+            <EthChart
+              ethData={ethData}
+            />
+            <div className="age-btn-cont">
+              <button
+                onClick={() => {this.setState({ ethSelect: 'all' }, () => this.getEthData())}}>All users</button>
+              <button
+                onClick={() => {this.setState({ ethSelect: "male" }, () => this.getEthData())}}>Males</button>
+              <button
+                onClick={() => {this.setState({ ethSelect: "female" }, () => this.getEthData())}}>Females</button>
+              <button
+                onClick={() => {this.setState({ ethSelect: 'overlap' }, () => this.getEthData())}}>Overlay</button>
+            </div>
+          </div>
+
         </div>
       </div>
     );
@@ -169,6 +405,6 @@ const mapStateToProps = ({
 export default withRouter(
   connect(
     mapStateToProps,
-    { getTheatres, getScreening, getUsersByGen, getUsersByAge }
+    { getTheatres, getScreening, getUsersByGen, getUsersByAge, getUsersByEth, getUsersByGenre }
   )(ScreeningData)
 );

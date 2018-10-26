@@ -27,47 +27,98 @@
       border-radius: 10px;
       text-align: center;
 
-      h2 {
-        margin: .5em 0;
+      h2:first-child {
+        margin: .7em 0;
+        font-style: italic; 
       }
 
-      p {
+      .chart-cont {
         display: flex;
         flex-direction: column;
-        text-align: start;
-        font-size: 14px;
-        margin: .5em 0;
-      }
-
-      .male {
-        display: flex;
         align-items: center;
-        color: #347dc1;
-        text-transform: uppercase;
-        font-size: 28px;
-        font-weight: bold;
-        margin: .2em 0;
+        justify-content: space-evenly;
+        width: 100%;
+        border-bottom: 1px solid $primary-header;
+
+        h2 {
+          margin: .7em 0;
+          font-size: 18px;
+        }
+
+        p {
+          text-align: center;
+          font-size: 14px;
+          margin: 1em 0;
+        }
+
+        .male {
+          display: flex;
+          align-items: center;
+          color: #347dc1;
+          text-transform: uppercase;
+          font-size: 28px;
+          font-weight: bold;
+          margin: .2em 0;
+        }
+
+        .female {
+          display: flex;
+          align-items: center;
+          color: #cc6594;
+          text-transform: uppercase;
+          font-size: 28px;
+          font-weight: bold;
+          margin: .2em 0;
+        }
+
+        .age-btn-cont {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-evenly;
+
+          button {
+            width: 6em;
+            background: none;
+            border: .75px solid $primary-btn;
+            font-size: 14px;
+            color: black;
+            padding: 3%;
+            border-radius: 10px;
+            text-decoration: none;
+            margin: 1em 0;
+          }
+        }
       }
 
-      .female {
+      .eth-cont {
         display: flex;
-        align-items: center;
-        color: #cc6594;
-        text-transform: uppercase;
-        font-size: 28px;
-        font-weight: bold;
-        margin: .2em 0;
-      }
+        flex-direction: column;
+        width: 100%;
 
-      .edit-btn {
-        background: $primary-btn;
-        border: none;
-        font-size: 14px;
-        color: white;
-        padding: 3%;
-        border-radius: 10px;
-        text-decoration: none;
-        margin: .5em 0;
+        h2 {
+          margin: .7em 0;
+          font-size: 18px;
+        }
+
+        .age-btn-cont {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-evenly;
+
+          button {
+            width: 5.5em;
+            background: none;
+            border: .75px solid $primary-btn;
+            font-size: 12px;
+            color: black;
+            padding: 3%;
+            border-radius: 10px;
+            text-decoration: none;
+            margin: 1.25em 0;
+          }
+        }   
       }
     }
   }
