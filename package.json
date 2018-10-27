@@ -17,6 +17,7 @@
     "massive": "^5.5.0",
     "moment": "^2.22.2",
     "node-sass": "^4.9.3",
+    "nodemailer": "^4.6.8",
     "passport": "^0.4.0",
     "passport-auth0": "^1.0.0",
     "prop-types": "^15.6.2",

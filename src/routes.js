@@ -15,6 +15,7 @@ import RepStepFour from "./Views/NewReport/StepFour/RepStepFour";
 import RepReview from "./Views/NewReport/ReviewReport/RepReview";
 import Reports from "./Views/Reports/Reports";
 import ScreeningData from "./Views/ScreeningData/ScreeningData";
+import NewEmail from "./Views/NewEmail/NewEmail";
 
 const mapStateToProps = ({ userReducer }) => ({ ...userReducer });
 
@@ -88,7 +89,10 @@ export default (
         }
       })}
     />
-
+    <Route
+      path="/admin/send"
+      component={NewEmail}
+    />
     <Route
       path="/admin/reports"
       component={connect(mapStateToProps)(props => {

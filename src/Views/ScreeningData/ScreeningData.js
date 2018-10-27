@@ -21,11 +21,11 @@ class ScreeningData extends Component {
       genreData: {},
       ageSelect: "all",
       ethSelect: "all",
-      genreSelect: 'all'
+      genreSelect: 'all',
     };
   }
 
-  componentDidMount() {
+  async componentWillMount() {
     const { getScreening, getUsersByGen, getUsersByAge, getUsersByEth, getUsersByGenre } = this.props;
     // const { id } = this.props.match.params;
     getScreening(83);
@@ -45,7 +45,7 @@ class ScreeningData extends Component {
     getUsersByGenre(83).then(res => {
       console.log(res);
       this.getGenreData();
-    })
+    });
   }
 
   getGenderData = () => {
@@ -57,6 +57,7 @@ class ScreeningData extends Component {
           {
             data: gender,
             backgroundColor: ["#347dc1", "#cc6594"],
+            borderColor: "#4C3B4D",
             hoverBackgroundColor: ["#2768a4", "#b85887"]
           }
         ]
@@ -306,10 +307,17 @@ class ScreeningData extends Component {
   }
 
   render() {
-    const { screening, gender, eth } = this.props;
+    const { screening, gender, eth, age } = this.props;
     const { genderData, ageData, ethData, genreData } = this.state;
-    // let max = Math.max(eth[0]);
-    // let ethInd = eth[0].indexOf(max);
+    if(!age) {
+     return null
+    }
+    else {
+ 
+      
+    }
+    // let max = Math.max(...age[0]);
+    // let ageInd = age[0].indexOf(max);
     console.log(this.props);
     console.log(this.state);
     return (
@@ -317,23 +325,9 @@ class ScreeningData extends Component {
         <h1 className="title-text">{screening[0] && screening[0].title} Screening Data</h1>
         <div className="single-data-cont">
         <h2>Users in interested in attending by:</h2>
-          <div className="chart-cont">
             <GenderChart
               genderData={genderData}
             />
-            {gender[0] > gender[1]
-              ?
-              <>             
-                <p className="male">males</p>
-                <p>accounting for {`${gender[0]}%`} of interested attendees</p>
-              </>
-              :
-              <>
-                <p className="female">females</p>
-                <p>account for {`${gender[1]}%`} of interested attendees</p>
-              </>
-            }
-          </div>
           <div className="chart-cont">
             <AgeChart
               ageData={ageData}
@@ -351,7 +345,7 @@ class ScreeningData extends Component {
             </>
             :
             <>
-              <p>{`${ethData.labels[ethInd]}`} year-olds account for {`${ethData[ethInd]}`}</p>
+              <p>{`${ageData.labels[Math.max(age[0])]}`} year-olds account for {`${ageData[ageInd]}`}</p>
             </>
             } */}
           </div>
@@ -383,7 +377,7 @@ class ScreeningData extends Component {
                 onClick={() => {this.setState({ ethSelect: 'overlap' }, () => this.getEthData())}}>Overlay</button>
             </div>
           </div>
-
+          <Link to='/admin/send' className="email-link">Send targeted e-mail</Link>
         </div>
       </div>
     );

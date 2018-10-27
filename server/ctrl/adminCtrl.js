@@ -27,7 +27,7 @@ module.exports = {
   },
   getAllUsers: (req, res) => {
     const db = req.app.get("db");
-    const { g, a, e, genre } = req.query;
+    const { g, a, e, genre, mov, gender, eth, minage, maxage, fav } = req.query;
     if(req.query.g) {
       db.users.get_all_users([g]).then(response => {
         // console.log(response);
@@ -130,6 +130,18 @@ module.exports = {
           let femaleGenres = [femaleGenOne, femaleGenTwo, femaleGenThree, femaleGenFour, femaleGenFive]
           console.log("genres:", genres, maleGenres, femaleGenres)
           return res.status(200).json([genres, maleGenres, femaleGenres]);
+        })
+        .catch(err => {
+          res.status(500).send({ errorMessage: "Something went wrong" });
+          console.log(err);
+        });
+    } else if (req.query.mov || req.query.gender || req.query.eth || req.query.minage || req.query.maxage || req.query.fav) {
+      console.log(mov, gender, eth, minage, maxage, fav);
+      db.users
+        .get_user_emails([+mov, gender, eth, minage, maxage, fav])
+        .then(response => {
+          console.log(response);
+          return res.status(200).json(response);
         })
         .catch(err => {
           res.status(500).send({ errorMessage: "Something went wrong" });

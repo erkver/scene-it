@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const { SECRET, REACT_APP_HOME } = process.env;
+const { SECRET, REACT_APP_HOME, USER, PASS } = process.env;
 const express = require("express");
 const session = require("express-session");
 const passport = require("passport");
@@ -8,6 +8,7 @@ const app = express();
 const port = process.env.PORT || 3001;
 const massive = require("massive");
 const { json } = require("body-parser");
+const nodemailer = require('nodemailer');
 
 const { strat, getUser, logout } = require("./ctrl/authCtrl");
 const { getMovies, getMovie, getAllUsers } = require("./ctrl/adminCtrl.js");
@@ -147,5 +148,48 @@ app.post('/api/comment/audience', addAudComment);
 app.put("/api/comment/audience/:id", editAudComment);
 app.delete("/api/comment/audience/:id", deleteAudComment);
 
+//Nodemailer
+app.post('/send', (req, res) => {
+  const output = `
+    <p>Check out this screening in your area!</p>
+    <p>Details Below!</p>
+    <p>${req.body.message}</p>`;
+    console.log(req.body);
+
+  const emails = req.body.users;
+
+  let transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false,
+    auth: {
+      user: USER,
+      pass: PASS
+    },
+    tls: {
+      rejectUnauthorized: false
+    }
+  });
+  
+  emails.forEach(function(user, i, array) {
+    let mailOptions = {
+      from: `SceneItTeam <${USER}>`,
+      to: 'erkver250@gmail.com',
+      subject: 'Check out this screening!',
+      text: 'Hello world?',
+      html: output
+    };
+    mailOptions.cc = user;
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        return console.log(error);
+      } else if(i === emails.length - 1) {
+        emails.tansport.close();
+      }
+      console.log('Message sent: %s', info.messageId);
+      console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+    });
+  });
+});
 
 app.listen(port, () => console.log(`Server is listening on port ${port}`));
