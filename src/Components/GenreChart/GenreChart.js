@@ -52,10 +52,9 @@ class GenreChart extends Component {
             }
           }}
         />
-        {!(genreData.datasets && genreData.datasets[0]) ?
-          <div>Loading...</div>
-          :
-          this.renderContent()
+        {!(genreData.datasets && genreData.datasets[0]) 
+          ? <div>Loading...</div>
+          : this.renderContent()
         }
       </div>
     )

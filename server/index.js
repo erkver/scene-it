@@ -8,7 +8,8 @@ const {
   PASS,
   TWILIO_ACCOUNT_SID,
   TWILIO_AUTH_TOKEN,
-  TWILIO_PHONE_NUMBER
+  TWILIO_PHONE_NUMBER,
+  PHONE
 } = process.env;
 const express = require("express");
 const session = require("express-session");

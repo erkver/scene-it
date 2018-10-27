@@ -19,7 +19,7 @@ export function getTheatre() {
 
 const initialState = {
   theatres: [],
-  theatre: [],
+  theatre: {},
   isLoading: false
 };
 

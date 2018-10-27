@@ -6,18 +6,6 @@ import "./NewEmail.scss";
 
 
 class NewEmail extends Component {
-  // constructor() {
-  //   super();
-  //   this.state = {
-  //     message: ""
-  //   }
-  // }
-
-  // componentDidMount() {
-  //   const { getUsersByParams } = this.props;
-    
-  // }
-
   handleSubmit(e) {
     e.preventDefault();
     const message = document.getElementById('message').value;
@@ -26,14 +14,7 @@ class NewEmail extends Component {
     let emails = [];
     users.map(user => emails.push(user.email));
     console.log(emails, subject);
-    sendEmailAll(emails, message, subject).then((response) => {
-      if (response.data.msg === 'success') {
-        alert("Message Sent.");
-        this.resetForm()
-      } else if (response.data.msg === 'fail') {
-        alert("Message failed to send.")
-      }
-    })
+    sendEmailAll(emails, message, subject).then(() => this.resetForm());
   }
 
   render() {

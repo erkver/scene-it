@@ -37,7 +37,6 @@ class Screening extends Component {
   render() {
     const { screening, isAuthed, user, deleteFavorite, favorites } = this.props;
     const { claimed } = this.state;
-    const { PHONE } = process.env;
     let btnText = 'Get Passes!';
     if(claimed) {
       btnText = 'Claimed!'
@@ -74,7 +73,7 @@ class Screening extends Component {
                     this.setState(
                       { claimed: !this.state.claimed },
                       () => addFavorite(e.id, user.user_id),
-                      sendText(`+15005550006`, JSON.stringify(`Here are your passes for ${e.title}`))
+                      sendText(+18173085007, JSON.stringify(`Here are your passes for ${e.title}`))
                     )
                   }}>Via text
                 </button>
@@ -83,7 +82,7 @@ class Screening extends Component {
                   onClick={() => {
                     this.setState({ claimed: !this.state.claimed }, 
                     () => addFavorite(e.id, user.user_id), 
-                    sendEmailAll(user.email, `Here are your passes for ${e.title}`, `${e.title} passes!`));
+                    sendEmailAll([user.email], `Here are your passes for ${e.title}`, `${e.title} passes!`));
                 }}>Via email
                 </button>
               </div>

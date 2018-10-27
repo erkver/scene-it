@@ -6,6 +6,7 @@ export default function Movie (props) {
   let divName = 'movie-cont';
   let innerDivName = 'inner-movie-cont'
   const { movie, user, getScreening } = props;
+  // getFill(movie.id);
   if(user.data && user.data.isadmin){
     divName = 'admin-movie-cont'
     innerDivName = 'admin-inner-mov-cont'
@@ -33,8 +34,8 @@ export default function Movie (props) {
       :  <>
           <p>Film: {movie.title}</p>
           <p>Screening Date: {movie.screening_date}</p>
-          <p>Passes Redeemed: 0/{movie.seat_count}</p>
-          <p>Booking Ratio 1:1</p>
+          {/* <p>Passes Redeemed: {fill}/{movie.seat_count}</p>
+          <p>Booking Ratio 1:1</p> */}
           <div className="btn-cont">
             <Link
               to={`/admin/screening/${movie.id}`}
