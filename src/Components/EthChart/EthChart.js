@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Radar } from "react-chartjs-2";
+import './EthChart.scss';
 
 class EthChart extends Component {
   constructor(props) {
@@ -16,12 +17,26 @@ class EthChart extends Component {
     }
   }
 
+  renderContent = () => {
+    const { labels } = this.state.ethData;
+    const { data, backgroundColor } = this.state.ethData.datasets[0];
+    let max = Math.max(...data);
+    let ethInd = data.indexOf(max);
+    console.log(max, ethInd);
+    return (
+      <>
+        <h3 style={{ color: `${backgroundColor[ethInd]}` }}>{`${labels[ethInd]}`}</h3>
+        <p>is {`${data[ethInd]}%`} of user's ethnicity</p>
+      </>
+    );
+  }
+
   render() {
     const { ethData } = this.state;
     // console.log(ageData);
     console.log(this.props);
     return (
-      <div>
+      <div className="eth-cont">
         <h2>Ethnicity</h2>
         <Radar
           data={ethData}
@@ -36,6 +51,11 @@ class EthChart extends Component {
             }
           }}
         />
+        {!(ethData.datasets && ethData.datasets[0]) ?
+          <div>Loading...</div>
+          :
+          this.renderContent()
+        }
       </div>
     )
   }

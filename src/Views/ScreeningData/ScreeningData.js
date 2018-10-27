@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { getScreening } from "../../Ducks/screeningReducer";
 import { withRouter, Link } from "react-router-dom";
 import { getTheatres } from "../../Ducks/theatreReducer";
-import { getUsersByGen, getUsersByAge, getUsersByEth, getUsersByGenre } from "../../Ducks/adminReducer";
+import { getUsersByGen, getUsersByAge, getUsersByEth, getUsersByGenre, getUsersByParams } from "../../Ducks/adminReducer";
 import GenderChart from "../../Components/GenderChart/GenderChart";
 import AgeChart from "../../Components/AgeChart/AgeChart";
 import EthChart from "../../Components/EthChart/EthChart";
@@ -25,27 +25,14 @@ class ScreeningData extends Component {
     };
   }
 
-  async componentWillMount() {
+  componentWillMount() {
     const { getScreening, getUsersByGen, getUsersByAge, getUsersByEth, getUsersByGenre } = this.props;
     // const { id } = this.props.match.params;
     getScreening(83);
-    getUsersByGen(83)
-    .then(response => {
-      // console.log(response);
-      this.getGenderData();
-    });
-    getUsersByAge(83).then(res => {
-      // console.log(res);
-      this.getAgeData();
-    });
-    getUsersByEth(83).then(response => {
-      // console.log(reponse_)
-      this.getEthData();
-    });
-    getUsersByGenre(83).then(res => {
-      console.log(res);
-      this.getGenreData();
-    });
+    getUsersByGen(83).then(() => this.getGenderData());
+    getUsersByAge(83).then(() => this.getAgeData());
+    getUsersByEth(83).then(() => this.getEthData());
+    getUsersByGenre(83).then(() => this.getGenreData());
   }
 
   getGenderData = () => {
@@ -226,21 +213,22 @@ class ScreeningData extends Component {
               label: "Females",
               data: genre[2],
               backgroundColor: [
-                "#93B7BE",
-                "#C6C5B9",
-                "#F1FFFA",
-                "#454545",
-                "#785964"
+                "#003f5c",
+                "#58508d",
+                "#bc5090",
+                "#ff6361",
+                "#ffa600"
               ],
+              borderColor: "#002f45",
               borderWidth: 1,
               hoverBackgroundColor: [
-                "#B0DCE5",
-                "#C6C5B9",
-                "#F2FFFA",
-                "#6B6B6B",
-                "#9E7483"
+                "#003650",
+                "#524983",
+                "#b54b8a",
+                "#fb615f",
+                "#ffa600"
               ],
-              hoverBorderColor: "rgba(184,88,135,1)"
+              hoverBorderColor: "#002739"
             }
           ]
         }
@@ -254,22 +242,22 @@ class ScreeningData extends Component {
               label: "Males",
               data: genre[1],
               backgroundColor: [
-                "#93B7BE",
-                "#C6C5B9",
-                "#F1FFFA",
-                "#454545",
-                "#785964"
+                "#003f5c",
+                "#58508d",
+                "#bc5090",
+                "#ff6361",
+                "#ffa600"
               ],
-              borderColor: "rgba(52,125,193,1)",
+              borderColor: "#002f45",
               borderWidth: 1,
               hoverBackgroundColor: [
-                "#B0DCE5",
-                "#C6C5B9",
-                "#F2FFFA",
-                "#6B6B6B",
-                "#9E7483"
+                "#003650",
+                "#524983",
+                "#b54b8a",
+                "#fb615f",
+                "#ffa600"
               ],
-              hoverBorderColor: "rgba(39,104,164,1)"
+              hoverBorderColor: "#002739"
             }
           ]
         }
@@ -283,22 +271,22 @@ class ScreeningData extends Component {
               label: "All",
               data: genre[0],
               backgroundColor: [
-                "#93B7BE",
-                "#C6C5B9",
-                "#F1FFFA",
-                "#454545",
-                "#785964"
+                "#003f5c",
+                "#58508d",
+                "#bc5090",
+                "#ff6361",
+                "#ffa600"
               ],
-              borderColor: "rgba(106,112,110,1)",
+              borderColor: "#002f45",
               borderWidth: 1,
               hoverBackgroundColor: [
-                "#B0DCE5",
-                "#C6C5B9",
-                "#F2FFFA",
-                "#6B6B6B",
-                "#9E7483"
+                "#003650",
+                "#524983",
+                "#b54b8a",
+                "#fb615f",
+                "#ffa600"
               ],
-              hoverBorderColor: "rgba(76,59,77,1)"
+              hoverBorderColor: "#002739"
             }
           ]
         }
@@ -306,29 +294,53 @@ class ScreeningData extends Component {
     }
   }
 
+  handleClick = () => {
+    const { genderData, ethData, genreData } = this.state;
+    const { screening, getUsersByParams } = this.props;
+    //Gender data for get request
+    let selGender = '';
+    genderData.datasets[0].data[0] > genderData.datasets[0].data[1] 
+      ? selGender = genderData.labels[0] 
+      : selGender = genderData.labels[1];
+    //Age data 
+    const { data } = this.state.ageData.datasets[0];
+    const { labels } = this.state.ageData;
+    let max = Math.max(...data);
+    let ageInd = data.indexOf(max);
+    let minAge = 18;
+    let maxAge = 75;
+    if(labels[ageInd] === '55+') {
+      minAge = 55;
+    } else {
+      minAge = +labels[ageInd].slice(0, 2);
+      maxAge = +labels[ageInd].slice(3);
+    };
+    //Genre data
+    let genreMax = Math.max(...genreData.datasets[0].data);
+    let genreInd = genreData.datasets[0].data.indexOf(genreMax);
+    let selGenre = genreData.labels[genreInd];
+    //Ethnicity Data
+    let ethMax = Math.max(...ethData.datasets[0].data);
+    let ethInd = ethData.datasets[0].data.indexOf(ethMax);
+    let selEth = ethData.labels[ethInd];
+    // console.log(screening[0].id, selGender, selEth, minAge, maxAge, selGenre);
+    getUsersByParams(screening[0].id, selGender, selEth, minAge, maxAge, selGenre);
+  }
+
+
   render() {
-    const { screening, gender, eth, age } = this.props;
+    const { screening } = this.props;
     const { genderData, ageData, ethData, genreData } = this.state;
-    if(!age) {
-     return null
-    }
-    else {
- 
-      
-    }
-    // let max = Math.max(...age[0]);
-    // let ageInd = age[0].indexOf(max);
     console.log(this.props);
     console.log(this.state);
     return (
       <div className="main-single-data-cont">
-        <h1 className="title-text">{screening[0] && screening[0].title} Screening Data</h1>
+        <h1>{screening[0] && screening[0].title} Screening Data</h1>
         <div className="single-data-cont">
         <h2>Users in interested in attending by:</h2>
             <GenderChart
               genderData={genderData}
             />
-          <div className="chart-cont">
             <AgeChart
               ageData={ageData}
             />
@@ -340,16 +352,6 @@ class ScreeningData extends Component {
               <button 
                 onClick={() => { this.setState({ ageSelect: "female" }, () => this.getAgeData())}}>Females</button>
             </div>
-            {/* {!eth[0] ?
-            <>
-            </>
-            :
-            <>
-              <p>{`${ageData.labels[Math.max(age[0])]}`} year-olds account for {`${ageData[ageInd]}`}</p>
-            </>
-            } */}
-          </div>
-          <div className="chart-cont">
             <GenreChart
               genreData={genreData}
             />
@@ -361,8 +363,6 @@ class ScreeningData extends Component {
               <button
                 onClick={() => { this.setState({ genreSelect: "female" }, () => this.getGenreData()) }}>Females</button>
             </div>
-          </div>
-          <div className="eth-cont">
             <EthChart
               ethData={ethData}
             />
@@ -376,8 +376,11 @@ class ScreeningData extends Component {
               <button
                 onClick={() => {this.setState({ ethSelect: 'overlap' }, () => this.getEthData())}}>Overlay</button>
             </div>
-          </div>
-          <Link to='/admin/send' className="email-link">Send targeted e-mail</Link>
+          <Link 
+            to='/admin/send' 
+            onClick={this.handleClick} 
+            className="email-link">Send targeted e-mail</Link>
+          <p>This will send an e-mail to all users who match the data above but don't have tickets! Fill out your message on the next page!</p>
         </div>
       </div>
     );
@@ -399,6 +402,6 @@ const mapStateToProps = ({
 export default withRouter(
   connect(
     mapStateToProps,
-    { getTheatres, getScreening, getUsersByGen, getUsersByAge, getUsersByEth, getUsersByGenre }
+    { getTheatres, getScreening, getUsersByGen, getUsersByAge, getUsersByEth, getUsersByGenre, getUsersByParams }
   )(ScreeningData)
 );

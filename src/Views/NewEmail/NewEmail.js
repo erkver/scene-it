@@ -1,89 +1,56 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
-import { getUsersByParams, sendEmailAll } from "../../Ducks/adminReducer";
-import axios from "axios";
-// import { addPressComment, getPressComments } from "../../../Ducks/pressCommentReducer";
+import { sendEmailAll } from "../../Ducks/adminReducer";
 import "./NewEmail.scss";
 
 
 class NewEmail extends Component {
-  constructor() {
-    super();
-    this.state = {
-      gender: 'default',
-      ageRange: 'default',
-      favGanre: 'default',
-      eth: "default"
-    }
-  }
-
-  componentDidMount() {
-    const { getUsersByParams } = this.props;
-    getUsersByParams(83, null, 'Asian', 18, 100, null);
-  }
-
-  // handleSubmit(e) {
-  //   e.preventDefault();
-  //   const name = document.getElementById('name').value;
-  //   const email = document.getElementById('email').value;
-  //   const message = document.getElementById('message').value;
-  //   axios({
-  //     method: "POST",
-  //     url: "http://localhost:3001/send",
-  //     data: {
-  //       name: name,
-  //       email: email,
-  //       messsage: message
-  //     }
-  //   }).then((response) => {
-  //     if (response.data.msg === 'success') {
-  //       alert("Message Sent.");
-  //       this.resetForm()
-  //     } else if (response.data.msg === 'fail') {
-  //       alert("Message failed to send.")
-  //     }
-  //   })
+  // constructor() {
+  //   super();
+  //   this.state = {
+  //     message: ""
+  //   }
   // }
 
+  // componentDidMount() {
+  //   const { getUsersByParams } = this.props;
+    
+  // }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    const message = document.getElementById('message').value;
+    const subject = document.getElementById('subject').value;
+    const { sendEmailAll, users } = this.props;
+    let emails = [];
+    users.map(user => emails.push(user.email));
+    console.log(emails, subject);
+    sendEmailAll(emails, message, subject).then((response) => {
+      if (response.data.msg === 'success') {
+        alert("Message Sent.");
+        this.resetForm()
+      } else if (response.data.msg === 'fail') {
+        alert("Message failed to send.")
+      }
+    })
+  }
+
   render() {
-    const { users, sendEmailAll } = this.props;
+    // const { users, sendEmailAll } = this.props;
+    // const { message } = this.state;
     console.log(this.props);
-    let test = users.map((user, i) => (
-      <div key={i}>
-        {user.email}
-      </div>
-    ))
     return (
-      <div className="step3-cont">
-      {test}
+      <div className="main-email-cont">
         <h1>Send Email</h1>
-        <div className="press-card-cont" >
-          <div className="press-comm-add-cont">
-            <form id="contact-form" 
-            // onSubmit={this.handleSubmit.bind(this)} method="POST"
-            >
-              <div className="form-group">
-                <label for="exampleInputEmail1">Email address</label>
-                <input type="email" className="form-control" id="email" aria-describedby="emailHelp" />
-              </div>
-              <div className="form-group">
-                <label for="message">Message</label>
-                <textarea className="form-control" rows="5" id="message"></textarea>
-              </div>
-              <button type="submit" onClick={() => sendEmailAll(['erkver250@gmail.com'], 'test')} className="btn btn-primary">Submit</button>
-            </form>
-            <div className="link-cont">
-              <Link
-                to='/'
-                className="link-btn" >{`< Previous Step`}</Link>
-              <Link
-                to='/admin/report/step4'
-                className="link-btn" >Next Step ></Link>
-            </div>
-          </div>
-          <div className="bottom-prComm-cont">
-          </div>
+        <div className="email-cont">
+          <form className="form-cont" onSubmit={this.handleSubmit.bind(this)}>
+            <label>Subject:</label>
+            <input className="form-control" id="subject" placeholder="Subject"></input>
+            <label>Message:</label>
+            <textarea className="form-control" rows="5" id="message" placeholder="Message"></textarea>
+            <button type="submit" className="btn btn-primary">Send Email</button>
+          </form>
         </div>
       </div>
     )
@@ -100,4 +67,4 @@ const mapStateToProps = ({
   ...screeningReducer
 });
 
-export default withRouter(connect(mapStateToProps, {getUsersByParams, sendEmailAll})(NewEmail));
+export default withRouter(connect(mapStateToProps, {sendEmailAll})(NewEmail));

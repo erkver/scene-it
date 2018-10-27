@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { addFavorite, getFavorites, deleteFavorite } from "../../Ducks/favoritesReducer";
 import { withRouter, Link } from "react-router-dom";
+import { sendEmailAll, sendText } from "../../Ducks/adminReducer";
 import { getScreening } from "../../Ducks/screeningReducer";
 import './Screening.scss';
 
@@ -14,18 +15,20 @@ class Screening extends Component {
   }
 
   componentDidMount() {
-    const { getScreening, getFavorites, user, screening } = this.props;
+    const { getScreening, getFavorites, user } = this.props;
     const { id } = this.props.match.params;
     getScreening(+id).then(response => {
       console.log(response);
       const { data } = response.value;
         getFavorites(data[0].userid).then(res => {
         const { data } = res.value;
-          console.log(res);
+        console.log(res);
         let matchMov = data.filter(fav => fav.movieid === response.value.data[0].id);
         let matchUser = data.filter(fav => fav.userid === user.user_id);
         console.log(matchMov, matchUser);
-        ((matchMov.length && matchUser.length) ? this.setState({claimed: true}) : this.setState({claimed: false}));
+        ((matchMov.length && matchUser.length) 
+          ? this.setState({claimed: true}) 
+          : this.setState({claimed: false}));
         })
     });
   }
@@ -34,6 +37,7 @@ class Screening extends Component {
   render() {
     const { screening, isAuthed, user, deleteFavorite, favorites } = this.props;
     const { claimed } = this.state;
+    const { PHONE } = process.env;
     let btnText = 'Get Passes!';
     if(claimed) {
       btnText = 'Claimed!'
@@ -61,13 +65,29 @@ class Screening extends Component {
             :
             (!claimed
               ? 
-              (<button
+              (<>
+                <h3>Claim your passes below!</h3>
+                <div className="txt-btn-cont">
+                <button
+                  className="add-btn"
+                  onClick={() => {
+                    this.setState(
+                      { claimed: !this.state.claimed },
+                      () => addFavorite(e.id, user.user_id),
+                      sendText(`+15005550006`, JSON.stringify(`Here are your passes for ${e.title}`))
+                    )
+                  }}>Via text
+                </button>
+                <button
                 className="add-btn"
-                onClick={() => {
-                  this.setState({ claimed: !this.state.claimed });
-                  addFavorite(e.id, user.user_id)
-                }}>{btnText}
-              </button>)
+                  onClick={() => {
+                    this.setState({ claimed: !this.state.claimed }, 
+                    () => addFavorite(e.id, user.user_id), 
+                    sendEmailAll(user.email, `Here are your passes for ${e.title}`, `${e.title} passes!`));
+                }}>Via email
+                </button>
+              </div>
+              </>)
               :
               (<>
                 <p className="add-text">{btnText}</p>
@@ -96,9 +116,11 @@ class Screening extends Component {
 const mapStateToProps = ({ 
   userReducer, 
   favoritesReducer, 
-  screeningReducer }) => ({ 
+  screeningReducer,
+  adminReducer }) => ({ 
   ...userReducer, 
   ...favoritesReducer, 
-  ...screeningReducer });
+  ...screeningReducer,
+  ...adminReducer });
 
-export default withRouter(connect(mapStateToProps, { addFavorite, getScreening, getFavorites, deleteFavorite})(Screening));
+export default withRouter(connect(mapStateToProps, { addFavorite, getScreening, getFavorites, deleteFavorite, sendEmailAll, sendText})(Screening));

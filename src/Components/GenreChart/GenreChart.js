@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Pie } from "react-chartjs-2";
+import './GenreChart.scss'
 
 class GenreChart extends Component {
   constructor(props) {
@@ -16,12 +17,27 @@ class GenreChart extends Component {
     }
   }
 
+
+  renderContent = () => {
+    const { labels } = this.state.genreData;
+    const { data, backgroundColor } = this.state.genreData.datasets[0];
+    let max = Math.max(...data);
+    let genreInd = data.indexOf(max);
+    console.log(max, genreInd);
+    return (
+      <>
+        <h3 style={{color: `${backgroundColor[genreInd]}`}}>{`${labels[genreInd]}`}</h3>
+        <p>is {`${data[genreInd]}%`} of user's favorite genre</p>
+      </>
+    );
+  }
+
   render() {
     const { genreData } = this.state;
     // console.log(ageData);
     console.log(this.props);
     return (
-      <div>
+      <div className="genre-cont">
         <h2>Favorite genre</h2>
         <Pie
           data={genreData}
@@ -36,6 +52,11 @@ class GenreChart extends Component {
             }
           }}
         />
+        {!(genreData.datasets && genreData.datasets[0]) ?
+          <div>Loading...</div>
+          :
+          this.renderContent()
+        }
       </div>
     )
   }

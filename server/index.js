@@ -1,6 +1,15 @@
 require('dotenv').config();
 
-const { SECRET, REACT_APP_HOME, USER, PASS } = process.env;
+const {
+  SECRET,
+  CONNECTION_STRING,
+  REACT_APP_HOME,
+  USER,
+  PASS,
+  TWILIO_ACCOUNT_SID,
+  TWILIO_AUTH_TOKEN,
+  TWILIO_PHONE_NUMBER
+} = process.env;
 const express = require("express");
 const session = require("express-session");
 const passport = require("passport");
@@ -9,6 +18,7 @@ const port = process.env.PORT || 3001;
 const massive = require("massive");
 const { json } = require("body-parser");
 const nodemailer = require('nodemailer');
+const client = require('twilio')(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
 
 const { strat, getUser, logout } = require("./ctrl/authCtrl");
 const { getMovies, getMovie, getAllUsers } = require("./ctrl/adminCtrl.js");
@@ -57,7 +67,7 @@ const {
 } = require('./ctrl/audCommentCtrl')
 
 app.use(json());
-massive(process.env.CONNECTION_STRING).then(db => app.set("db", db)).catch(err => console.log(err));
+massive(CONNECTION_STRING).then(db => app.set("db", db)).catch(err => console.log(err));
 
 app.use(
   session({
@@ -150,13 +160,9 @@ app.delete("/api/comment/audience/:id", deleteAudComment);
 
 //Nodemailer
 app.post('/send', (req, res) => {
-  const output = `
-    <p>Check out this screening in your area!</p>
-    <p>Details Below!</p>
-    <p>${req.body.message}</p>`;
-    console.log(req.body);
-
+  const output = `<p>${req.body.message}</p>`;
   const emails = req.body.users;
+  const subject = req.body.subject;
 
   let transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
@@ -175,11 +181,11 @@ app.post('/send', (req, res) => {
     let mailOptions = {
       from: `SceneItTeam <${USER}>`,
       to: 'erkver250@gmail.com',
-      subject: 'Check out this screening!',
       text: 'Hello world?',
       html: output
     };
     mailOptions.cc = user;
+    mailOptions.subject = subject;
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
         return console.log(error);
@@ -189,6 +195,22 @@ app.post('/send', (req, res) => {
       console.log('Message sent: %s', info.messageId);
       console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
     });
+  });
+});
+
+//Twilio
+app.post('/api/messages', (req, res) => {
+  console.log(req.body);
+  res.header('Content-type', 'applcation/json');
+  client.messages.create({
+    from: TWILIO_PHONE_NUMBER,
+    to: req.body.to,
+    body: req.body.body
+  }).then(() => {
+    res.send(JSON.stringify({success: true}));
+  }).catch(err => {
+    console.log(err);
+    res.send(JSON.stringify({success: false}));
   });
 });
 

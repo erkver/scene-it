@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Bar } from "react-chartjs-2";
+import './AgeChart.scss'
 
 
 class AgeChart extends Component {
@@ -17,12 +18,27 @@ class AgeChart extends Component {
     }
   }
 
+  renderContent = () => {
+    const { data, borderColor } = this.state.ageData.datasets[0];
+    const { labels } = this.state.ageData;
+    let max = Math.max(...data);
+    let ageInd = data.indexOf(max);
+    // console.log(max, ageInd);
+    return (
+      <>
+        <h3 style={{ color: `${borderColor[ageInd]}` }}>{`${labels[ageInd]}`}</h3>
+        <p>year-olds account for {`${data[ageInd]}%`}</p>
+      </>
+    );
+  }
+
   render() {
     const { ageData } = this.state;
-    // console.log(ageData);
-    console.log(this.props);
+    // console.log(this.props);
+    console.log(this.state)
+
     return (
-      <div>
+      <div className="age-cont">
         <h2>Age</h2>
         <Bar
           data={ageData}
@@ -56,6 +72,11 @@ class AgeChart extends Component {
             }
           }}
         />
+        {!(ageData.datasets && ageData.datasets[0]) ?
+          <div>Loading...</div>
+          :
+          this.renderContent()
+        }
       </div>
     )
   }

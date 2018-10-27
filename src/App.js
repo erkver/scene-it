@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import './App.scss';
 import store from "./Ducks/store";
 import routes from "./routes";
 import Navbar from "./Components/Navbar/Navbar";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faCircleNotch, faSearchPlus, faAngleDoubleDown, faAngleDoubleUp } from "@fortawesome/free-solid-svg-icons";
+import './App.scss';
 
 library.add(faCircleNotch, faSearchPlus, faAngleDoubleDown, faAngleDoubleUp);
 

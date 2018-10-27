@@ -42,12 +42,12 @@ class GenderChart extends Component {
           ?
           <>
             <p className="male">males</p>
-            <p>accounting for {`${gender[0]}%`} of interested attendees</p>
+            <p>accounting for {`${gender[0]}%`} of users</p>
           </>
           :
           <>
             <p className="female">females</p>
-            <p>account for {`${gender[1]}%`} of interested attendees</p>
+            <p>account for {`${gender[1]}%`} of users</p>
           </>
         }
       </div>

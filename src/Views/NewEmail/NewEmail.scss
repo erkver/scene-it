@@ -1,0 +1,92 @@
+@import '../../index';
+
+@media(min-width: 320px) {
+  .main-email-cont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 30em;
+    margin: auto;
+    width: 100vw;
+
+    h1 {
+      font-size: 20px;
+      font-weight: bold;
+      margin: 10px 0;
+      text-align: center;
+    }
+
+    .email-cont {
+      background: $primary-card;
+      width: 90%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      border: solid 1px $primary-btn;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 16px;
+      @include box-shadow;
+
+
+      .form-cont{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-evenly;
+        width: 96%;
+        margin: .2em auto 1em auto;
+
+        label {
+          font-size: 18px;
+          margin: .5em 0;
+        }
+        textarea {
+          width: 97%;
+          border-radius: 5px;
+          border: solid 1px $primary-border; 
+          -webkit-transition: .3s;
+          transition: .3s;
+          outline: none;
+          background: white;
+          padding-left: .3em;
+          margin-bottom: .5em;
+          font-family: 'Didact Gothic', sans-serif;
+        }
+
+        textarea:focus {
+          border: 2px solid $primary-btn;
+        }
+
+        input {
+          width: 98%;
+          height: 2em;
+          border-radius: 5px;
+          border: solid 1px $primary-border; 
+          -webkit-transition: .3s;
+          transition: .3s;
+          outline: none;
+          background: white;
+          padding-left: .3em;
+        }
+      
+        input:focus {
+          border: 2px solid $primary-btn;
+        }
+        
+        button {
+          background: none;
+          border: .75px solid $primary-btn;
+          font-size: 18px;
+          color: $primary-btn;
+          padding: 3%;
+          border-radius: 10px;
+          text-decoration: none;
+          margin: .5em auto 0 auto;
+        }
+      }
+    }
+  }
+}
