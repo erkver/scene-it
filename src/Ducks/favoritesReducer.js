@@ -22,7 +22,7 @@ export function getFill(movieId) {
 export function addFavorite(movieId, userId) {
   return {
     type: ADD_FAVORITE,
-    payload: axios.post('/api/favorite', {movieId,userId})
+    payload: axios.post('/api/favorite', {movieId, userId})
   }
 }
 

@@ -2,7 +2,7 @@ import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import Home from "./Views/Home/Home";
-import Profile from "./Views/Profile/Profile";
+// import Profile from "./Views/Profile/Profile";
 import Watchlist from "./Views/Watchlist/Watchlist";
 import Screening from "./Views/Screening/Screening";
 import AdminHome from "./Views/AdminHome/AdminHome";
@@ -35,7 +35,7 @@ export default (
         }
       })}
     />
-    <Route
+    {/* <Route
       path="/profile"
       component={connect(mapStateToProps)(props => {
         if (props.isAuthed) {
@@ -43,7 +43,7 @@ export default (
         } else {
           return <Redirect to="/" />;
         }
-      })}
+      })} */}
     />
     <Route
       path="/watchlist"

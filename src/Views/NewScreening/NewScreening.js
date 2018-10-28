@@ -36,7 +36,7 @@ class NewScreening extends Component {
       this.setState({newMov: true});
     } else {
       getScreening(+id).then(res => {
-        console.log(res);
+        // console.log(res);
         const { data } = res.value;
         this.setState({ startDate: moment(data[0].screening_date), selectedTheatre: {theatre_name: data[0].theatre_name, theatre_id: data[0].theatre_id}, seatCount: data[0].seat_count })});
       path.includes('add') ? this.setState({newMov: true}) : this.setState({newMov: false})
@@ -65,8 +65,8 @@ class NewScreening extends Component {
   render() {
     const { movies, theatres, addScreening, movie, user, screening, editScreening, getScreenings } = this.props;
     const { startDate, seatCount, selectedTheatre, newMov } = this.state;
-    console.log(this.state);
-    console.log(this.props);
+    // console.log(this.state);
+    // console.log(this.props);
 
     let movieList = movies.map((movie, i) => (
       <option 

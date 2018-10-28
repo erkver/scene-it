@@ -136,11 +136,11 @@ module.exports = {
           console.log(err);
         });
     } else if (req.query.mov || req.query.gender || req.query.eth || req.query.minage || req.query.maxage || req.query.fav) {
-      console.log(mov, gender, eth, minage, maxage, fav);
+      // console.log(mov, gender, eth, minage, maxage, fav);
       db.users
         .get_user_emails([+mov, gender, eth, minage, maxage, fav])
         .then(response => {
-          console.log(response);
+          console.log("get emails success");
           return res.status(200).json(response);
         })
         .catch(err => {

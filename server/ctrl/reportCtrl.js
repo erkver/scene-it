@@ -7,7 +7,7 @@ module.exports = {
       db.reports
       .get_reports(r)
       .then(response => {
-        console.log("query:", response);
+        console.log("report query sucess");
         return res.status(200).json(response);
       })
       .catch(err => {
@@ -18,7 +18,7 @@ module.exports = {
       db.reports
         .get_reports()
         .then(response => {
-          console.log("get:", response);
+          console.log("get all reports success");
           return res.status(200).json(response);
         })
         .catch(err => {
@@ -46,7 +46,7 @@ module.exports = {
     db.reports
       .add_report([attendance, ratio, reaction, movieId])
       .then(response => {
-        console.log("add:", response);
+        console.log("add report sucess");
         return res.status(200).json(response);
       })
       .catch(err => {
@@ -61,7 +61,7 @@ module.exports = {
     db.reports
       .edit_report([id, attendance, ratio, reaction])
       .then(response => {
-        console.log(response);
+        console.log("edit report success");
         return res.status(200).json(response);
       })
       .catch(err => {

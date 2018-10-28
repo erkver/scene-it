@@ -323,7 +323,7 @@ class ScreeningData extends Component {
     let ethMax = Math.max(...ethData.datasets[0].data);
     let ethInd = ethData.datasets[0].data.indexOf(ethMax);
     let selEth = ethData.labels[ethInd];
-    console.log(screening[0].id, selGender, selEth, minAge, maxAge, selGenre);
+    // console.log(screening[0].id, selGender, selEth, minAge, maxAge, selGenre);
     getUsersByParams(screening[0].id, selGender, selEth, minAge, maxAge, selGenre);
   }
 
@@ -331,8 +331,8 @@ class ScreeningData extends Component {
   render() {
     const { screening } = this.props;
     const { genderData, ageData, ethData, genreData } = this.state;
-    console.log(this.props);
-    console.log(this.state);
+    // console.log(this.props);
+    // console.log(this.state);
     return (
       <div className="main-single-data-cont">
         <h1>{screening[0] && screening[0].title} Screening Data</h1>

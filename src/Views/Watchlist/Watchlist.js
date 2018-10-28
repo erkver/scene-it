@@ -14,7 +14,7 @@ class Watchlist extends Component {
 
   render() {
     const { favorites, user } = this.props;
-    console.log(this.props);
+    // console.log(this.props);
     let favList = favorites.map((fav, i) => (
       <div className="main-fav-cont" key={i}>
         <Favorite

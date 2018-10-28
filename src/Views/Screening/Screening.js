@@ -18,14 +18,14 @@ class Screening extends Component {
     const { getScreening, getFavorites, user } = this.props;
     const { id } = this.props.match.params;
     getScreening(+id).then(response => {
-      console.log(response);
+      // console.log(response);
       const { data } = response.value;
-        getFavorites(data[0].userid).then(res => {
+        getFavorites(user.user_id).then(res => {
         const { data } = res.value;
-        console.log(res);
+        // console.log(res);
         let matchMov = data.filter(fav => fav.movieid === response.value.data[0].id);
         let matchUser = data.filter(fav => fav.userid === user.user_id);
-        console.log(matchMov, matchUser);
+        // console.log(matchMov, matchUser);
         ((matchMov.length && matchUser.length) 
           ? this.setState({claimed: true}) 
           : this.setState({claimed: false}));
@@ -33,16 +33,37 @@ class Screening extends Component {
     });
   }
 
+  handleDelete = () => {
+    const { favorites, screening, deleteFavorite } = this.props;
+    let fav = favorites.filter(fav => fav.movieid === screening[0].id);
+    deleteFavorite(fav[0].fav_id);
+    this.setState({ claimed: false });
+  }
+
+  addByText = () => {
+    const { addFavorite, screening, user, sendText } = this.props;
+    addFavorite(screening[0].id, user.user_id);
+    // console.log(screening[0].id, user.user_id);
+    sendText(+18173085007, JSON.stringify(`Here are your passes for ${screening[0].title}`));
+    this.setState({ claimed: !this.state.claimed });
+  }
+
+  addByEmail = () => {
+    const { addFavorite, screening, user, sendEmailAll } = this.props;
+    addFavorite(screening[0].id, user.user_id);
+    // console.log(screening[0].id, user.user_id);
+    sendEmailAll([user.email], `Here are your passes for ${screening[0].title}`, `${screening[0].title} passes!`);
+    this.setState({ claimed: !this.state.claimed });
+  }
 
   render() {
-    const { screening, isAuthed, user, deleteFavorite, favorites } = this.props;
+    const { screening, isAuthed } = this.props;
     const { claimed } = this.state;
     let btnText = 'Get Passes!';
     if(claimed) {
       btnText = 'Claimed!'
     }
-    let fav = favorites.filter(fav => fav.movieid === screening[0].id);
-    console.log(this.props);
+    // console.log(this.props);
     let screeningInfo = screening.map((e, i) => (
       <div key={i} className="main-screening-cont">
         <h1 className="title-text">{e.title} screening</h1>
@@ -69,21 +90,11 @@ class Screening extends Component {
                 <div className="txt-btn-cont">
                 <button
                   className="add-btn"
-                  onClick={() => {
-                    this.setState(
-                      { claimed: !this.state.claimed },
-                      () => addFavorite(e.id, user.user_id),
-                      sendText(+18173085007, JSON.stringify(`Here are your passes for ${e.title}`))
-                    )
-                  }}>Via text
+                  onClick={() => this.addByText()}>Via text
                 </button>
                 <button
                 className="add-btn"
-                  onClick={() => {
-                    this.setState({ claimed: !this.state.claimed }, 
-                    () => addFavorite(e.id, user.user_id), 
-                    sendEmailAll([user.email], `Here are your passes for ${e.title}`, `${e.title} passes!`));
-                }}>Via email
+                  onClick={() => this.addByEmail()}>Via email
                 </button>
               </div>
               </>)
@@ -93,10 +104,7 @@ class Screening extends Component {
                 <Link 
                   to="/"
                   className="del-link"
-                  onClick={() => {
-                    console.log(fav);
-                    deleteFavorite(fav[0].fav_id);
-                    this.setState({claimed: false})}}
+                  onClick={() => this.handleDelete()}
                   >Click here to release your seats...</Link>
                 </>)
             )

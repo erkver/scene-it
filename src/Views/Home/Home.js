@@ -15,7 +15,7 @@ class Home extends Component {
     
   render() {
     const { screenings, user } = this.props;
-    setTimeout(console.log(this.props), 1000);
+    // setTimeout(console.log(this.props), 1000);
     let screeningList = screenings.map((movie, i) => (
       <div className="main-movie-cont" key={i}>
         <Movie 

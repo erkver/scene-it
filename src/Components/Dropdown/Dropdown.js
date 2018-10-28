@@ -23,20 +23,12 @@ class Dropdown extends Component {
             <Link className="menu-link" to="/" onClick={() => handleClick()}>
               Home
             </Link>
-            <p className="menu-link">Message Board</p>
             <Link
               className="menu-link"
               to="/watchlist"
               onClick={() => handleClick()}
             >
               My Watchlist
-            </Link>
-            <Link
-              className="menu-link"
-              to="/profile"
-              onClick={() => handleClick()}
-            >
-              Profile
             </Link>
             <a
               className="menu-link"

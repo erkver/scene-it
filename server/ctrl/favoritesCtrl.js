@@ -2,7 +2,7 @@ module.exports = {
   getFavorites: (req, res) => {
     const db = req.app.get('db');
     const { u, m } = req.query;
-    console.log("favs: ", req.query.m)
+    // console.log("favs: ", req.query.m)
     if (req.query.u) {
       db.favorites
         .get_favorites(u)
@@ -38,7 +38,9 @@ module.exports = {
   addFavorite: (req, res) => {
     const db = req.app.get('db');
     const { movieId, userId } = req.body;
+    console.log(req.body)
     db.favorites.add_favorite([movieId, userId]).then(response => {
+      console.log("add fav success");
         return res.status(200).json(response);
       }).catch(err => {
         res.status(500).send({ errorMessage: "Something went wrong" });

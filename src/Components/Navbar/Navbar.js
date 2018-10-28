@@ -1,15 +1,15 @@
 import React, { Component } from "react";
-import "./Navbar.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Dropdown from "../Dropdown/Dropdown";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import "./Navbar.scss";
 
 class Navbar extends Component {
   constructor() {
     super();
     this.state = {
-      visible: false
+      visible: false,
     };
   }
 
@@ -18,7 +18,8 @@ class Navbar extends Component {
   }
 
   render() {
-    const { isAuthed } = this.props;
+    const { isAuthed, user} = this.props;
+    const { visible } = this.props;
     const { REACT_APP_LOGIN } = process.env;
     console.log(this.props);
     let visibility = "hide";
@@ -27,8 +28,9 @@ class Navbar extends Component {
     }
     return (
       <div className="nav-cont">
+      <div className="inner-nav-cont">
         {!isAuthed ? (
-          <div className="login-cont">
+          <>
             <a
               className="login-link"
               href={REACT_APP_LOGIN}
@@ -36,12 +38,14 @@ class Navbar extends Component {
             >
               Login
             </a>
-          </div>
+            </>
+
         ) : (
-          <div className="icon-cont">
+          <>
             <FontAwesomeIcon
               icon="circle-notch"
               className={`nav-icon ${visibility}`}
+                transform={{ rotate: (visibility === "hide" ? 0 : 180) }}
               onClick={() => this.setState({ visible: !this.state.visible })}
             />
             <Dropdown
@@ -49,12 +53,13 @@ class Navbar extends Component {
               handleClick={this.handleClick}
               // handleOutsideClick={this.handleOutsideClick}
             />
-          </div>
+          </>
         )}
         <Link to="/" className="title-treatment">
           SceneIt
         </Link>
-        <FontAwesomeIcon icon="search-plus" className="search-icon" />
+        {user ? <p></p> : <p>user.name</p>}
+        </div>
       </div>
     );
   }

@@ -49,7 +49,7 @@ module.exports = {
     db.comments.press
       .edit_press_comment([id, name, outlet, comment])
       .then(response => {
-        console.log("edit pComm:", response);
+        console.log("edit pComm success");
         return res.status(200).json(response);
       })
       .catch(err => {

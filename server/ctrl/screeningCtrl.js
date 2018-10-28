@@ -26,7 +26,7 @@ module.exports = {
     const db = req.app.get('db');
     const { id } = req.params;
     db.screenings.get_screening([id]).then(response => {
-      console.log("get: ", response);
+      console.log("get screening success ");
       return res.status(200).json(response);
     }).catch(err => {
       res.status(500).send({ errorMessage: "Something went wrong" });
@@ -35,7 +35,7 @@ module.exports = {
   },
   getScreeningInfo: (req, res) => {
     const { id } = req.params;
-    console.log(req.params.id);
+    // console.log(req.params.id);
     axios
       .get(`https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=en-US`)
       .then(response => {

@@ -33,7 +33,7 @@ class Reports extends Component {
 
   render() {
     const { reports } = this.props;
-    console.log(this.props);
+    // console.log(this.props);
     return (
       <div className="report-list-cont">
         <h1>Reports</h1>
