@@ -188,6 +188,7 @@ app.post('/send', (req, res) => {
     mailOptions.cc = user;
     mailOptions.subject = subject;
     transporter.sendMail(mailOptions, (error, info) => {
+      console.log(mailOptions);
       if (error) {
         return console.log(error);
       } else if(i === emails.length - 1) {

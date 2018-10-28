@@ -7,7 +7,7 @@ import "./NewEmail.scss";
 
 class NewEmail extends Component {
   handleSubmit(e) {
-    e.preventDefault();
+    // e.preventDefault();
     const message = document.getElementById('message').value;
     const subject = document.getElementById('subject').value;
     const { sendEmailAll, users } = this.props;
@@ -30,7 +30,7 @@ class NewEmail extends Component {
             <input className="form-control" id="subject" placeholder="Subject"></input>
             <label>Message:</label>
             <textarea className="form-control" rows="5" id="message" placeholder="Message"></textarea>
-            <Link to='/' type="submit" className="btn btn-primary">Send Email</Link>
+            <Link onClick={e => this.handleSubmit(e)} to='/' className="btn btn-primary">Send Email</Link>
           </form>
         </div>
       </div>

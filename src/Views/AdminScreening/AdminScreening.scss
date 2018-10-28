@@ -5,7 +5,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
+    min-height: 85vh;
     margin: auto;
     width: 100vw;
   
@@ -25,6 +25,7 @@
       border: solid 1px $primary-btn;
       border-radius: 10px;
       text-align: center;
+      @include box-shadow;
     
       img {
         border: solid 1px $primary-btn;
@@ -41,15 +42,21 @@
         font-size: 14px;
       }
 
-      .edit-btn {
-        background: $primary-btn;
-        border: none;
-        font-size: 14px;
-        color: white;
-        padding: 3%;
-        border-radius: 10px;
-        text-decoration: none;
-        margin: .5em 0;
+      .data-btn-cont {
+        @include display-flex-center;
+        width: 100%;
+        justify-content: space-evenly;
+      
+        .edit-btn {
+          background: none;
+          border: .75px solid $primary-btn;
+          font-size: 14px;
+          color: $primary-btn;
+          padding: 3%;
+          border-radius: 10px;
+          text-decoration: none;
+          margin: .5em 0;
+        }
       }
     }
   }

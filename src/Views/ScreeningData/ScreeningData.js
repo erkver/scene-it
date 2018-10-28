@@ -27,12 +27,12 @@ class ScreeningData extends Component {
 
   componentWillMount() {
     const { getScreening, getUsersByGen, getUsersByAge, getUsersByEth, getUsersByGenre } = this.props;
-    // const { id } = this.props.match.params;
-    getScreening(83);
-    getUsersByGen(83).then(() => this.getGenderData());
-    getUsersByAge(83).then(() => this.getAgeData());
-    getUsersByEth(83).then(() => this.getEthData());
-    getUsersByGenre(83).then(() => this.getGenreData());
+    const { id } = this.props.match.params;
+    getScreening(id);
+    getUsersByGen(id).then(() => this.getGenderData());
+    getUsersByAge(id).then(() => this.getAgeData());
+    getUsersByEth(id).then(() => this.getEthData());
+    getUsersByGenre(id).then(() => this.getGenreData());
   }
 
   getGenderData = () => {
@@ -323,7 +323,7 @@ class ScreeningData extends Component {
     let ethMax = Math.max(...ethData.datasets[0].data);
     let ethInd = ethData.datasets[0].data.indexOf(ethMax);
     let selEth = ethData.labels[ethInd];
-    // console.log(screening[0].id, selGender, selEth, minAge, maxAge, selGenre);
+    console.log(screening[0].id, selGender, selEth, minAge, maxAge, selGenre);
     getUsersByParams(screening[0].id, selGender, selEth, minAge, maxAge, selGenre);
   }
 

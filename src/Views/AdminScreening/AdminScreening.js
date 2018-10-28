@@ -22,22 +22,29 @@ class AdminScreening extends Component {
       <div className="main-single-screening-cont" key={i}>
         <h1 className="title-text">{e.title} Info</h1>
         <div className="single-screening-cont">
-            <img
-              src={e.img_url}
-              alt={e.title}
-              className="poster"
-            />
-            <p className="info-text">Title: {e.title}</p>
-            <p className="info-text">Studio: {e.studio}</p>
-            <p className="info-text">Release Date: {e.release_date}</p>
-            <p className="info-text">Runtime: {e.runtime} minutes</p>
-            <p className="info-text">Screening Date: {e.screening_date}</p>
-            <p className="info-text">Theatre: {e.theatre_name}</p>
-            <p className="info-text">Fill: {fill}/{e.seat_count}</p>
-            <p className="info-text">Ratio: {(fill/e.seat_count).toFixed(1)}:1</p>
-            <Link 
-              className="edit-btn" 
-              to={`/admin/screening/edit/${e.id}`}>Edit Screening</Link>
+          <img
+            src={e.img_url}
+            alt={e.title}
+            className="poster"
+          />
+          <p className="info-text">Title: {e.title}</p>
+          <p className="info-text">Studio: {e.studio}</p>
+          <p className="info-text">Release Date: {e.release_date}</p>
+          <p className="info-text">Runtime: {e.runtime} minutes</p>
+          <p className="info-text">Screening Date: {e.screening_date}</p>
+          <p className="info-text">Theatre: {e.theatre_name}</p>
+          <p className="info-text">Fill: {fill}/{e.seat_count}</p>
+          <p className="info-text">Ratio: {(fill/e.seat_count).toFixed(1)}:1</p>
+          <div className="data-btn-cont">
+          <Link 
+            className="edit-btn" 
+            to={`/admin/screening/edit/${e.id}`}>Edit Screening
+          </Link>
+          <Link
+              className="edit-btn"
+              to={`/admin/data/${e.id}`}>View Screening Data
+          </Link>
+          </div>
         </div>
       </div>
     ));

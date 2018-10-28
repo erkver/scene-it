@@ -140,7 +140,7 @@ module.exports = {
       db.users
         .get_user_emails([+mov, gender, eth, minage, maxage, fav])
         .then(response => {
-          console.log("email q success");
+          console.log(response);
           return res.status(200).json(response);
         })
         .catch(err => {

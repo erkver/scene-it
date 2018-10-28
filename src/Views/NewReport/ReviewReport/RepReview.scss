@@ -27,6 +27,7 @@
       border: solid 1px $primary-btn;
       border-radius: 10px;
       font-size: 16px;
+      @include box-shadow;
 
       .report-card-cont-final {
         width: 96%;
