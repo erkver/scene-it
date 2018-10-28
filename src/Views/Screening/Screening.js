@@ -76,9 +76,11 @@ class Screening extends Component {
           <p className="info-text">Studio: {e.studio}</p>
           <p className="info-text">Release Date: {e.release_date}</p>
           <p className="info-text">Genre: {e.genre}</p>
-          <p><a className="info-text" href={e.mov_url}>Film Homepage</a></p>
+          {!e.mov_url ? <></> :
+           <p><a className="info-text" href={e.mov_url}>Film Homepage</a></p>
+          }
           <p className="info-text">Synopsis: {e.synopsis}</p>
-          <p className="info-text">Runtime: {e.runtime} minutes</p>
+          <p className="info-text">Runtime: {!e.runtime ? "TBD" : `${e.runtime} minutes`}</p>
           {!isAuthed
             ?
             <p className="add-text">Login to get passes!</p>

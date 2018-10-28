@@ -84,3 +84,94 @@
     }
   }
 }
+
+@media(min-width: 1000px) {
+  .report-final-cont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 30em;
+    margin: auto;
+    width: 75%;
+
+    h1 {
+      font-size: 28px;
+      font-weight: bold;
+      margin: 1em 0;
+      text-align: center;
+    }
+
+    .report-final-inner-cont {
+      background: $primary-card;
+      width: 90%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      border: solid 1px $primary-btn;
+      border-radius: 10px;
+      font-size: 20px;
+      @include box-shadow;
+
+      .report-card-cont-final {
+        width: 96%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-evenly;
+        margin: 0 auto;
+        border-bottom: .75px solid $primary-border;
+        
+        .report-card-cont-header {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          border-bottom: solid .75px $primary-border;
+
+          h2{
+            font-weight: bold;
+            margin: .5em 0;
+          }
+        }
+        
+        .single-comment-cont {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: space-evenly;
+          border-bottom: solid .25px $primary-border;
+          flex: 1;
+
+          p {
+            margin: .4em 0 .4em .3em;
+            text-align: start;
+          }
+        }
+
+        p {
+          margin: .4em 0 .4em .3em;
+          font-size: 16px;
+        }
+      }
+
+      .report-links:hover {
+        transition: .2s;
+        color: $primary-btn;
+      }
+
+      .report-links {
+        font-size: 14px;
+        text-decoration: none;
+        width: 10em;
+        height: 2.5em;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        color: $primary-header;
+      }
+    }
+  }
+}

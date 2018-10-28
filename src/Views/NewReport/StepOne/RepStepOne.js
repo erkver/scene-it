@@ -46,7 +46,8 @@ class RepStepOne extends Component {
       <div className="new-report-cont">
         <h1>{!report[0] ? "Create Report" : "Edit Report"}</h1>
         <div className="new-report-inner-cont">
-          <div className="report-row-cont">
+          <div className="report-card1-cont">
+            <div className="report-row-cont">
             <p className="screening-select">Title:</p>
             {!report[0] ?
               <>
@@ -125,6 +126,7 @@ class RepStepOne extends Component {
                 className="submit-btn">Edit Next Step</Link>
             </div>
           }
+          </div>
         </div>
       </div>
     )

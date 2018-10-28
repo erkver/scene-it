@@ -76,7 +76,7 @@ class RepStepTwo extends Component {
             </div>
             <div className="link-cont">
               <Link
-                to='/'
+                to='/admin/report/step1'
                 className="link-btn" >{`< Previous Step`}</Link>
               <Link 
                 to='/admin/report/step3' 

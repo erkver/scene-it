@@ -30,7 +30,7 @@ class AdminScreening extends Component {
           <p className="info-text">Title: {e.title}</p>
           <p className="info-text">Studio: {e.studio}</p>
           <p className="info-text">Release Date: {e.release_date}</p>
-          <p className="info-text">Runtime: {e.runtime} minutes</p>
+          <p className="info-text">Runtime: {!e.runtime ? "TBD" : `${e.runtime} minutes`}</p>
           <p className="info-text">Screening Date: {e.screening_date}</p>
           <p className="info-text">Theatre: {e.theatre_name}</p>
           <p className="info-text">Fill: {fill}/{e.seat_count}</p>

@@ -11,7 +11,7 @@ export default function Movie (props) {
     divName = 'admin-movie-cont'
     innerDivName = 'admin-inner-mov-cont'
   };
-  // console.log(props);
+  console.log(props);
   return (
     <div className={divName}>
       <div className={innerDivName}>
@@ -34,6 +34,7 @@ export default function Movie (props) {
       :  <>
           <p>Film: {movie.title}</p>
           <p>Screening Date: {movie.screening_date}</p>
+          <p>Location: {movie.theatre_name}</p>
           {/* <p>Passes Redeemed: {fill}/{movie.seat_count}</p>
           <p>Booking Ratio 1:1</p> */}
           <div className="btn-cont">

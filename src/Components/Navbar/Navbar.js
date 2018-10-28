@@ -17,9 +17,11 @@ class Navbar extends Component {
     this.setState({ visible: !this.state.visible }); 
   }
 
+ 
+
   render() {
     const { isAuthed, user} = this.props;
-    const { visible } = this.props;
+    const { visible } = this.state;
     const { REACT_APP_LOGIN } = process.env;
     console.log(this.props);
     let visibility = "hide";
@@ -27,7 +29,7 @@ class Navbar extends Component {
       visibility = "show";
     }
     return (
-      <div className="nav-cont">
+      <div className="nav-cont" >
       <div className="inner-nav-cont">
         {!isAuthed ? (
           <>
@@ -42,23 +44,23 @@ class Navbar extends Component {
 
         ) : (
           <>
-            <FontAwesomeIcon
-              icon="circle-notch"
-              className={`nav-icon ${visibility}`}
-                transform={{ rotate: (visibility === "hide" ? 0 : 180) }}
-              onClick={() => this.setState({ visible: !this.state.visible })}
-            />
+            <button 
+              className={`hamburger hamburger--3dx ${!visible ? "" : "is-active"}`}
+              onClick={() => this.handleClick()}>
+              <span className="hamburger-box">
+                <span className="hamburger-inner"></span>
+              </span>
+            </button>
             <Dropdown
               visibility={visibility}
               handleClick={this.handleClick}
-              // handleOutsideClick={this.handleOutsideClick}
             />
           </>
         )}
         <Link to="/" className="title-treatment">
           SceneIt
         </Link>
-        {user ? <p></p> : <p>user.name</p>}
+        {!user ? <p></p> : <p>{user.name}</p>}
         </div>
       </div>
     );

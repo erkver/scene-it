@@ -51,40 +51,45 @@ class RepReview extends Component {
     );
     return (
       <div className="report-final-cont">
-        <h1>View Report</h1>
-        <div className="report-final-inner-cont">
-          <div className="report-card-cont-final">
-            <div className="report-card-cont-header">
-            <h2>Screening Info:</h2>
-            <Link className="report-links" to='/admin/report/step1'>Edit Report</Link>
+      {report[0] ?
+        <>
+          <h1>View {(screening[0] && screening[0].title)} Report</h1>
+          <div className="report-final-inner-cont">
+            <div className="report-card-cont-final">
+              <div className="report-card-cont-header">
+              <h2>Screening Info:</h2>
+              <Link className="report-links" to='/admin/report/step1'>Edit Report</Link>
+              </div>
+              <p>Film Title: {(screening[0] && screening[0].title) || (report[0] && report[0].title)}</p>
+              <p>Attendance: {report[0] && report[0].attendance} / {screening[0] && screening[0].seat_count}</p>
+              <p>Booking Ratio: {report[0] && report[0].ratio}:1</p>
+              <p>Overall Reaction: {report[0] && report[0].reaction}</p>
             </div>
-            <p>Film Title: {(screening[0] && screening[0].title) || (report[0] && report[0].title)}</p>
-            <p>Attendance: {report[0] && report[0].attendance} / {screening[0] && screening[0].seat_count}</p>
-            <p>Booking Ratio: {report[0] && report[0].ratio}:1</p>
-            <p>Overall Reaction: {report[0] && report[0].reaction}</p>
-          </div>
-          <div className="report-card-cont-final">
-            <div className="report-card-cont-header">
-              <h2>Scene:</h2>
-              <Link className="report-links" to='/admin/report/step2'>Edit scenes</Link>
+            <div className="report-card-cont-final">
+              <div className="report-card-cont-header">
+                <h2>Scene:</h2>
+                <Link className="report-links" to='/admin/report/step2'>Edit scenes</Link>
+              </div>
+              {sceneList}
             </div>
-            {sceneList}
-          </div>
-          <div className="report-card-cont-final">
-            <div className="report-card-cont-header">
-              <h2>Press Comments:</h2>
-              <Link className="report-links" to='/admin/report/step3'>Edit press comments</Link>
-            </div> 
-            {pressCommentList}
-          </div>
-          <div className="report-card-cont-final"> 
-            <div className="report-card-cont-header">
-              <h2>Audience Comments:</h2>         
-              <Link className="report-links" to='/admin/report/step4'>Edit aud. comments</Link>
+            <div className="report-card-cont-final">
+              <div className="report-card-cont-header">
+                <h2>Press Comments:</h2>
+                <Link className="report-links" to='/admin/report/step3'>Edit press comments</Link>
+              </div> 
+              {pressCommentList}
             </div>
-            {audCommentList}
+            <div className="report-card-cont-final"> 
+              <div className="report-card-cont-header">
+                <h2>Audience Comments:</h2>         
+                <Link className="report-links" to='/admin/report/step4'>Edit aud. comments</Link>
+              </div>
+              {audCommentList}
+            </div>
           </div>
-        </div>
+        </>
+        : <div>Loading...</div>
+      }
       </div>
     );
   }

@@ -1,6 +1,6 @@
 @import '../../../index';
 
-@media(min-width: 320px) {
+@media(min-width: 320px) and (max-width: 999px) {
   .step2-cont {
     display: flex;
     flex-direction: column;
@@ -45,6 +45,126 @@
 
         textarea {
           width: 98%;
+          border-radius: 5px;
+          border: solid 1px $primary-border; 
+          -webkit-transition: .3s;
+          transition: .3s;
+          outline: none;
+          background: white;
+          font-family: 'Didact Gothic', sans-serif;
+        }
+
+        textarea:focus {
+          border: 2px solid $primary-btn;
+        }
+
+        .add-btn-cont {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-evenly;
+
+          .submit-btn {
+            background: $primary-btn;
+            border: none;
+            font-size: 12px;
+            color: white;
+            padding: 3%;
+            border-radius: 7.5px;
+            text-decoration: none;
+            justify-content: end;
+          }
+        }
+
+
+        .link-cont {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          .link-btn {
+            border: none;
+            font-size: 14px;
+            color: black;
+            padding: 3%;
+            border-radius: 10px;
+            text-decoration: none;
+            width: 7.5em;
+            text-align: center;
+          }
+        }
+      }
+
+      .bottom-scene-cont {
+        width: 100%;
+        height: 55%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex: 1;
+        border-top: .75px solid $primary-border;
+
+        h3 {
+          margin: .5em 0 .5em .3em;
+        }
+
+        .scene-list-cont {
+          width: 100%;
+          font-size: 14px;
+          border-top: .75px solid $primary-border;
+        }
+      }
+    }
+  }
+}
+
+
+@media(min-width: 1000px) {
+  .step2-cont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 30em;
+    margin: auto;
+    width: 75%;
+
+    h1 {
+      font-size: 28px;
+      font-weight: bold;
+      margin: 1em 0;
+      text-align: center;
+    }
+
+    .scene-row-cont {
+      background: $primary-card;
+      width: 90%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-between;
+      border: solid 1px $primary-btn;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 16px;
+      @include box-shadow;
+
+      .scene-input-cont {
+        width: 96%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-around;
+        margin: auto;
+
+        p {
+          text-align: start;
+        }
+
+        textarea {
+          width: 96%;
           border-radius: 5px;
           border: solid 1px $primary-border; 
           -webkit-transition: .3s;

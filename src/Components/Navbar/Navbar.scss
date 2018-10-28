@@ -1,40 +1,8 @@
 @import '../../index';
+@import '../../../node_modules/hamburgers/_sass/hamburgers/hamburgers.scss';
 
 
-@media(min-width: 1000px) {
-  .nav-cont {
-    @include display-flex-center;
-    height: 12vh;
-    background: $primary-header;
-    color: $primary-card;
-    justify-content: space-between;
-
-    .title-treatment {
-      color: $primary-card;
-      justify-content: center;
-      text-decoration: none;
-      font-size: 60px;
-      font-family: 'Londrina Shadow', cursive;
-      text-align: center;
-      // position: absolute;
-    }
-
-    .login-link {
-      color: $primary-card;
-      text-decoration: none;
-      font-size: 18px;
-      margin-left: 3em;
-    }
-
-    .nav-icon {
-      display: block;
-      height: 25px;
-      margin-left: 5px;
-    }
-  }
-}
-
-@media(min-width: 320px) and (max-width: 500px) {
+@media(min-width: 320px) and (max-width: 999px) {
   .nav-cont {
     @include display-flex-center;
     height: 50px;
@@ -63,16 +31,65 @@
         color: $primary-card;
         text-decoration: none;
         font-size: 18px;
-        width: 10%;
+        width: 40px;
       }
 
-      .nav-icon {
-        display: block;
-        height: 25px;
+      button {
+        $hamburger-padding-x: 5px !default;
+        $hamburger-padding-y: 5px !default;
+        $hamburger-layer-width: 20% !default;
+        // $hamburger-layer-height: 4px !default;
+        // $hamburger-layer-spacing: 6px !default;
+        // $hamburger-layer-color;
       }
 
       p {
-        width: 10%;
+        width: 40px;
+        font-size: 12px
+      }
+    }
+  }
+}
+
+
+@media(min-width: 1000px) {
+  .nav-cont {
+    @include display-flex-center;
+    height: 12vh;
+    background: $primary-header;
+    color: $primary-card;
+    justify-content: space-between;
+
+     .inner-nav-cont {
+      @include display-flex-center;
+      width: 96%;
+      justify-content: space-between;
+      margin: auto;
+
+      .title-treatment {
+        color: $primary-card;
+        justify-content: center;
+        text-decoration: none;
+        font-size: 60px;
+        font-family: 'Londrina Shadow', cursive;
+        text-align: center;
+      }
+
+      .login-link {
+        color: $primary-card;
+        text-decoration: none;
+        font-size: 26px;
+        // margin-left: 3em;
+        width: 80px;
+      }
+
+      
+      p {
+        width: 80px;
+      }
+
+      button {
+        width: 80px;
       }
     }
   }

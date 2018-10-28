@@ -17,7 +17,7 @@ class Home extends Component {
     const { screenings, user } = this.props;
     // setTimeout(console.log(this.props), 1000);
     let screeningList = screenings.map((movie, i) => (
-      <div className="main-movie-cont" key={i}>
+      <div className="main-home-cont" key={i}>
         <Movie 
           movie={movie}
           user={user}
