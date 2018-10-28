@@ -64,7 +64,7 @@ module.exports = {
           let all = [ageOne, ageTwo, ageThree, ageFour, ageFive];
           let allMales = [maleAgeOne, maleAgeTwo, maleAgeThree, maleAgeFour, maleAgeFive];
           let allFemales = [femaleAgeOne, femaleAgeTwo, femaleAgeThree, femaleAgeFour, femaleAgeFive];
-          console.log(all, allMales, allFemales)
+          console.log("age q success")
           return res.status(200).json([all, allMales, allFemales]);
         })
         .catch(err => {
@@ -97,7 +97,7 @@ module.exports = {
         let all = [ethOne, ethTwo, ethThree, ethFour, ethFive, ethSix];
         let allMales = [maleEthOne, maleEthTwo, maleEthThree, maleEthFour, maleEthFive, maleEthSix];
         let allFemales = [femaleEthOne, femaleEthTwo, femaleEthThree, femaleEthFour, femaleEthFive, femaleEthSix];
-        console.log("eth:", all, allMales, allFemales);
+        console.log("eth success");
         return res.status(200).json([all, allMales, allFemales]);
       }).catch(err => {
         res.status(500).send({ errorMessage: "Something went wrong" });
@@ -128,7 +128,7 @@ module.exports = {
           let genres = [Math.round((genOne.length / sum) * 100), Math.round((genTwo.length / sum) * 100), Math.round((genThree.length / sum) * 100), Math.round((genFour.length / sum) * 100), Math.round((genFive.length / sum) * 100)];
           let maleGenres = [maleGenOne, maleGenTwo, maleGenThree, maleGenFour, maleGenFive]
           let femaleGenres = [femaleGenOne, femaleGenTwo, femaleGenThree, femaleGenFour, femaleGenFive]
-          console.log("genres:", genres, maleGenres, femaleGenres)
+          console.log("genres success")
           return res.status(200).json([genres, maleGenres, femaleGenres]);
         })
         .catch(err => {
@@ -140,7 +140,7 @@ module.exports = {
       db.users
         .get_user_emails([+mov, gender, eth, minage, maxage, fav])
         .then(response => {
-          console.log(response);
+          console.log("email q success");
           return res.status(200).json(response);
         })
         .catch(err => {

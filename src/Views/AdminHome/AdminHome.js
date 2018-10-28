@@ -38,7 +38,7 @@ class AdminHome extends Component {
 
   render() {
     const { screenings } = this.props;
-    console.log(this.props);
+    // console.log(this.props);
     return (
       <div className="movie-list-cont">
       <h1>Screenings</h1>

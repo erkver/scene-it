@@ -5,7 +5,7 @@ module.exports = {
     db.comments.audience
       .get_audience_comments([r])
       .then(response => {
-        console.log("get aComm:", response);
+        console.log("get aComm success");
         return res.status(200).json(response);
       })
       .catch(err => {
@@ -19,7 +19,7 @@ module.exports = {
     db.comments.audience
       .get_audience_comment([tAC_id])
       .then(response => {
-        console.log(response);
+        console.log("get aComm success");
         return res.status(200).json(response);
       })
       .catch(err => {
@@ -33,8 +33,12 @@ module.exports = {
     db.comments.audience
       .add_audience_comment([gender, age, comment, reportId])
       .then(response => {
-        console.log("add aComm:", response);
-        return res.status(200).json(response);
+        console.log("add aComm success");
+        db.comments.audience
+        .get_audience_comments([response[0].reportId])
+        .then(resp => {
+          return res.status(200).json(resp);
+        })
       })
       .catch(err => {
         res.status(500).send({ errorMessage: "Something went wrong" });
@@ -48,7 +52,7 @@ module.exports = {
     db.comments.audience
       .edit_audience_comment([id, gender, age, comment])
       .then(response => {
-        console.log("edit aComm:", response);
+        console.log("edit aComm success");
         return res.status(200).json(response);
       })
       .catch(err => {
@@ -62,7 +66,7 @@ module.exports = {
     db.comments.audience
       .delete_audience_comment([id])
       .then(response => {
-        console.log("delete aComm:", response);
+        console.log("delete aComm success");
         return res.status(200).json(response);
       })
       .catch(err => {

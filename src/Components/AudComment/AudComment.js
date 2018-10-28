@@ -33,6 +33,15 @@ class AudComment extends Component {
     }
   }
 
+
+  componentDidUpdate(prevProps) {
+    const { aComm, getAudComments, report } = this.props;
+    if (aComm.comment !== prevProps.aComm.comment) {
+      getAudComments(report[0].tr_id);
+      this.setState({ sceneInput: aComm.comment });
+    }
+  }
+
   render() {
     const { aComm, editAudComment, deleteAudComment } = this.props;
     const { edit, aCommentInput, aAge, aGender } = this.state;

@@ -34,6 +34,7 @@ class AdminScreening extends Component {
             <p className="info-text">Screening Date: {e.screening_date}</p>
             <p className="info-text">Theatre: {e.theatre_name}</p>
             <p className="info-text">Fill: {fill}/{e.seat_count}</p>
+            <p className="info-text">Ratio: {(fill/e.seat_count).toFixed(1)}:1</p>
             <Link 
               className="edit-btn" 
               to={`/admin/screening/edit/${e.id}`}>Edit Screening</Link>

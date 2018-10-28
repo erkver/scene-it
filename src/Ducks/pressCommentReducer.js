@@ -97,7 +97,7 @@ export default function pressCommentReducer(state = initialState, action) {
       return {
         ...state,
         isLoading: false,
-        pressComments: action.payload.data
+        pressComment: action.payload.data
       };
     case `${EDIT_PRESS_COMMENT}_PENDING`:
       return {

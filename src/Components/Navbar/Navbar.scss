@@ -1,8 +1,12 @@
 @import '../../index';
 
 
+.nav-cont {
+  @include display-flex-center;
+}
+
 @media(min-width: 320px) {
-    .nav-cont {
+  .nav-cont {
     height: 50px;
     background: $primary-header;
     color: $primary-card;
@@ -16,6 +20,7 @@
       text-decoration: none;
       font-size: 32px;
       font-family: 'Londrina Shadow', cursive;
+      
     }
 
     .search-icon {
@@ -41,6 +46,11 @@
     .nav-icon {
       height: 25px;
       margin-left: 5px;
+      transition: transform 1s;
+    
+    .nav-icon:hover {
+      transform: rotate(45deg);
+    }
 
       .nav-icon.show {
         animation-name: show;
@@ -60,3 +70,5 @@
     }
   }
 }
+
+// @media(min-width: 768px)

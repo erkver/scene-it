@@ -32,7 +32,7 @@ class Scene extends Component {
   }
 
   render() {
-    const { repScene, editScene, deleteScene } = this.props;
+    const { repScene, editScene, deleteScene, report } = this.props;
     const { edit, sceneInput } = this.state;
     // console.log(repScene.ts_id);
     // console.log(this.state);
@@ -70,14 +70,16 @@ class Scene extends Component {
               <button
                 onClick={() => {
                   deleteScene(repScene.ts_id);
-                  this.setState({ edit: !this.state.edit });
+                    this.setState({ edit: !this.state.edit }, 
+                    () => getScenes(report[0].tr_id));
                 }}>
                 Delete scene
               </button>
               <button
                 onClick={() => {
                   editScene(repScene.ts_id, sceneInput);
-                  this.setState({ edit: !this.state.edit });
+                    this.setState({ edit: !this.state.edit }, 
+                    () => getScenes(report[0].tr_id));
                 }}
               >
                 Submit edit

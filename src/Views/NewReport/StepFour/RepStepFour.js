@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
 import { getAudComments, addAudComment } from "../../../Ducks/audCommentReducer";
-import "./RepStepFour.scss";
 import AudComment from "../../../Components/AudComment/AudComment";
+import "./RepStepFour.scss";
 
 class RepStepFour extends Component {
   constructor() {
@@ -21,17 +21,17 @@ class RepStepFour extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { getAudComments, audienceComments, report } = this.props;
+    const { getAudComments, audienceComments, audienceComment, report } = this.props;
     // console.log("comments:", pressComments,
     // "prevProps:", prevProps.pressComments);
-    if (audienceComments.length !== prevProps.audienceComments.length) {
+    if (audienceComments.length !== prevProps.audienceComments.length || audienceComment.length !== prevProps.audienceComment.length) {
       getAudComments(report[0].tr_id);
     }
   }
 
   render() {
     const { comment, gender, age } = this.state;
-    const { report, screening, audienceComments } = this.props;
+    const { report, screening, audienceComments, getAudComments } = this.props;
     // console.log(this.state);
     // console.log(this.props);
     let audienceCommList = audienceComments.map((aComm, i) => (
@@ -80,7 +80,8 @@ class RepStepFour extends Component {
               <button
                 onClick={() => {
                   addAudComment(gender, age, comment, report[0].tr_id);
-                  this.setState({ gender: "default", age: 0, comment: "" });
+                  this.setState({ gender: "default", age: 0, comment: "" }, 
+                  () => getAudComments(report[0].tr_id));
                 }}
               >
                 Add Comment

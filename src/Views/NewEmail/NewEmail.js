@@ -30,7 +30,7 @@ class NewEmail extends Component {
             <input className="form-control" id="subject" placeholder="Subject"></input>
             <label>Message:</label>
             <textarea className="form-control" rows="5" id="message" placeholder="Message"></textarea>
-            <button type="submit" className="btn btn-primary">Send Email</button>
+            <Link to='/' type="submit" className="btn btn-primary">Send Email</Link>
           </form>
         </div>
       </div>

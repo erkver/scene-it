@@ -11,9 +11,15 @@ class Reports extends Component {
     getReports();
   }
 
-  render() {
-    const { reports } = this.props;
-    console.log(this.props);
+  componentDidUpdate(prevProps) {
+    const { reports, getReports } = this.props;
+    if(reports.length !== prevProps.reports.length) {
+      getReports();
+    }
+  }
+
+  renderContent = () => {
+    const { reports, getReport } = this.props;
     let reportList = reports.map((report, i) => (
       <div className="main-report-cont" key={i}>
         <SingleReport
@@ -22,12 +28,19 @@ class Reports extends Component {
         />
       </div>
     ));
+    return (<>{reportList}</>);
+  }
+
+  render() {
+    const { reports } = this.props;
+    console.log(this.props);
     return (
       <div className="report-list-cont">
-        <div>
-          <h1>Reports</h1>
-        </div>
-        {reportList}
+        <h1>Reports</h1>
+        {reports[0]
+          ? this.renderContent()
+          : <div>Loading...</div>
+        }
       </div>
     );
   }

@@ -72,7 +72,6 @@ class NewScreening extends Component {
       <option 
         className="movie-option-cont" 
         key={i}
-        // value={movie.title}
       >{movie.title}</option>
     ));
     let theatreList = theatres.map((theatre, i) => (
@@ -83,69 +82,6 @@ class NewScreening extends Component {
         onClick={() => this.setState({selectedTheatre: theatre.theatre_name})}
       >{theatre.theatre_name}</option>
     ));
-    // let prevScreening = screening.map((e, i) => (
-    //   <div className="new-screening-cont" key={i}>
-    //     <h1 className="title-text">Edit Screening</h1>
-    //     <div className="new-screening-inner-cont">
-    //       <div className="mov-row-cont">
-    //         <p className="desc-text">Title:</p>
-    //         <h3>{e.title}</h3>
-    //       </div>
-    //       <div className="mov-row-cont">
-    //         <p className="desc-text">Theatre:</p>
-    //         <select
-    //           required
-    //           // value={selectedTheatre[0].theatre_name}
-    //           onChange={this.handleTheatre} >
-    //           <option disabled hidden value="default" >Select theatre</option>
-    //           {theatreList}
-    //         </select>
-    //       </div>
-    //       <div className="mov-row-cont">
-    //         <p className="desc-text">Screening Date and Time:</p>
-    //         <DatePicker
-    //           // openToDate={moment(e.screening_date)}
-    //           selected={startDate}
-    //           onChange={this.handleDate}
-    //           showTimeSelect
-    //           timeFormat="HH:mm"
-    //           timeIntervals={30}
-    //           dateFormat="LLL"
-    //           timeCaption="time"
-    //           className="date-cont"
-    //           placeholderText="Click to select date"
-    //           required
-    //         />
-    //       </div>
-    //       <div className="mov-row-cont">
-    //         <p className="desc-text">Seat Count:</p>
-    //         <input
-    //           type="number"
-    //           min="0"
-    //           required
-    //           placeholder="#"
-    //           className="seat-input"
-    //           value={seatCount}
-    //           onChange={e => this.setState({ seatCount: e.target.value })} />
-    //       </div>
-    //       <Link
-    //         to='/'
-    //         className="submit-btn"
-    //         onClick={() => {
-    //           console.log(e.id, moment(startDate._d).format("lll"), selectedTheatre.theatre_id, +seatCount);
-    //           editScreening(
-    //             e.id,
-    //             moment(startDate._d).format('lll'),
-    //             selectedTheatre.theatre_id,
-    //             +seatCount
-    //           );
-    //           this.clearInputs();
-    //           // this.setState({newMov: false})
-    //         }}
-    //       >Submit Edit</Link>
-    //     </div>
-    //   </div>
-    // ));
     return (
     <div className="new-screening-cont">
         <h1 className="title-text">Add Screening</h1>

@@ -22,3 +22,7 @@ $primary-border: #89B6A5;
   -webkit-box-shadow: 10px 12px 27px -5px rgba(76,59,77,1);
   -moz-box-shadow: 10px 12px 27px -5px rgba(76,59,77,1);
   box-shadow: 10px 12px 27px -5px rgba(76,59,77,1);}
+@mixin display-flex-center {
+  display: flex;
+  align-items: center;
+}

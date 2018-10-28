@@ -99,7 +99,7 @@ export default function audCommentReducer(state = initialState, action) {
       return {
         ...state,
         isLoading: false,
-        audienceComments: action.payload.data
+        audienceComment: action.payload.data
       };
     case `${EDIT_AUD_COMMENT}_PENDING`:
       return {

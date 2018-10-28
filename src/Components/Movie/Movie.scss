@@ -12,6 +12,8 @@
     border: solid 1px $primary-btn;
     border-radius: 10px;
     font-size: 14px;
+    @include box-shadow;
+
 
     .inner-movie-cont {
       width: 96%;
@@ -58,6 +60,8 @@
     border: solid 1px $primary-btn;
     border-radius: 10px;
     font-size: 14px;
+    @include box-shadow;
+
 
     .admin-inner-mov-cont {
       width: 96%;
