@@ -1,6 +1,217 @@
 @import '../../../index';
 
-@media(min-width: 320px) and (max-width: 999px) {
+@media(min-width: 600px) {
+  .new-report-cont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 80vh;
+    margin: auto;
+    width: 75%;
+
+    h1 {
+      font-size: 28px;
+      font-weight: bold;
+      margin: 1em 0;
+      text-align: center;
+    }
+
+    .new-report-inner-cont {
+      background: $primary-card;
+      width: 90%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      border: solid 1px $primary-btn;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 20px;
+      @include box-shadow;
+
+
+    .report-card1-cont {
+        width: 96%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-evenly;
+        margin: 0 auto;
+        border-bottom: .75px solid $primary-border;
+
+        .report-row-cont {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: space-evenly;
+          margin: 1em 0 .5em 0;
+
+          select {
+            width: 20em;
+            height: 2.5em;
+            border-radius: 5px;
+            border: solid 1px $primary-border; 
+            -webkit-transition: .3s;
+            transition: .3s;
+            outline: none;
+            background: white;
+            margin-top: .5em;
+            font-family: 'Didact Gothic', sans-serif;
+            font-size: 16px;
+          }
+
+          select:focus {
+            border: 2px solid $primary-btn;
+          }
+
+          .title-text {
+            font-size: 24px;
+            font-weight: bold;
+            margin: .3em 0;
+          }
+        }
+
+        .stat-row-cont {
+          width: 28%;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          margin: .5em 0;
+
+                    
+          .screening-select {
+            text-align: start;
+            width: 5.5em;
+          }
+
+          .seat-inline-cont {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            width: 60%;
+
+            input {
+              width: 3.5em;
+              height: 2.25em;
+              border-radius: 5px;
+              border: solid 1px $primary-border; 
+              -webkit-transition: .3s;
+              transition: .3s;
+              outline: none;
+              background: white;
+              margin-left: .2em;
+              padding-left: .5em;
+              font-family: 'Didact Gothic', sans-serif;
+              font-size: 16px;
+            }
+
+            input:focus {
+              border: 2px solid $primary-btn;
+            }
+
+            p {
+              font-size: 18px;
+              text-align: start;
+              margin-left: .3em;
+            }
+          }
+
+          .ratio-inline-cont {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            width: 35%;
+
+
+            .ratio-tt {
+              width: 10em;
+            }
+
+            input {
+              width: 3.5em;
+              height: 2.25em;
+              border-radius: 5px;
+              border: solid 1px $primary-border; 
+              -webkit-transition: .3s;
+              transition: .3s;
+              outline: none;
+              background: white;
+              margin-left: .2em;
+              padding-left: .5em;
+              font-family: 'Didact Gothic', sans-serif;
+              font-size: 16px;
+            }
+
+            input:focus {
+              border: 2px solid $primary-btn;
+            }
+          }
+        }
+
+        .reac-row-cont {
+          width: 33%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin: .5em 0;
+
+          .reation-tt {
+            width: 10em;
+          }
+
+          select {
+            width: 11em;
+            height: 2.5em;
+            border-radius: 5px;
+            border: solid 1px $primary-border; 
+            -webkit-transition: .3s;
+            transition: .3s;
+            outline: none;
+            background: white;
+            font-family: 'Didact Gothic', sans-serif;
+            font-size: 16px;
+          }
+
+          select:focus {
+            border: 2px solid $primary-btn;
+          }
+        }
+
+        .link-cont {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-evenly;
+          margin: .5em 0;
+
+          .submit-btn:hover {
+            cursor: pointer;
+            transition: .2s;
+            background: $primary-btn;
+            color: $primary-card;
+          }
+
+          .submit-btn {
+            background: none;
+            border: .75px solid $primary-btn;
+            font-size: 20px;
+            font-family: 'Didact Gothic', sans-serif;
+            color: $primary-btn;
+            padding: 2% 2%;
+            border-radius: 10px;
+            text-decoration: none;
+            margin: 1em 0;
+            text-align: center;
+            width: 15%;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media(min-width: 320px) and (max-width: 600px) {
   .new-report-cont {
     display: flex;
     flex-direction: column;
@@ -61,7 +272,7 @@
 
       .stat-row-cont {
         height: 40px;
-        width: 80%;
+        width: 85%;
         display: flex;
         align-items: center;
         justify-content: flex-start;
@@ -184,203 +395,3 @@
   }
 }
 
-@media(min-width: 1000px) {
-  .new-report-cont {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 80vh;
-    margin: auto;
-    width: 75%;
-
-    h1 {
-      font-size: 28px;
-      font-weight: bold;
-      margin: 1em 0;
-      text-align: center;
-    }
-
-    .new-report-inner-cont {
-      background: $primary-card;
-      width: 90%;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: flex-start;
-      border: solid 1px $primary-btn;
-      border-radius: 10px;
-      text-align: center;
-      font-size: 20px;
-      @include box-shadow;
-
-
-    .report-card1-cont {
-        width: 96%;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: space-evenly;
-        margin: 0 auto;
-        border-bottom: .75px solid $primary-border;
-
-        .report-row-cont {
-          width: 100%;
-          display: flex;
-          flex-direction: column;
-          align-items: flex-start;
-          justify-content: space-evenly;
-          margin: 1em 0 .5em 0;
-
-          select {
-            width: 20em;
-            height: 2.5em;
-            border-radius: 5px;
-            border: solid 1px $primary-border; 
-            -webkit-transition: .3s;
-            transition: .3s;
-            outline: none;
-            background: white;
-          }
-
-          select:focus {
-            border: 2px solid $primary-btn;
-          }
-
-          .title-text {
-            font-size: 24px;
-            font-weight: bold;
-            margin: .3em 0;
-          }
-        }
-
-        .stat-row-cont {
-          width: 25%;
-          display: flex;
-          align-items: center;
-          justify-content: flex-start;
-          margin: .5em 0;
-
-                    
-          .screening-select {
-            text-align: start;
-            width: 5.5em;
-          }
-
-          .seat-inline-cont {
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-            width: 95%;
-
-            input {
-              width: 3.5em;
-              height: 2em;
-              border-radius: 5px;
-              border: solid 1px $primary-border; 
-              -webkit-transition: .3s;
-              transition: .3s;
-              outline: none;
-              background: white;
-              margin-left: .2em;
-              padding-left: .2em;
-            }
-
-            input:focus {
-              border: 2px solid $primary-btn;
-            }
-
-            p {
-              width: 5.5em;
-              font-size: 16px;
-              text-align: start;
-            }
-          }
-
-          .ratio-inline-cont {
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-            width: 30%;
-
-
-            .ratio-tt {
-              width: 10em;
-            }
-
-            input {
-              width: 3.5em;
-              height: 2em;
-              border-radius: 5px;
-              border: solid 1px $primary-border; 
-              -webkit-transition: .3s;
-              transition: .3s;
-              outline: none;
-              background: white;
-              margin-left: .2em;
-              padding-left: .2em;
-            }
-
-            input:focus {
-              border: 2px solid $primary-btn;
-            }
-          }
-        }
-
-        .reac-row-cont {
-          width: 30%;
-          display: flex;
-          align-items: center;
-          justify-content: space-evenly;
-          margin: .5em 0;
-
-          .reation-tt {
-            width: 10em;
-          }
-
-          select {
-            width: 11em;
-            height: 2.5em;
-            border-radius: 5px;
-            border: solid 1px $primary-border; 
-            -webkit-transition: .3s;
-            transition: .3s;
-            outline: none;
-            background: white;
-          }
-
-          select:focus {
-            border: 2px solid $primary-btn;
-          }
-        }
-
-        .link-cont {
-          width: 100%;
-          display: flex;
-          align-items: center;
-          justify-content: space-evenly;
-          margin: .5em 0;
-
-          .submit-btn:hover {
-            cursor: pointer;
-            transition: .2s;
-            background: $primary-btn;
-            color: $primary-card;
-          }
-
-          .submit-btn {
-            background: none;
-            border: .75px solid $primary-btn;
-            font-size: 20px;
-            font-family: 'Didact Gothic', sans-serif;
-            color: $primary-btn;
-            padding: 1% 2%;
-            border-radius: 10px;
-            text-decoration: none;
-            margin: 1em 0;
-            text-align: center;
-          }
-        }
-      }
-    }
-  }
-}

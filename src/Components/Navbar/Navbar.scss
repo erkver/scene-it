@@ -1,8 +1,50 @@
 @import '../../index';
 @import '../../../node_modules/hamburgers/_sass/hamburgers/hamburgers.scss';
 
+@media(min-width: 600px) {
+  .nav-cont {
+    @include display-flex-center;
+    height: 12vh;
+    background: $primary-header;
+    color: $primary-card;
+    justify-content: space-between;
 
-@media(min-width: 320px) and (max-width: 999px) {
+     .inner-nav-cont {
+      @include display-flex-center;
+      width: 96%;
+      justify-content: space-between;
+      margin: auto;
+
+      .title-treatment {
+        color: $primary-card;
+        justify-content: center;
+        text-decoration: none;
+        font-size: 60px;
+        font-family: 'Londrina Shadow', cursive;
+        text-align: center;
+      }
+
+      .login-link {
+        color: $primary-card;
+        text-decoration: none;
+        font-size: 26px;
+        // margin-left: 3em;
+        width: 80px;
+      }
+
+      
+      p {
+        width: 80px;
+      }
+
+      button {
+        width: 80px;
+      }
+    }
+  }
+}
+
+@media(min-width: 320px) and (max-width: 600px) {
   .nav-cont {
     @include display-flex-center;
     height: 50px;
@@ -52,48 +94,7 @@
 }
 
 
-@media(min-width: 1000px) {
-  .nav-cont {
-    @include display-flex-center;
-    height: 12vh;
-    background: $primary-header;
-    color: $primary-card;
-    justify-content: space-between;
 
-     .inner-nav-cont {
-      @include display-flex-center;
-      width: 96%;
-      justify-content: space-between;
-      margin: auto;
-
-      .title-treatment {
-        color: $primary-card;
-        justify-content: center;
-        text-decoration: none;
-        font-size: 60px;
-        font-family: 'Londrina Shadow', cursive;
-        text-align: center;
-      }
-
-      .login-link {
-        color: $primary-card;
-        text-decoration: none;
-        font-size: 26px;
-        // margin-left: 3em;
-        width: 80px;
-      }
-
-      
-      p {
-        width: 80px;
-      }
-
-      button {
-        width: 80px;
-      }
-    }
-  }
-}
 
 
 

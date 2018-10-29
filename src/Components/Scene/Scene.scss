@@ -9,7 +9,7 @@
     margin: .5em 0;
 
     p {
-      width: 20px;
+      width: 90%;
       text-align: start;
       margin-left: 0;
     }
@@ -17,11 +17,12 @@
     button {
       background: $primary-card;
       border: none;
-      font-size: 16px;
-      color: black;
+      font-size: 24px;
+      text-align: center;
+      color: $primary-btn;
       padding: 2%;
       text-decoration: none;
-      width: 15%;
+      width: 10%;
     }
   }
   .edit-ind-scene-cont {
@@ -34,7 +35,6 @@
 
     .scene-text {
       width: 100%;
-      // height: 65%;
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
@@ -49,6 +49,7 @@
           font-family: 'Didact Gothic', sans-serif;
           font-size: 16px;
           transition: .3s;
+          padding-left: .5em;
         }
 
         textarea:focus {
@@ -58,9 +59,9 @@
       button {
         background: $primary-card;
         border: none;
-        font-size: 16px;
+        font-size: 24px;
         text-align: center;
-        color: black;
+        color: $primary-btn;
         padding: 2%;
         text-decoration: none;
         width: 10%;

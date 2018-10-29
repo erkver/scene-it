@@ -13,14 +13,14 @@ class NewEmail extends Component {
     const { sendEmailAll, users } = this.props;
     let emails = [];
     users.map(user => emails.push(user.email));
-    console.log(emails, subject);
+    // console.log(emails, subject);
     sendEmailAll(emails, message, subject).then(() => this.resetForm());
   }
 
   render() {
     // const { users, sendEmailAll } = this.props;
     // const { message } = this.state;
-    console.log(this.props);
+    // console.log(this.props);
     return (
       <div className="main-email-cont">
         <h1>Send Email</h1>

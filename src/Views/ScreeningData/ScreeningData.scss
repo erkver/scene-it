@@ -1,6 +1,95 @@
 @import '../../index';
 
-@media(min-width: 320px) {
+@media(min-width: 600px) {
+  .main-single-data-cont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 30em;
+    margin: auto;
+    width: 75%;
+  
+    h1 {
+      font-size: 32px;
+      font-weight: bold;
+      margin: 1em 0;
+      text-align: center;
+    }
+
+    .single-data-cont {
+      background: $primary-card;
+      width: 90%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border: solid 1px $primary-btn;
+      border-radius: 10px;
+      font-size: 20px;
+      @include box-shadow;
+      margin: auto;
+
+
+      h2:first-child {
+        margin: .7em 0;
+        font-style: italic;
+        font-size: 24px; 
+      }
+
+      .age-btn-cont {
+        width: 65%;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        border-bottom: 1px solid $primary-header;
+
+        button:hover {
+          cursor: pointer;
+          transition: .2s;
+          background: $primary-btn;
+          color: $primary-card;
+        }
+
+        button {
+          width: 15%;
+          background: none;
+          border: .75px solid $primary-btn;
+          font-size: 16px;
+          color: $primary-btn;
+          padding: 2%;
+          border-radius: 10px;
+          text-decoration: none;
+          margin: 1.25em 0;
+          text-align: center;
+        }
+      }
+
+      .email-link:hover {
+        cursor: pointer;
+        transition: .2s;
+        background: $primary-btn;
+        color: $primary-card;
+      }
+      
+      .email-link {
+        text-decoration: none;
+        color: $primary-btn;
+        margin: 1em 0;
+        border: .75px solid $primary-btn;
+        padding: 2.5%;
+        border-radius: 10px;
+        font-size: 22px;
+      }
+      
+      p {
+        text-align: center;
+        margin-bottom: 1em;
+      }
+    }
+  }
+}
+
+@media(min-width: 320px) and (max-width: 600px) {
   .main-single-data-cont {
     display: flex;
     flex-direction: column;

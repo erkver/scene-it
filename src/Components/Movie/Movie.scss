@@ -1,6 +1,113 @@
 @import '../../index';
 
-@media(min-width: 320px)  {
+
+@media(min-width: 600px) {
+  .movie-cont:hover {
+    transition: .2s;
+    background-color: $primary-background;
+  }
+  .movie-cont {
+    background: $primary-card;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    margin: 5px auto;
+    border: solid 1px $primary-btn;
+    border-radius: 10px;
+    font-size: 20px;
+    @include box-shadow;
+
+    .inner-movie-cont {
+      width: 94%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-evenly;
+      margin: .5em auto;
+
+      img {
+        margin: .5em auto;
+        border: 1px solid $primary-btn;
+      }
+
+      p {
+        margin: .2em 0;
+      }
+
+      .btn-cont {
+        width:100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+        .info-btn:hover {
+          color: $primary-card;
+          transition: .2s;
+        }
+        .info-btn {
+          border: none;
+          font-size: 18px;
+          color: black;
+          text-decoration: none;
+          padding: 1%;
+          text-align: center;
+        }
+      }
+    }
+  }
+  .admin-movie-cont:hover {
+    transition: .2s;
+    background-color: $primary-background;
+  }
+  .admin-movie-cont {
+    background: $primary-card;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    margin: 5px auto;
+    border: solid 1px $primary-btn;
+    border-radius: 10px;
+    font-size: 14px;
+    @include box-shadow;
+
+    .admin-inner-mov-cont {
+      width: 96%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-evenly;
+      margin: .5em auto;
+
+      p {
+        margin: .2em 0;
+      }
+
+    
+      .btn-cont {
+        width:100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+        .info-btn {
+          border: none;
+          font-size: 18px;
+          color: black;
+          text-decoration: none;
+          padding: 2%;
+          text-align: center;
+          width: 30%;
+        }
+      }
+    }
+  }
+}
+
+@media(min-width: 320px) and (max-width: 600px)  {
  .movie-cont {
     background: $primary-card;
     width: 100%;
@@ -96,109 +203,3 @@
   }
 }
 
-@media(min-width: 1000px) {
-  .movie-cont:hover {
-    transition: .2s;
-    background-color: $primary-background;
-  }
-  .movie-cont {
-    background: $primary-card;
-    width: 80%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-evenly;
-    margin: 5px auto;
-    border: solid 1px $primary-btn;
-    border-radius: 10px;
-    font-size: 20px;
-    @include box-shadow;
-
-    .inner-movie-cont {
-      width: 94%;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: space-evenly;
-      margin: .5em auto;
-
-      img {
-        margin: .5em auto;
-        border: 1px solid $primary-btn;
-      }
-
-      p {
-        margin: .2em 0;
-      }
-
-      .btn-cont {
-        width:100%;
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-
-        .info-btn:hover {
-          color: $primary-card;
-          transition: .2s;
-        }
-        .info-btn {
-          border: none;
-          font-size: 18px;
-          color: black;
-          text-decoration: none;
-          padding: 2%;
-          text-align: center;
-        }
-      }
-    }
-  }
-  .admin-movie-cont:hover {
-    transition: .2s;
-    background-color: $primary-background;
-  }
-  .admin-movie-cont {
-    background: $primary-card;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-evenly;
-    margin: 5px auto;
-    border: solid 1px $primary-btn;
-    border-radius: 10px;
-    font-size: 14px;
-    @include box-shadow;
-
-    .admin-inner-mov-cont {
-      width: 96%;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: space-evenly;
-      margin: .5em auto;
-
-      p {
-        margin: .2em 0;
-      }
-
-    
-      .btn-cont {
-        width:100%;
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-
-        .info-btn {
-          border: none;
-          font-size: 18px;
-          color: black;
-          text-decoration: none;
-          padding: 2%;
-          text-align: center;
-          width: 30%;
-
-        }
-      }
-    }
-  }
-}

@@ -26,7 +26,7 @@ class AgeChart extends Component {
     // console.log(max, ageInd);
     return (
       <>
-        <h3 style={{ color: `${borderColor[ageInd]}` }}>{`${labels[ageInd]}`}</h3>
+        <h3 style={{ color: `${borderColor}` }}>{`${labels[ageInd]}`}</h3>
         <p>year-olds account for {`${data[ageInd]}%`}</p>
       </>
     );
@@ -35,7 +35,7 @@ class AgeChart extends Component {
   render() {
     const { ageData } = this.state;
     // console.log(this.props);
-    console.log(this.state)
+    // console.log(this.state)
 
     return (
       <div className="age-cont">

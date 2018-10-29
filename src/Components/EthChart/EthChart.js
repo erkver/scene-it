@@ -19,13 +19,13 @@ class EthChart extends Component {
 
   renderContent = () => {
     const { labels } = this.state.ethData;
-    const { data, backgroundColor } = this.state.ethData.datasets[0];
+    const { data, borderColor } = this.state.ethData.datasets[0];
     let max = Math.max(...data);
     let ethInd = data.indexOf(max);
-    console.log(max, ethInd);
+    // console.log(max, ethInd);
     return (
       <>
-        <h3 style={{ color: `${backgroundColor[ethInd]}` }}>{`${labels[ethInd]}`}</h3>
+        <h3 style={{ color: `${borderColor}` }}>{`${labels[ethInd]}`}</h3>
         <p>is {`${data[ethInd]}%`} of user's ethnicity</p>
       </>
     );
@@ -34,7 +34,7 @@ class EthChart extends Component {
   render() {
     const { ethData } = this.state;
     // console.log(ageData);
-    console.log(this.props);
+    // console.log(this.props);
     return (
       <div className="eth-cont">
         <h2>Ethnicity</h2>

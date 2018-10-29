@@ -5,6 +5,7 @@ const GET_PRESS_COMMENT = "GET_PRESS_COMMENT";
 const ADD_PRESS_COMMENT = "ADD_PRESS_COMMENT";
 const EDIT_PRESS_COMMENT = "EDIT_PRESS_COMMENT";
 const DELETE_PRESS_COMMENT = "DELETE_PRESS_COMMENT";
+const CLEAR_PRESS_COMMENTS = "CLEAR_PRESS_COMMENTS";
 
 export function getPressComments(reportId) {
   return {
@@ -55,6 +56,13 @@ export function deletePressComment(tPC_id) {
   return {
     type: DELETE_PRESS_COMMENT,
     payload: axios.delete(`/api/comment/press/${tPC_id}`)
+  }
+};
+
+export function clearPressComments() {
+  return {
+    type: CLEAR_PRESS_COMMENTS,
+    payload: { pressComment: initialState, pressComments: initialState }
   }
 };
 
@@ -120,6 +128,12 @@ export default function pressCommentReducer(state = initialState, action) {
         ...state,
         isLoading: false,
         pressComments: action.payload.data
+      };
+    case CLEAR_PRESS_COMMENTS:
+      return {
+        ...state,
+        pressComment: action.payload,
+        pressComments: action.payload
       };
     default:
       return state;

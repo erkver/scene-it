@@ -35,17 +35,21 @@ class RepStepThree extends Component {
     getPressComments(repId);
   }
 
+  renderPressComments = () => {
+    const { pressComments } = this.props;
+    let pressCommList = pressComments.map((prComm, i) => (
+      <div className="main-ind-prComm-cont" key={i}>
+        <PressComment prComm={prComm} />
+      </div>
+    ));
+
+    return (<><h3>Added Press Comments</h3>{pressCommList}</>);
+  }
   render() {
     const { comment, name, outlet } = this.state;
     const { report, screening, pressComments } = this.props;
     // console.log(this.props);
-    let pressCommList = pressComments.map((prComm, i) => (
-      <div className="main-ind-prComm-cont" key={i}>
-        <PressComment
-          prComm={prComm}
-        />
-      </div>
-    ));
+
     return (
       <div className="step3-cont">
         <h1>{screening[0] ? `${screening[0].title} - Press Comments` : "Press Comments"}</h1>
@@ -79,9 +83,11 @@ class RepStepThree extends Component {
             </div>
             <div className="add-btn-cont">
               <Link
+                id="comm-link"
                 to={`/admin/report/final/${report[0] && report[0].tr_id}`}
                 className="submit-btn" >Review Report</Link>
               <button
+                className="submit-btn"
                 onClick={() => {
                   addPressComment(name, outlet, report[0].tr_id, comment);
                   this.updatePressComments(report[0].tr_id);
@@ -91,7 +97,7 @@ class RepStepThree extends Component {
             </div>
             <div className="link-cont">
               <Link 
-                to='/'
+                to='/admin/report/step2'
                 className="link-btn" >{`< Previous Step`}</Link>
               <Link
                 to='/admin/report/step4'
@@ -99,14 +105,10 @@ class RepStepThree extends Component {
             </div>
           </div>
           <div className="bottom-prComm-cont">
-            {!pressComments[0] ?
-            <>
-            </>
-            : <>
-            <h3>Added Press Comments</h3>
-            </>
+            {!pressComments[0] 
+              ? <></>
+              : this.renderPressComments()
             }
-            {pressCommList}
           </div>
         </div>
       </div>

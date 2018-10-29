@@ -6,7 +6,6 @@ import { getScreening } from "../../../Ducks/screeningReducer";
 import Scene from "../../../Components/Scene/Scene";
 import "./RepStepTwo.scss";
 
-
 class RepStepTwo extends Component {
   constructor() {
     super();
@@ -36,19 +35,24 @@ class RepStepTwo extends Component {
     getScenes(rID);
   }
 
-  render() {
-    const { scene } = this.state;
-    const { report, screening, scenes, user, getScenes } = this.props;
-    // console.log(this.props);
+  renderScenes = () => {
+    const { scenes, getScenes, user } = this.props;
     let sceneList = scenes.map((scene, i) => (
       <div className="scene-list-cont" key={i}>
-        <Scene 
+        <Scene
           repScene={scene}
           user={user}
           updateScenes={getScenes}
         />
       </div>
     ));
+    return (<><h3>Added Scenes:</h3>{sceneList}</>);
+  }
+
+  render() {
+    const { scene } = this.state;
+    const { report, screening, scenes, getScenes } = this.props;
+    // console.log(this.props);
     return (
       <div className="step2-cont">
         <h1>{screening[0] ? `${screening[0].title} - Scenes` : "Scenes"}</h1>
@@ -84,13 +88,10 @@ class RepStepTwo extends Component {
             </div>
           </div>
           <div className="bottom-scene-cont">
-            {!scenes[0] ?
-              <>
-              </>
-              :
-              <h3>Added Scenes:</h3>
+            {!scenes[0] 
+              ? <></>
+              : this.renderScenes()
             }
-            {sceneList}
           </div>
         </div>
       </div>

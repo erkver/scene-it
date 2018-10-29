@@ -5,6 +5,7 @@ const GET_SCENE = "GET_SCENE";
 const ADD_SCENE = "ADD_SCENE";
 const EDIT_SCENE = "EDIT_SCENE";
 const DELETE_SCENE = "DELETE_SCENE";
+const CLEAR_SCENES = "CLEAR_SCENES";
 
 export function getScenes(reportId) {
   return {
@@ -38,6 +39,13 @@ export function deleteScene(tS_id) {
   return {
     type: DELETE_SCENE,
     payload: axios.delete(`/api/scene/${tS_id}`)
+  }
+};
+
+export function clearScenes() {
+  return {
+    type: CLEAR_SCENES,
+    payload: { scene: initialState, scenes: initialState }
   }
 };
 
@@ -104,6 +112,12 @@ export default function sceneReducer(state = initialState, action) {
         ...state,
         isLoading: false,
         scenes: action.payload.data
+      };
+    case CLEAR_SCENES:
+      return {
+        ...state,
+        scene: action.payload,
+        scenes: action.payload
       };
     default: 
       return state;

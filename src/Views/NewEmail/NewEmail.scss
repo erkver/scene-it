@@ -1,6 +1,106 @@
 @import '../../index';
 
-@media(min-width: 320px) {
+@media(min-width: 600px) {
+  .main-email-cont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 30em;
+    margin: auto;
+    width: 75%;
+
+    h1 {
+      font-size: 28px;
+      font-weight: bold;
+      margin: 1em 0;
+      text-align: center;
+    }
+
+    .email-cont {
+      background: $primary-card;
+      width: 90%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      border: solid 1px $primary-btn;
+      border-radius: 10px;
+      text-align: center;
+      @include box-shadow;
+
+
+      .form-cont{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-evenly;
+        width: 96%;
+        margin: .2em auto 1em auto;
+
+        label {
+          font-size: 20px;
+          margin: .5em 0;
+        }
+
+        textarea {
+          width: 99.15%;
+          border-radius: 5px;
+          border: solid 1px $primary-border; 
+          -webkit-transition: .3s;
+          transition: .3s;
+          outline: none;
+          background: white;
+          padding-left: .3em;
+          margin-bottom: .5em;
+          font-family: 'Didact Gothic', sans-serif;
+          font-size: 16px;
+        }
+
+        textarea:focus {
+          border: 2px solid $primary-btn;
+        }
+
+        input {
+          width: 50%;
+          height: 2.5em;
+          border-radius: 5px;
+          border: solid 1px $primary-border; 
+          -webkit-transition: .3s;
+          transition: .3s;
+          outline: none;
+          background: white;
+          padding-left: .3em;
+          font-family: 'Didact Gothic', sans-serif;
+          font-size: 16px;
+        }
+      
+        input:focus {
+          border: 2px solid $primary-btn;
+        }
+
+        .btn-primary:hover {
+          cursor: pointer;
+          transition: .2s;
+          background: $primary-btn;
+          color: $primary-card;
+        }       
+        .btn-primary {
+          background: none;
+          border: .75px solid $primary-btn;
+          font-size: 20px;
+          color: $primary-btn;
+          padding: 2%;
+          border-radius: 10px;
+          text-decoration: none;
+          margin: .5em auto 0 auto;
+        }
+      }
+    }
+  }
+}
+
+@media(min-width: 320px) and (max-width: 600px) {
   .main-email-cont {
     display: flex;
     flex-direction: column;

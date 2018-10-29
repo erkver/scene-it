@@ -67,7 +67,6 @@ class NewScreening extends Component {
     const { startDate, seatCount, selectedTheatre, newMov } = this.state;
     // console.log(this.state);
     // console.log(this.props);
-
     let movieList = movies.map((movie, i) => (
       <option 
         className="movie-option-cont" 
@@ -84,7 +83,7 @@ class NewScreening extends Component {
     ));
     return (
     <div className="new-screening-cont">
-        <h1 className="title-text">Add Screening</h1>
+        <h1 className="title-text">{newMov ? "Add Screening" : `Edit ${screening[0] && screening[0].title} screening`}</h1>
         <div className="new-screening-inner-cont">
           <div className="mov-row-cont">
             <p className="desc-text">Title:</p>
@@ -149,7 +148,7 @@ class NewScreening extends Component {
                   editScreening(
                     screening[0].id,
                     moment(startDate._d).format('lll'),
-                    selectedTheatre.theatre_id,
+                    (selectedTheatre.theatre_id || selectedTheatre[0].theatre_id),
                     +seatCount
                   );
                   this.clearInputs();

@@ -1,52 +1,7 @@
 @import '../../index';
 
-@media(min-width: 320px) and (max-width: 999px) {
-  .report-card-cont {
-    background: $primary-card;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-evenly;
-    margin: 5px auto;
-    border: solid 1px $primary-btn;
-    border-radius: 10px;
-    font-size: 16px;
-    @include box-shadow;
 
-    .inner-card-cont {
-      width: 96%;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: space-evenly;
-      margin: .5em auto;
-
-      p {
-        margin: .2em 0;
-      }
-
-    
-      .btn-cont {
-        width:100%;
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-
-        .info-btn {
-          border: none;
-          font-size: 16px;
-          color: black;
-          text-decoration: none;
-          padding: 2%;
-          text-align: center;
-        }
-      }
-    }
-  }
-}
-
-@media(min-width: 1000px) {
+@media(min-width: 600px) {
   .report-card-cont:hover {
     transition: .2s;
     background-color: $primary-background;
@@ -101,3 +56,50 @@
     }
   }
 }
+
+@media(min-width: 320px) and (max-width: 600px) {
+  .report-card-cont {
+    background: $primary-card;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    margin: 5px auto;
+    border: solid 1px $primary-btn;
+    border-radius: 10px;
+    font-size: 16px;
+    @include box-shadow;
+
+    .inner-card-cont {
+      width: 96%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-evenly;
+      margin: .5em auto;
+
+      p {
+        margin: .2em 0;
+      }
+
+    
+      .btn-cont {
+        width:100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+        .info-btn {
+          border: none;
+          font-size: 16px;
+          color: black;
+          text-decoration: none;
+          padding: 2%;
+          text-align: center;
+        }
+      }
+    }
+  }
+}
+

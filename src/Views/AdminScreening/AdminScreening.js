@@ -14,10 +14,11 @@ class AdminScreening extends Component {
     getScreening(+id);
     getFill(+id);
   }
-  render() {
+
+  renderContent = () => {
     const { screening, fill } = this.props;
     // const { date, seatCount, selectedTheatre } = this.state;
-    console.log(this.props);
+    // console.log(this.props);
     let screeningInfo = screening.map((e, i) => (
       <div className="main-single-screening-cont" key={i}>
         <h1 className="title-text">{e.title} Info</h1>
@@ -34,13 +35,13 @@ class AdminScreening extends Component {
           <p className="info-text">Screening Date: {e.screening_date}</p>
           <p className="info-text">Theatre: {e.theatre_name}</p>
           <p className="info-text">Fill: {fill}/{e.seat_count}</p>
-          <p className="info-text">Ratio: {(fill/e.seat_count).toFixed(1)}:1</p>
+          <p className="info-text">Ratio: {(fill / e.seat_count).toFixed(1)}:1</p>
           <div className="data-btn-cont">
-          <Link 
-            className="edit-btn" 
-            to={`/admin/screening/edit/${e.id}`}>Edit Screening
+            <Link
+              className="edit-btn"
+              to={`/admin/screening/edit/${e.id}`}>Edit Screening
           </Link>
-          <Link
+            <Link
               className="edit-btn"
               to={`/admin/data/${e.id}`}>View Screening Data
           </Link>
@@ -48,11 +49,11 @@ class AdminScreening extends Component {
         </div>
       </div>
     ));
-    return (
-      <>
-        {screeningInfo}
-      </>
-    );
+    return <>{screeningInfo}</>;
+  }
+  render() {
+    const { screening } = this.props;
+    return (!screening[0] ? <p>Loading...</p> : this.renderContent());
   }
 }
 

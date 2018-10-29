@@ -3,9 +3,22 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { clearReports } from "../../Ducks/reportReducer";
 import { clearScreenings } from "../../Ducks/screeningReducer";
+import { clearAudComments } from "../../Ducks/audCommentReducer";
+import { clearPressComments } from "../../Ducks/pressCommentReducer";
+import { clearScenes } from "../../Ducks/sceneReducer";
 import "./Dropdown.scss";
 
 class Dropdown extends Component {
+
+  clearAllReportData = () => {
+    const { clearReports, clearAudComments, clearPressComments, clearScenes, clearScreenings, handleClick } = this.props;
+    handleClick();
+    clearReports(); 
+    clearAudComments(); 
+    clearPressComments(); 
+    clearScenes();
+    clearScreenings();
+  }
   render() {
     // console.log(this.props);
     const { REACT_APP_LOGOUT } = process.env;
@@ -13,7 +26,6 @@ class Dropdown extends Component {
       visibility,
       handleClick,
       user,
-      clearReports,
       clearScreenings
     } = this.props;
     return (
@@ -63,10 +75,7 @@ class Dropdown extends Component {
             <Link
               className="menu-link"
               to="/admin/report/step1"
-              onClick={() => {
-                clearReports();
-                handleClick();
-              }}
+              onClick={() => this.clearAllReportData()}
             >
               Create New Report
             </Link>
@@ -87,9 +96,15 @@ class Dropdown extends Component {
 const mapStateToProps = ({ 
   userReducer,
   screeningReducer,
-  reportReducer }) => ({ 
+  reportReducer, 
+  sceneReducer, 
+  audCommentReducer, 
+  pressCommentReducer }) => ({ 
   ...userReducer,
   ...screeningReducer,
-  ...reportReducer });
+  ...reportReducer, 
+  ...sceneReducer, 
+  ...audCommentReducer, 
+  ...pressCommentReducer });
 
-export default connect(mapStateToProps, {clearReports, clearScreenings})(Dropdown);
+export default connect(mapStateToProps, { clearReports, clearScreenings, clearAudComments, clearPressComments, clearScenes})(Dropdown);

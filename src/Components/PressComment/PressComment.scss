@@ -1,6 +1,144 @@
 @import '../../index';
 
-@media(min-width: 320px) {
+@media(min-width: 600px) {
+  .ind-pComm-cont {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin: .5em 0;
+
+    p {
+     width: 90%;
+     text-align: start;
+    }
+
+    #expand-arr {
+      background: $primary-card;
+      border: none;
+      font-size: 24px;
+      text-align: center;
+      color: $primary-btn;
+      padding: 2%;
+      text-decoration: none;
+      width: 10%;
+    }       
+
+    .pComm-text-cont{
+      width: 90%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-evenly;
+    }
+  }
+  .edit-ind-pComm-cont {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: .5em;
+
+    .pComm-text {
+      width: 100%;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+
+      .pComm-inputs-cont {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        .name-outlet-cont {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          width: 100%;
+          margin: .5em 0;
+
+          input {
+            width: 45%;
+            height: 2.5em;
+            border-radius: 5px;
+            border: solid 1px $primary-border; 
+            -webkit-transition: .3s;
+            transition: .3s;
+            outline: none;
+            background: white;
+            padding-left: .5em;
+            font-family: 'Didact Gothic', sans-serif;
+            font-size: 16px;
+          }
+
+          input:focus {
+            border: 2px solid $primary-btn;
+          }
+        }
+
+        textarea {
+          width: 98.8%;
+          border-radius: 5px;
+          border: solid 1px $primary-border; 
+          -webkit-transition: .3s;
+          transition: .3s;
+          outline: none;
+          background: white;
+          font-family: 'Didact Gothic', sans-serif;
+          font-size: 16px;
+          padding-left: .5em;
+        }
+
+        textarea:focus {
+          border: 2px solid $primary-btn;
+        }
+      }
+
+      button {
+        background: $primary-card;
+        border: none;
+        font-size: 24px;
+        text-align: center;
+        color: $primary-btn;
+        padding: 2%;
+        text-decoration: none;
+        width: 10%;
+      }
+    }
+
+    .pComm-btn-cont {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      margin: .5em auto;
+
+      button:hover {
+        cursor: pointer;
+        transition: .2s;
+        background: $primary-btn;
+        color: $primary-card;
+      }
+
+      button {
+        background: none;
+        border: .75px solid $primary-btn;
+        font-size: 16px;
+        font-family: 'Didact Gothic', sans-serif;
+        color: $primary-btn;
+        padding: 1% 2%;
+        border-radius: 10px;
+        text-decoration: none;
+        text-align: center;
+        width: 9.5em;
+      }
+    }
+  }
+}
+
+@media(min-width: 320px) and (max-width: 600px) {
   .ind-pComm-cont {
     display: flex;
     align-items: center;

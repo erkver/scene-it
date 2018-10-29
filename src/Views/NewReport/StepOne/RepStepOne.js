@@ -32,16 +32,21 @@ class RepStepOne extends Component {
     this.props.getScreening(selected[0].id);
   }
 
+  renderScreenings = () => {
+    const { screenings } = this.props;
+    let screeningList = screenings.map((screening, i) => (
+      <option
+        className="screening-option-cont"
+        key={i}>{screening.title}</option>
+    ));
+    return (<>{screeningList}</>);
+  }
+
   render() {
   const { screenings, screening, addReport, report } = this.props;
   const { attendance, ratio, reaction } = this.state;
   // console.log(this.props);
   // console.log(this.state);
-  let screeningList = screenings.map((screening, i) => (
-    <option
-      className="screening-option-cont"
-      key={i}>{screening.title}</option>
-  ));
     return (
       <div className="new-report-cont">
         <h1>{!report[0] ? "Create Report" : "Edit Report"}</h1>
@@ -56,7 +61,7 @@ class RepStepOne extends Component {
                   defaultValue="default"
                   onChange={this.handleMovie}>
                   <option disabled hidden value="default" >Select screening</option>
-                  {screeningList}
+                  {!screenings[0] ? <></> : this.renderScreenings()}
                 </select>
               </>
               : <>

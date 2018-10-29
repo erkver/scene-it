@@ -5,6 +5,7 @@ const GET_AUD_COMMENT = "GET_AUD_COMMENT";
 const ADD_AUD_COMMENT = "ADD_AUD_COMMENT";
 const EDIT_AUD_COMMENT = "EDIT_AUD_COMMENT";
 const DELETE_AUD_COMMENT = "DELETE_AUD_COMMENT";
+const CLEAR_AUD_COMMENTS = "CLEAR_AUD_COMMENTS";
 
 export function getAudComments(reportId) {
   return {
@@ -57,6 +58,13 @@ export function deleteAudComment(tAC_id) {
   return {
     type: DELETE_AUD_COMMENT,
     payload: axios.delete(`/api/comment/audience/${tAC_id}`)
+  }
+};
+
+export function clearAudComments() {
+  return {
+    type: CLEAR_AUD_COMMENTS,
+    payload: {audienceComment: initialState, audienceComments: initialState}
   }
 };
 
@@ -122,6 +130,12 @@ export default function audCommentReducer(state = initialState, action) {
         ...state,
         isLoading: false,
         audienceComments: action.payload.data
+      };
+    case CLEAR_AUD_COMMENTS:
+      return {
+        ...state,
+        audienceComments: action.payload,
+        audienceComment: action.payload
       };
     default:
       return state;

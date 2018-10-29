@@ -29,25 +29,31 @@ class RepStepFour extends Component {
     }
   }
 
+  renderAudComments = () => {
+    const { audienceComments } = this.props;
+    let audienceCommList = audienceComments.map((aComm, i) => (
+      <div className="main-single-aComm-cont" key={i}>
+        <AudComment
+          aComm={aComm}
+        />
+      </div>
+    ));
+    return (<><h3>Addded Audience Comments</h3>{audienceCommList}</>); 
+  }
+
   render() {
     const { comment, gender, age } = this.state;
     const { report, screening, audienceComments, getAudComments } = this.props;
     // console.log(this.state);
     // console.log(this.props);
-    let audienceCommList = audienceComments.map((aComm, i) => (
-      <div className="main-single-aComm-cont" key={i}>
-        <AudComment 
-          aComm={aComm}
-        />
-      </div>
-    ))
+
     return (
       <div className="step4-cont">
         <h1>{screening[0] ? `${screening[0].title} - Audience Comments` : "Audience Comments"}</h1>
         <div className="aud-card-cont">
           <div className="top-aComm-cont">
             <div className="aud-comm-cont">
-              <p>Audience comment:</p>
+              <p style={{"margin-top": "0"}}>Audience comment:</p>
               <textarea
                 required
                 placeholder="Add one comment at a time"
@@ -88,20 +94,19 @@ class RepStepFour extends Component {
               </button>
             </div>
             <div className="link-cont">
-              <Link to={`/admin/report/final/${report[0] && report[0].tr_id}`} className="submit-btn">
+              <Link to="/admin/report/step3" className="final-rev-btn">
+                Previous Step
+              </Link>
+              <Link to={`/admin/report/final/${report[0] && report[0].tr_id}`} className="final-rev-btn">
                 Review All Report Info
               </Link>
             </div>
           </div>
           <div className="bottom-aComm-cont">
-            {!audienceComments[0] ?
-              <>
-              </>
-              : <>
-                <h3>Addded Audience Comments</h3>
-              </>
+            {!audienceComments[0] 
+              ? <></>
+              : this.renderAudComments()
             }
-            {audienceCommList}
           </div>
         </div>
       </div>

@@ -26,11 +26,11 @@ export default (
       exact
       component={connect(mapStateToProps)(props => {
         if (props.user && props.user.isadmin) {
-          console.log(props.user && props.user.isadmin);
+          // console.log(props.user && props.user.isadmin);
           // return <Redirect to="/admin" />
           return <AdminHome {...props} />;
         } else {
-          console.log(props.user && props.user.isadmin);
+          // console.log(props.user && props.user.isadmin);
           return <Home {...props} />;
         }
       })}
@@ -56,47 +56,22 @@ export default (
       })}
     />
     <Route path="/screening/:id" component={Screening} />
+
     <Route
-      path="/admin/screening/edit/:id"
+      path="/admin/send"
       component={connect(mapStateToProps)(props => {
         if (props.user && props.user.isadmin) {
-          // console.log(props.user && props.user.isadmin);
-          return <NewScreening {...props} />;
-        } else {
-          // console.log(props.user && props.user.isadmin);
-          return <Home {...props} />;
-        }
-      })}
-    />
-    <Route
-      path="/admin/screening/:id"
-      component={connect(mapStateToProps)(props => {
-        if (props.user && props.user.isadmin) {
-          return <AdminScreening {...props} />;
+          return <NewEmail {...props} />;
         } else {
           return <Redirect to="/" />;
         }
       })}
     />
     <Route
-      path="/admin/data/:id"
-    component={connect(mapStateToProps)(props => {
-      if (props.user && props.user.isadmin) {
-        return <ScreeningData {...props} />;
-      } else {
-        return <Redirect to="/" />;
-      }
-    })}
-    />
-    <Route
-      path="/admin/send"
-      component={NewEmail}
-    />
-    <Route
-      path="/admin/reports"
+      path="/admin/add/screening"
       component={connect(mapStateToProps)(props => {
         if (props.user && props.user.isadmin) {
-          return <Reports {...props} />;
+          return <NewScreening {...props} />;
         } else {
           return <Redirect to="/" />;
         }
@@ -143,6 +118,48 @@ export default (
       })}
     />
     <Route
+      path="/admin/reports"
+      component={connect(mapStateToProps)(props => {
+        if (props.user && props.user.isadmin) {
+          return <Reports {...props} />;
+        } else {
+          return <Redirect to="/" />;
+        }
+      })}
+    />
+    <Route
+      path="/admin/screening/edit/:id"
+      component={connect(mapStateToProps)(props => {
+        if (props.user && props.user.isadmin) {
+          // console.log(props.user && props.user.isadmin);
+          return <NewScreening {...props} />;
+        } else {
+          // console.log(props.user && props.user.isadmin);
+          return <Home {...props} />;
+        }
+      })}
+    />
+    <Route
+      path="/admin/screening/:id"
+      component={connect(mapStateToProps)(props => {
+        if (props.user && props.user.isadmin) {
+          return <AdminScreening {...props} />;
+        } else {
+          return <Redirect to="/" />;
+        }
+      })}
+    />
+    <Route
+      path="/admin/data/:id"
+      component={connect(mapStateToProps)(props => {
+        if (props.user && props.user.isadmin) {
+          return <ScreeningData {...props} />;
+        } else {
+          return <Redirect to="/" />;
+        }
+      })}
+    />
+    <Route
       path="/admin/report/final/:id"
       component={connect(mapStateToProps)(props => {
         if (props.user && props.user.isadmin) {
@@ -152,16 +169,7 @@ export default (
         }
       })}
     />
-    <Route
-      path="/admin/add/screening"
-      component={connect(mapStateToProps)(props => {
-        if (props.user && props.user.isadmin) {
-          return <NewScreening {...props} />;
-        } else {
-          return <Redirect to="/" />;
-        }
-      })}
-    />
+
 
     <Route path="*" render={() => <h4>404 Not Found!</h4>} />
   </Switch>

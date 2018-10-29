@@ -17,13 +17,11 @@ class Navbar extends Component {
     this.setState({ visible: !this.state.visible }); 
   }
 
- 
-
   render() {
     const { isAuthed, user} = this.props;
     const { visible } = this.state;
     const { REACT_APP_LOGIN } = process.env;
-    console.log(this.props);
+    // console.log(this.props);
     let visibility = "hide";
     if (this.state.visible) {
       visibility = "show";
@@ -41,7 +39,6 @@ class Navbar extends Component {
               Login
             </a>
             </>
-
         ) : (
           <>
             <button 

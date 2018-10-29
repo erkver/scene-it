@@ -11,7 +11,7 @@ export default function Movie (props) {
     divName = 'admin-movie-cont'
     innerDivName = 'admin-inner-mov-cont'
   };
-  console.log(props);
+  // console.log(props);
   return (
     <div className={divName}>
       <div className={innerDivName}>
@@ -41,6 +41,7 @@ export default function Movie (props) {
             <Link
               to={`/admin/screening/${movie.id}`}
               className="info-btn"
+              style={{"width": "15%"}}
               onClick={() => getScreening(movie.id)}>More Info ></Link>
           </div>
         </>

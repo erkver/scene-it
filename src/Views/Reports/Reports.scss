@@ -1,28 +1,7 @@
 @import '../../index.scss';
 
-@media(min-width: 320px) and (max-width: 999px) {
-  .report-list-cont {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
 
-    h1 {
-      font-size: 24px;
-      font-weight: bold;
-      margin: 10px 0 ;
-    }
-  }
-  .main-report-cont {
-    width: 95%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-}
-
-@media(min-width: 1000px) {
+@media(min-width: 600px) {
   .report-list-cont {
     display: flex;
     flex-direction: column;
@@ -46,3 +25,26 @@
     justify-content: center;
   }
 }
+
+@media(min-width: 320px) and (max-width: 600px) {
+  .report-list-cont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+
+    h1 {
+      font-size: 24px;
+      font-weight: bold;
+      margin: 10px 0 ;
+    }
+  }
+  .main-report-cont {
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}
+

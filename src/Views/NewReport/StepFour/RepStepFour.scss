@@ -1,6 +1,202 @@
 @import '../../../index';
 
-@media(min-width: 320px) {
+
+@media(min-width: 600px) {
+  .step4-cont {
+    @include flex-col-center;
+    justify-content: flex-start;
+    min-height: 30em;
+    margin: auto;
+    width: 75%;
+
+    h1 {
+      font-size: 28px;
+      font-weight: bold;
+      margin: 1em 0;
+      text-align: center;
+    }
+
+    .aud-card-cont {
+      background: $primary-card;
+      width: 90%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-between;
+      border: solid 1px $primary-btn;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 20px;
+      @include box-shadow;
+
+      .top-aComm-cont {
+        width: 96%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-around;
+        margin: .5em auto 0 auto;
+
+        .aud-comm-cont {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          width: 100%;
+
+
+          p {
+            text-align: start;
+            margin: .5em 0;
+          }
+
+          textarea {
+            width: 98.8%;
+            border-radius: 5px;
+            border: solid 1px $primary-border; 
+            -webkit-transition: .3s;
+            transition: .3s;
+            outline: none;
+            background: white;
+            padding-left: .5em;
+            font-family: 'Didact Gothic', sans-serif;
+            font-size: 16px;
+          }
+
+          textarea:focus {
+            border: 2px solid $primary-btn;
+          }
+
+          select {
+            width: 15%;
+            height: 2.4em;
+            border-radius: 5px;
+            border: solid 1px $primary-border; 
+            -webkit-transition: .3s;
+            transition: .3s;
+            outline: none;
+            background: white;
+            font-family: 'Didact Gothic', sans-serif;
+            font-size: 16px;
+          }
+
+          select:focus {
+            border: 2px solid $primary-btn;
+          }
+        }
+
+        .age-btn-cont {
+          display: flex;
+          width: 100%;
+          align-items: flex-end;
+          justify-content: space-between;
+
+            .age-comm-cont {
+              
+            p {
+              text-align: start;
+              margin: .5em 0;
+            }
+
+            input {
+              width: 8.65em;
+              height: 2.1em;
+              border-radius: 5px;
+              border: solid 1px $primary-border; 
+              -webkit-transition: .3s;
+              transition: .3s;
+              outline: none;
+              background: white;
+              padding-left: .5em;
+              font-size: 16px;
+              font-family: 'Didact Gothic', sans-serif;
+            }
+          
+            input:focus {
+              border: 2px solid $primary-btn;
+            }
+          }
+
+          button:hover {
+            cursor: pointer;
+            transition: .2s;
+            background: $primary-btn;
+            color: $primary-card;
+          }
+
+          button {
+            background: none;
+            border: .75px solid $primary-btn;
+            font-size: 18px;
+            font-family: 'Didact Gothic', sans-serif;
+            color: $primary-btn;
+            padding: 1% 2%;
+            border-radius: 10px;
+            text-decoration: none;
+            margin: 1em 0;
+            text-align: center;
+            width: 16%;
+          }
+        }
+
+        .link-cont {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-evenly;
+          margin-top: .5em;
+
+          .final-rev-btn:hover {
+            cursor: pointer;
+            transition: .2s;
+            background: $primary-btn;
+            color: $primary-card;
+          }
+
+          .final-rev-btn:first-child {
+            width: 12%;
+          }
+
+          .final-rev-btn {
+            background: none;
+            border: .75px solid $primary-btn;
+            font-size: 20px;
+            font-family: 'Didact Gothic', sans-serif;
+            color: $primary-btn;
+            padding: 1% 2%;
+            border-radius: 10px;
+            text-decoration: none;
+            margin: 1em 0;
+            text-align: center;
+            width: 18%;
+        }
+      }
+    }
+
+      .bottom-aComm-cont {
+        width: 96%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex: 1;
+        border-top: .75px solid $primary-border;
+        margin: auto;
+
+        h3 {
+          margin: .5em 0;
+        }
+
+        .main-single-aComm-cont {
+          width: 100%;
+          font-size: 18px;
+          border-top: .75px solid $primary-border;
+        }
+      }
+    }
+  }
+}
+
+@media(min-width: 320px) and (max-width: 600px) {
   .step4-cont {
     display: flex;
     flex-direction: column;

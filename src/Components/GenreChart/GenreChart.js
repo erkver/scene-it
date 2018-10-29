@@ -23,7 +23,7 @@ class GenreChart extends Component {
     const { data, backgroundColor } = this.state.genreData.datasets[0];
     let max = Math.max(...data);
     let genreInd = data.indexOf(max);
-    console.log(max, genreInd);
+    // console.log(max, genreInd);
     return (
       <>
         <h3 style={{color: `${backgroundColor[genreInd]}`}}>{`${labels[genreInd]}`}</h3>
@@ -35,7 +35,7 @@ class GenreChart extends Component {
   render() {
     const { genreData } = this.state;
     // console.log(ageData);
-    console.log(this.props);
+    // console.log(this.props);
     return (
       <div className="genre-cont">
         <h2>Favorite genre</h2>
