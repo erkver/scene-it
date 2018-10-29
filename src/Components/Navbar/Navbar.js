@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Dropdown from "../Dropdown/Dropdown";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
@@ -14,14 +13,20 @@ class Navbar extends Component {
   }
 
   handleClick = () => {
-    this.setState({ visible: !this.state.visible }); 
+    this.setState({ visible: !this.state.visible})
+      // , () => {document.addEventListener('click', this.hanldeClickOutside)}); 
   }
+
+  // hanldeOutsideClick = () => {
+  //   this.setState({visible: !this.state.visible})
+  //     // , () => {document.removeEventListener('click', this.handleClick)});
+  // }
 
   render() {
     const { isAuthed, user} = this.props;
     const { visible } = this.state;
     const { REACT_APP_LOGIN } = process.env;
-    // console.log(this.props);
+    console.log(this.state);
     let visibility = "hide";
     if (this.state.visible) {
       visibility = "show";
@@ -43,14 +48,15 @@ class Navbar extends Component {
           <>
             <button 
               className={`hamburger hamburger--3dx ${!visible ? "" : "is-active"}`}
-              onClick={() => this.handleClick()}>
+              onClick={() => this.handleClick()}
+              >
               <span className="hamburger-box">
                 <span className="hamburger-inner"></span>
               </span>
             </button>
             <Dropdown
-              visibility={visibility}
               handleClick={this.handleClick}
+              visibility={visibility}
             />
           </>
         )}

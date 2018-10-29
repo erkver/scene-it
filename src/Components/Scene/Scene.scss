@@ -1,12 +1,14 @@
 @import '../../index';
 
-@media(min-width: 600px) {
+@media(min-width: 800px) {
   .ind-scene-cont {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
     margin: .5em 0;
+    text-align: start;
+
 
     p {
       width: 90%;
@@ -15,7 +17,7 @@
     }
 
     button {
-      background: $primary-card;
+     background: $primary-card;
       border: none;
       font-size: 24px;
       text-align: center;
@@ -99,7 +101,7 @@
   }
 }
 
-@media(min-width: 320px) and (max-height: 600px) {
+@media(min-width: 320px) and (max-width: 800px) {
   .ind-scene-cont {
     display: flex;
     align-items: center;

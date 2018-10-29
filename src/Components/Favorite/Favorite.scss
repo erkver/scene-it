@@ -1,6 +1,6 @@
 @import '../../index';
 
-@media(min-width: 600px) {
+@media(min-width: 800px) {
   .fav-cont:hover {
     transition: .2s;
     background-color: $primary-background;
@@ -62,7 +62,7 @@
   }
 }
 
-@media(min-width: 320px) and (max-width: 600px) {
+@media(min-width: 320px) and (max-width: 800px) {
   .fav-cont {
     background: $primary-card;
     width: 100%;

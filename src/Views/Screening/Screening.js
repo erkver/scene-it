@@ -19,7 +19,7 @@ class Screening extends Component {
     const { id } = this.props.match.params;
     getScreening(+id).then(response => {
       // console.log(response);
-      const { data } = response.value;
+      // const { data } = response.value;
         getFavorites(user.user_id).then(res => {
         const { data } = res.value;
         // console.log(res);
@@ -63,7 +63,7 @@ class Screening extends Component {
     if(claimed) {
       btnText = 'Claimed!'
     }
-    // console.log(this.props);
+    console.log(this.props);
     let screeningInfo = screening.map((e, i) => (
       <div key={i} className="main-screening-cont">
         <h1 className="title-text">{e.title} screening</h1>
@@ -81,6 +81,7 @@ class Screening extends Component {
           }
           <p className="info-text">Synopsis: {e.synopsis}</p>
           <p className="info-text">Runtime: {!e.runtime ? "TBD" : `${e.runtime} minutes`}</p>
+          <p className="info-text">Location: {e.theatre_name}</p>
           {!isAuthed
             ?
             <p className="add-text">Login to get passes!</p>

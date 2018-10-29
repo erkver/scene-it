@@ -5,6 +5,7 @@ import store from "./Ducks/store";
 import routes from "./routes";
 import Navbar from "./Components/Navbar/Navbar";
 import { library } from "@fortawesome/fontawesome-svg-core";
+import ScrollToTop from "react-router-scroll-top";
 import { faCircleNotch, faSearchPlus, faAngleDoubleDown, faAngleDoubleUp } from "@fortawesome/free-solid-svg-icons";
 import './App.scss';
 
@@ -14,11 +15,13 @@ class App extends Component {
   render() {
     return <Provider store={store}>
         <BrowserRouter>
-          <div>
-            <Navbar />
-            {routes}
-            <p className="footer">Data for this site was provided by The Movie DB</p>
-          </div>
+          <ScrollToTop>
+            <div>
+              <Navbar />
+              {routes}
+              <p className="footer">Data for this site was provided by The Movie DB</p>
+            </div>
+          </ScrollToTop>
         </BrowserRouter>
       </Provider>;
   }

@@ -1,13 +1,13 @@
 @import '../../index';
 
-@media(min-width: 600px) {
+@media(min-width: 800px) {
   #main-dropdown-cont {
     position: fixed;
     left: 0;
     top: 12vh;
     transition: transform .2s cubic-bezier(0, .52, 0, 1);
     width: 20vw;
-    background: $primary-header;
+    background: $primary-btn;
     overflow: scroll;
     z-index: 1000;
     display: flex;
@@ -19,7 +19,7 @@
 
     .menu-link:hover {
       transition: .2s;
-      background: $primary-btn;
+      background: $primary-header;
     }
     .menu-link {
       color: white; 
@@ -47,14 +47,14 @@
   }
 }
 
-@media(min-width: 320px) and (max-width: 600px) {
+@media(min-width: 320px) and (max-width: 800px) {
   #main-dropdown-cont {
     position: fixed;
     left: 0;
     top: 50px;
     transition: transform .2s cubic-bezier(0, .52, 0, 1);
     width: 42vw;
-    background: $primary-header;
+    background: $primary-btn;
     overflow: scroll;
     z-index: 1000;
     display: flex;

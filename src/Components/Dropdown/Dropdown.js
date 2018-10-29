@@ -9,7 +9,6 @@ import { clearScenes } from "../../Ducks/sceneReducer";
 import "./Dropdown.scss";
 
 class Dropdown extends Component {
-
   clearAllReportData = () => {
     const { clearReports, clearAudComments, clearPressComments, clearScenes, clearScreenings, handleClick } = this.props;
     handleClick();

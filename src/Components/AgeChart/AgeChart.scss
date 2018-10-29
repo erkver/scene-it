@@ -1,6 +1,6 @@
 @import '../../index';
 
-@media(min-width: 600px) {
+@media(min-width: 800px) {
   .age-cont {
     display: flex;
     flex-direction: column;
@@ -33,7 +33,7 @@
   }
 }
 
-@media(min-width: 320px) and (max-width: 600px) {
+@media(min-width: 320px) and (max-width: 800px) {
   .age-cont {
     display: flex;
     flex-direction: column;
@@ -41,7 +41,7 @@
     justify-content: space-evenly;
     position: relative;
     height: 50%;
-    width: 30%;
+    width: 100%;
 
     h2 {
       font-size: 26px;

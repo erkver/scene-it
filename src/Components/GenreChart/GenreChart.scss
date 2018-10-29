@@ -1,6 +1,6 @@
 @import '../../index';
 
-@media(min-width: 600px) {
+@media(min-width: 800px) {
   .genre-cont {
     display: flex;
     flex-direction: column;
@@ -34,7 +34,7 @@
   }
 }
 
-@media(min-width: 320px) and (max-width: 600px) {
+@media(min-width: 320px) and (max-width: 800px) {
   .genre-cont {
     display: flex;
     flex-direction: column;

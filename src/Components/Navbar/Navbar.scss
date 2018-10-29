@@ -1,11 +1,11 @@
 @import '../../index';
 @import '../../../node_modules/hamburgers/_sass/hamburgers/hamburgers.scss';
 
-@media(min-width: 600px) {
+@media(min-width: 800px) {
   .nav-cont {
     @include display-flex-center;
     height: 12vh;
-    background: $primary-header;
+    background: $primary-btn;
     color: $primary-card;
     justify-content: space-between;
 
@@ -44,11 +44,11 @@
   }
 }
 
-@media(min-width: 320px) and (max-width: 600px) {
+@media(min-width: 320px) and (max-width: 800px) {
   .nav-cont {
     @include display-flex-center;
-    height: 50px;
-    background: $primary-header;
+    height: 70px;
+    background: $primary-btn;
     color: $primary-card;
     justify-content: space-between;
     width: 100%;
