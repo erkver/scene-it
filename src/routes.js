@@ -80,14 +80,13 @@ export default (
     />
     <Route
       path="/admin/data/:id"
-      component={ScreeningData}
-    // component={connect(mapStateToProps)(props => {
-    //   if (props.user && props.user.isadmin) {
-    //     return <NewScreening {...props} />;
-    //   } else {
-    //     return <Redirect to="/" />;
-    //   }
-    // })}
+    component={connect(mapStateToProps)(props => {
+      if (props.user && props.user.isadmin) {
+        return <ScreeningData {...props} />;
+      } else {
+        return <Redirect to="/" />;
+      }
+    })}
     />
     <Route
       path="/admin/send"

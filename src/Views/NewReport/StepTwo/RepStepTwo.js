@@ -65,9 +65,9 @@ class RepStepTwo extends Component {
             <div className="add-btn-cont">
               <Link
                 to={`/admin/report/final/${report[0] && report[0].tr_id}`}
-                className="submit-btn" >Review Report</Link>
+                className="scene-btn" id="rev-link" >Review Report</Link>
               <button 
-                className="submit-btn"
+                className="scene-btn"
                 onClick={() => {
                 addScene(scene, report[0].tr_id);
                   this.setState({ scene: "" }, 
