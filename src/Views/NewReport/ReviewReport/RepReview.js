@@ -9,17 +9,16 @@ import { getScreening } from "../../../Ducks/screeningReducer";
 import "./RepReview.scss";
 
 class RepReview extends Component {
-  componentDidMount() {
+  async componentDidMount() {
     const { getScenes, getPressComments, getAudComments, getScreening, getReport } = this.props;
     const { id } = this.props.match.params;
-    getReport(+id).then(res => {
-      // console.log(res.value.data[0].movieid);
-      const { data } = res.value;
-      getScreening(data[0].movieid);
-      getScenes(data[0].tr_id);
-      getPressComments(data[0].tr_id);
-      getAudComments(data[0].tr_id);
-    });
+    const report = getReport(+id);
+    const response = await report;
+    const { data } = response.value;
+    getScreening(data[0].movieid);
+    getScenes(data[0].tr_id);
+    getPressComments(data[0].tr_id);
+    getAudComments(data[0].tr_id);
   }
 
   renderScenes = () => {

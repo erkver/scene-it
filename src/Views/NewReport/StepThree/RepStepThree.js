@@ -2,9 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
 import { addPressComment, getPressComments } from "../../../Ducks/pressCommentReducer";
-import "./RepStepThree.scss";
 import PressComment from "../../../Components/PressComment/PressComment";
-
+import "./RepStepThree.scss";
 
 class RepStepThree extends Component {
   constructor() {
@@ -18,21 +17,24 @@ class RepStepThree extends Component {
 
   componentDidMount() {
     const { report, getPressComments } = this.props;
-    getPressComments(report[0] && +report[0].tr_id);
+    getPressComments(report[0].tr_id);
   }
 
   componentDidUpdate(prevProps) {
     const { getPressComments, pressComments, pressComment, report } = this.props;
-    // console.log("comments:", pressComments,
-    // "prevProps:", prevProps.pressComments);
-    if (pressComments.length !== prevProps.pressComments.length || pressComment.length !== prevProps.pressComment.length) {
+    console.log("comments:", pressComments,
+    "prevProps:", prevProps.pressComments);
+    if (pressComments.length !== prevProps.pressComments.length || pressComment !== prevProps.pressComment) {
       getPressComments(report[0].tr_id);
     }
   }
 
-  updatePressComments = repId => {
-    const { getPressComments } = this.props;
-    getPressComments(repId);
+  addPrComments = (e) => {
+    const { report, addPressComment } = this.props;
+    const { name, outlet, comment} = this.state;
+    addPressComment(name, outlet, report[0].tr_id, comment);
+    this.setState({ name: "", outlet: "", comment: "" });
+    e.preventDefault();
   }
 
   renderPressComments = () => {
@@ -42,19 +44,18 @@ class RepStepThree extends Component {
         <PressComment prComm={prComm} />
       </div>
     ));
-
     return (<><h3>Added Press Comments</h3>{pressCommList}</>);
   }
+
   render() {
     const { comment, name, outlet } = this.state;
     const { report, screening, pressComments } = this.props;
-    // console.log(this.props);
-
+    console.log(this.props);
     return (
       <div className="step3-cont">
         <h1>{screening[0] ? `${screening[0].title} - Press Comments` : "Press Comments"}</h1>
         <div className="press-card-cont" >
-          <div className="press-comm-add-cont">
+          <form className="press-comm-add-cont" onSubmit={this.addPrComments} >
             <p>Press comment:</p>
             <textarea
               required
@@ -88,11 +89,9 @@ class RepStepThree extends Component {
                 className="submit-btn" >Review Report</Link>
               <button
                 className="submit-btn"
-                onClick={() => {
-                  addPressComment(name, outlet, report[0].tr_id, comment);
-                  this.updatePressComments(report[0].tr_id);
-                  this.setState({ name: "", outlet: "", comment: "" })
-                }}
+                type="submit"
+                value="Submit"
+                // onClick={() => this.addPrComments()}
               >Add Comment</button>
             </div>
             <div className="link-cont">
@@ -103,7 +102,7 @@ class RepStepThree extends Component {
                 to='/admin/report/step4'
                 className="link-btn" >Next Step ></Link>
             </div>
-          </div>
+          </form>
           <div className="bottom-prComm-cont">
             {!pressComments[0] 
               ? <></>

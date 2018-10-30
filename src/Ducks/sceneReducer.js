@@ -85,7 +85,6 @@ export default function sceneReducer(state = initialState, action) {
         isLoading: true
       };
     case `${ADD_SCENE}_FULFILLED`:
-      console.log(action.payload.data);
       return {
         ...state,
         isLoading: false,
@@ -100,7 +99,7 @@ export default function sceneReducer(state = initialState, action) {
       return {
         ...state,
         isLoading: false,
-        scenes: action.payload.data
+        scene: action.payload.data
       };
     case `${DELETE_SCENE}_PENDING`:
       return {
@@ -111,7 +110,7 @@ export default function sceneReducer(state = initialState, action) {
       return {
         ...state,
         isLoading: false,
-        scenes: action.payload.data
+        scene: action.payload.data
       };
     case CLEAR_SCENES:
       return {

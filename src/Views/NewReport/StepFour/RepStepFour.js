@@ -46,14 +46,13 @@ class RepStepFour extends Component {
     const { report, screening, audienceComments, getAudComments } = this.props;
     // console.log(this.state);
     // console.log(this.props);
-
     return (
       <div className="step4-cont">
         <h1>{screening[0] ? `${screening[0].title} - Audience Comments` : "Audience Comments"}</h1>
         <div className="aud-card-cont">
           <div className="top-aComm-cont">
             <div className="aud-comm-cont">
-              <p style={{"margin-top": "0"}}>Audience comment:</p>
+              <p style={{"marginTop": "0"}}>Audience comment:</p>
               <textarea
                 required
                 placeholder="Add one comment at a time"

@@ -47,7 +47,7 @@
       justify-content: space-between;
 
       .pComm-inputs-cont {
-        width: 50%;
+        width: 100%;
         display: flex;
         flex-direction: column;
         align-items: flex-start;
@@ -79,7 +79,7 @@
         }
 
         textarea {
-          width: 98.8%;
+          width: 97.5%;
           border-radius: 5px;
           border: solid 1px $primary-border; 
           -webkit-transition: .3s;
@@ -96,7 +96,7 @@
         }
       }
 
-      button {
+      .close-arr {
         background: $primary-card;
         border: none;
         font-size: 24px;
@@ -108,21 +108,21 @@
       }
     }
 
-    .pComm-btn-cont {
+    .pComm-btns-cont {
       width: 100%;
       display: flex;
       align-items: center;
       justify-content: space-evenly;
       margin: .5em auto;
 
-      button:hover {
+      .expand-arr:hover {
         cursor: pointer;
         transition: .2s;
         background: $primary-btn;
         color: $primary-card;
       }
 
-      button {
+      .expand-arr {
         background: none;
         border: .75px solid $primary-btn;
         font-size: 16px;
@@ -235,18 +235,16 @@
       button {
         background: $primary-card;
         border: none;
-        font-size: 16px;
+        font-size: 24px;
         text-align: center;
-        margin-right: .3em;
-        color: black;
+        color: $primary-btn;
         padding: 2%;
         text-decoration: none;
-        width: 3.5em;
-        margin-right: .3em;
+        width: 10%;
       }
     }
 
-    .pComm-btn-cont {
+    .pComm-btns-cont {
       display: flex;
       align-items: center;
       justify-content: space-evenly;

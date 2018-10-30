@@ -71,6 +71,7 @@ class PressComment extends Component {
                   />
                   </div>
                   <textarea
+                    required
                     value={pCommentInput}
                     onChange={e => this.setState({ pCommentInput: e.target.value })}
                     type="text"
@@ -81,11 +82,11 @@ class PressComment extends Component {
                   onClick={() => this.setState({ edit: !this.state.edit })}
                 ><FontAwesomeIcon
                     icon="angle-double-up"
-                    className="expand-arr"
+                    className="close-arr"
                   />
                 </button>
               </div>
-              <div className="pComm-btn-cont">
+              <div className="pComm-btns-cont">
                 <button
                   onClick={() => {
                     deletePressComment(prComm.tpc_id);
