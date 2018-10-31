@@ -118,7 +118,7 @@ export default function audCommentReducer(state = initialState, action) {
       return {
         ...state,
         isLoading: false,
-        audienceComments: action.payload.data
+        audienceComment: action.payload.data
       };
     case `${DELETE_AUD_COMMENT}_PENDING`:
       return {
@@ -129,7 +129,7 @@ export default function audCommentReducer(state = initialState, action) {
       return {
         ...state,
         isLoading: false,
-        audienceComments: action.payload.data
+        audienceComment: action.payload.data
       };
     case CLEAR_AUD_COMMENTS:
       return {

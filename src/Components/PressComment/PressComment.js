@@ -79,15 +79,17 @@ class PressComment extends Component {
                   />
                 </div>
                 <button
+                  className="close-arr"
                   onClick={() => this.setState({ edit: !this.state.edit })}
                 ><FontAwesomeIcon
                     icon="angle-double-up"
-                    className="close-arr"
+                    
                   />
                 </button>
               </div>
-              <div className="pComm-btns-cont">
+              <div className="pComment-btns-cont">
                 <button
+                  className="pcomm-btns"
                   onClick={() => {
                     deletePressComment(prComm.tpc_id);
                     this.setState({ edit: !this.state.edit });
@@ -95,6 +97,7 @@ class PressComment extends Component {
                   Delete comment
               </button>
                 <button
+                  className="pcomm-btns"
                   onClick={() => {
                     editPressComment(prComm.tpc_id, pName, pOutlet, pCommentInput);
                     this.setState({ edit: !this.state.edit });

@@ -24,18 +24,24 @@ class RepStepFour extends Component {
     const { getAudComments, audienceComments, audienceComment, report } = this.props;
     // console.log("comments:", pressComments,
     // "prevProps:", prevProps.pressComments);
-    if (audienceComments.length !== prevProps.audienceComments.length || audienceComment.length !== prevProps.audienceComment.length) {
+    if (audienceComments.length !== prevProps.audienceComments.length || audienceComment !== prevProps.audienceComment) {
       getAudComments(report[0].tr_id);
     }
+  }
+
+  addAudienceComments = (e) => {
+    const { addAudComment, report } = this.props;
+    const { comment, gender, age } = this.state;
+    addAudComment(gender, age, comment, report[0].tr_id);
+    this.setState({ gender: "default", age: 0, comment: "" }); 
+    e.preventDefault();   
   }
 
   renderAudComments = () => {
     const { audienceComments } = this.props;
     let audienceCommList = audienceComments.map((aComm, i) => (
       <div className="main-single-aComm-cont" key={i}>
-        <AudComment
-          aComm={aComm}
-        />
+        <AudComment aComm={aComm} />
       </div>
     ));
     return (<><h3>Addded Audience Comments</h3>{audienceCommList}</>); 
@@ -43,14 +49,14 @@ class RepStepFour extends Component {
 
   render() {
     const { comment, gender, age } = this.state;
-    const { report, screening, audienceComments, getAudComments } = this.props;
+    const { report, screening, audienceComments } = this.props;
     // console.log(this.state);
     // console.log(this.props);
     return (
       <div className="step4-cont">
         <h1>{screening[0] ? `${screening[0].title} - Audience Comments` : "Audience Comments"}</h1>
         <div className="aud-card-cont">
-          <div className="top-aComm-cont">
+          <form className="top-aComm-cont" onSubmit={this.addAudienceComments}>
             <div className="aud-comm-cont">
               <p style={{"marginTop": "0"}}>Audience comment:</p>
               <textarea
@@ -65,6 +71,7 @@ class RepStepFour extends Component {
               <p>Gender:</p>
               <select
                 value={gender}
+                required
                 onChange={e => this.setState({ gender: e.target.value })}>
                 <option disabled hidden value="default" >Select Gender</option>
                 <option value="Male">Male</option>
@@ -83,24 +90,24 @@ class RepStepFour extends Component {
                 />
               </div>
               <button
-                onClick={() => {
-                  addAudComment(gender, age, comment, report[0].tr_id);
-                  this.setState({ gender: "default", age: 0, comment: "" }, 
-                  () => getAudComments(report[0].tr_id));
-                }}
+              type="submit"
+              value="submit"
+                // onClick={() => this.addAudienceComments()}
               >
                 Add Comment
               </button>
             </div>
+            <Link 
+              to={`/admin/report/final/${report[0] && report[0].tr_id}`} 
+              className="final-rev-btn">
+              Review All Report Info
+            </Link>
             <div className="link-cont">
-              <Link to="/admin/report/step3" className="final-rev-btn">
-                Previous Step
-              </Link>
-              <Link to={`/admin/report/final/${report[0] && report[0].tr_id}`} className="final-rev-btn">
-                Review All Report Info
+              <Link to="/admin/report/step3" className="link-btn">
+                {`< Previous Step`}
               </Link>
             </div>
-          </div>
+          </form>
           <div className="bottom-aComm-cont">
             {!audienceComments[0] 
               ? <></>

@@ -43,6 +43,7 @@ module.exports = {
   addReport: (req, res) => {
     const db = req.app.get("db");
     const { attendance, ratio, reaction, movieId } = req.body;
+    console.log(req.body);
     db.reports
       .add_report([attendance, ratio, reaction, movieId])
       .then(response => {

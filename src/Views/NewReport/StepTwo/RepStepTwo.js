@@ -14,12 +14,10 @@ class RepStepTwo extends Component {
     }
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     const { getScreening, report, getScenes } = this.props;
-    // console.log(report);
-    const response = await report;
-    getScreening(response[0].movieid);
-    getScenes(response[0].tr_id);
+    getScreening(report[0] && report[0].movieid);
+    getScenes(report[0] && report[0].tr_id);
   }
 
   componentDidUpdate(prevProps) {
@@ -57,7 +55,7 @@ class RepStepTwo extends Component {
   render() {
     const { scene } = this.state;
     const { report, screening, scenes } = this.props;
-    // console.log(this.props);
+    console.log(this.props);
     return (
       <div className="step2-cont">
         <h1>{screening[0] ? `${screening[0].title} - Scenes` : "Scenes"}</h1>

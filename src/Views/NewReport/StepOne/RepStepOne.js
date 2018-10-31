@@ -32,6 +32,14 @@ class RepStepOne extends Component {
     this.props.getScreening(selected[0].id);
   }
 
+  createReport = e => {
+    const { addReport, screening, history } = this.props;
+    const { attendance, ratio, reaction } = this.state;
+    addReport(+attendance, +ratio, reaction, screening[0].id);
+    history.push('/admin/report/step2')
+    e.preventDefault();
+  }
+
   renderScreenings = () => {
     const { screenings } = this.props;
     let screeningList = screenings.map((screening, i) => (
@@ -43,15 +51,15 @@ class RepStepOne extends Component {
   }
 
   render() {
-  const { screenings, screening, addReport, report } = this.props;
+  const { screenings, screening, report } = this.props;
   const { attendance, ratio, reaction } = this.state;
-  // console.log(this.props);
+  console.log(this.props);
   // console.log(this.state);
     return (
       <div className="new-report-cont">
         <h1>{!report[0] ? "Create Report" : "Edit Report"}</h1>
-        <div className="new-report-inner-cont">
-          <div className="report-card1-cont">
+        <div className="new-report-inner-cont" onSubmit={this.createReport}>
+          <form className="report-card1-cont">
             <div className="report-row-cont">
             <p className="screening-select">Title:</p>
             {!report[0] ?
@@ -103,6 +111,7 @@ class RepStepOne extends Component {
             <p className="reaction-tt">Overall Reaction:</p>
             <select 
               value={reaction}
+              required
               onChange={e => this.setState({reaction: e.target.value})}>
                 <option disabled hidden value="default" >Select reaction</option>
                 <option value="Excellent">Excellent</option>
@@ -115,10 +124,10 @@ class RepStepOne extends Component {
           {!report[0] ?
             <div className="link-cont">
               <Link to='/admin/reports' className="submit-btn" >Cancel Report</Link>
-              <Link 
-                to='/admin/report/step2'
-                onClick={() => addReport(+attendance, +ratio, reaction, screening[0].id)} 
-                className="submit-btn">Next Step</Link>
+              <button 
+                type="submit"
+                className="submit-btn"
+                value="submit">Next Step</button>
             </div>
             : <div className="link-cont">
               <Link 
@@ -131,7 +140,7 @@ class RepStepOne extends Component {
                 className="submit-btn">Edit Next Step</Link>
             </div>
           }
-          </div>
+          </form>
         </div>
       </div>
     )
