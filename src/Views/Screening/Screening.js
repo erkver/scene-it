@@ -4,7 +4,10 @@ import { addFavorite, getFavorites, deleteFavorite } from "../../Ducks/favorites
 import { withRouter, Link } from "react-router-dom";
 import { sendEmailAll, sendText } from "../../Ducks/adminReducer";
 import { getScreening } from "../../Ducks/screeningReducer";
+import GoogleMapReact from 'google-map-react';
 import './Screening.scss';
+
+const Theatre = ({ text }) => <div>{text}</div>;
 
 class Screening extends Component {
   constructor() {
@@ -59,6 +62,7 @@ class Screening extends Component {
   render() {
     const { screening, isAuthed } = this.props;
     const { claimed } = this.state;
+    const { REACT_APP_GOOGLE_KEY } = process.env;
     let btnText = 'Get Passes!';
     if(claimed) {
       btnText = 'Claimed!'
@@ -109,6 +113,19 @@ class Screening extends Component {
                   className="del-link"
                   onClick={() => this.handleDelete()}
                   >Click here to release your seats...</Link>
+                <div style={{ height: '25vh', width: '100%' }}>
+                  <GoogleMapReact
+                    bootstrapURLKeys={{ key: REACT_APP_GOOGLE_KEY }}
+                    defaultCenter={this.props.center}
+                    defaultZoom={this.props.zoom}
+                  >
+                    <Theatre
+                      lat={e.latitude}
+                      lng={e.longitude}
+                      text={e.theatre_name}
+                    />
+                  </GoogleMapReact>
+                </div>
                 </>)
             )
           }

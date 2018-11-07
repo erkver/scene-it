@@ -17,6 +17,7 @@
     border: solid 1px $primary-btn;
     border-radius: 10px;
     font-size: 20px;
+    transition: .2s;
     @include box-shadow;
 
     .inner-movie-cont {
@@ -53,6 +54,7 @@
           text-decoration: none;
           padding: 1%;
           text-align: center;
+          transition: .2s;
         }
       }
     }
