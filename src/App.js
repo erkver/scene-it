@@ -6,10 +6,10 @@ import routes from "./routes";
 import Navbar from "./Components/Navbar/Navbar";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import ScrollToTop from "react-router-scroll-top";
-import { faCircleNotch, faSearchPlus, faAngleDoubleDown, faAngleDoubleUp } from "@fortawesome/free-solid-svg-icons";
+import { faCircleNotch, faSearchPlus, faAngleDoubleDown, faAngleDoubleUp, faFilm } from "@fortawesome/free-solid-svg-icons";
 import './App.scss';
 
-library.add(faCircleNotch, faSearchPlus, faAngleDoubleDown, faAngleDoubleUp);
+library.add(faCircleNotch, faSearchPlus, faAngleDoubleDown, faAngleDoubleUp, faFilm);
 
 class App extends Component {
   render() {

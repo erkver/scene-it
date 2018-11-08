@@ -5,15 +5,20 @@ import { withRouter, Link } from "react-router-dom";
 import { sendEmailAll, sendText } from "../../Ducks/adminReducer";
 import { getScreening } from "../../Ducks/screeningReducer";
 import GoogleMapReact from 'google-map-react';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import './Screening.scss';
 
-const Theatre = ({ text }) => <div>{text}</div>;
+const Theatre = ({ text }) => <div className="marker">{text}</div>;
 
 class Screening extends Component {
   constructor() {
     super();
     this.state = {
-      claimed: false
+      claimed: false, 
+      center: {
+        lat: null,
+        lng: null
+      }
     }
   }
 
@@ -21,8 +26,9 @@ class Screening extends Component {
     const { getScreening, getFavorites, user } = this.props;
     const { id } = this.props.match.params;
     getScreening(+id).then(response => {
-      // console.log(response);
-      // const { data } = response.value;
+      console.log(response);
+      const { data } = response.value;
+      this.setState({center: {lat: +data[0].latitude, lng: +data[0].longitude} })
         getFavorites(user.user_id).then(res => {
         const { data } = res.value;
         // console.log(res);
@@ -61,13 +67,13 @@ class Screening extends Component {
 
   render() {
     const { screening, isAuthed } = this.props;
-    const { claimed } = this.state;
+    const { claimed, center } = this.state;
     const { REACT_APP_GOOGLE_KEY } = process.env;
     let btnText = 'Get Passes!';
     if(claimed) {
       btnText = 'Claimed!'
     }
-    console.log(this.props);
+    console.log(screening[0] && screening[0].latitude);
     let screeningInfo = screening.map((e, i) => (
       <div key={i} className="main-screening-cont">
         <h1 className="title-text">{e.title} screening</h1>
@@ -86,6 +92,20 @@ class Screening extends Component {
           <p className="info-text">Synopsis: {e.synopsis}</p>
           <p className="info-text">Runtime: {!e.runtime ? "TBD" : `${e.runtime} minutes`}</p>
           <p className="info-text">Location: {e.theatre_name}</p>
+          <div className="map-cont" >
+            <GoogleMapReact
+              bootstrapURLKeys={{ key: REACT_APP_GOOGLE_KEY }}
+              center={center}
+              defaultZoom={12}
+            >
+              <Theatre
+                lat={+e.latitude}
+                lng={+e.longitude}
+                text={<FontAwesomeIcon icon="film" />}
+              // className="marker"
+              />
+            </GoogleMapReact>
+          </div>
           {!isAuthed
             ?
             <p className="add-text">Login to get passes!</p>
@@ -94,7 +114,7 @@ class Screening extends Component {
               ? 
               (<>
                 <h3>Claim your passes below!</h3>
-                <div className="txt-btn-cont">
+              <div className="txt-btn-cont">
                 <button
                   className="add-btn"
                   onClick={() => this.addByText()}>Via text
@@ -113,20 +133,7 @@ class Screening extends Component {
                   className="del-link"
                   onClick={() => this.handleDelete()}
                   >Click here to release your seats...</Link>
-                <div style={{ height: '25vh', width: '100%' }}>
-                  <GoogleMapReact
-                    bootstrapURLKeys={{ key: REACT_APP_GOOGLE_KEY }}
-                    defaultCenter={this.props.center}
-                    defaultZoom={this.props.zoom}
-                  >
-                    <Theatre
-                      lat={e.latitude}
-                      lng={e.longitude}
-                      text={e.theatre_name}
-                    />
-                  </GoogleMapReact>
-                </div>
-                </>)
+              </>)
             )
           }
         </div>

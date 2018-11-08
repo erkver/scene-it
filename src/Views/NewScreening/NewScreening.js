@@ -163,7 +163,7 @@ class NewScreening extends Component {
                 onClick={() => {
                   addScreening(
                     movie.title, 
-                    `http://image.tmdb.org/t/p/w200/${movie.poster_path}`, 
+                    `http://image.tmdb.org/t/p/original/${movie.poster_path}`, 
                     moment(movie.release_date).format('ll'), 
                     movie.overview, 
                     true, 
