@@ -53,7 +53,7 @@ class AdminScreening extends Component {
   }
   render() {
     const { screening } = this.props;
-    return (!screening[0] ? <p>Loading...</p> : this.renderContent());
+    return (!screening[0] ? <div>Loading...</div> : this.renderContent());
   }
 }
 

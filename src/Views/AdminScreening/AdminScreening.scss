@@ -30,8 +30,7 @@
       img {
         border: solid 1px $primary-btn;
         margin: .7em 0 .3em 0;
-        height: 40%;
-        width: 45%;
+        width: 30%;
       }
 
       p {
@@ -74,19 +73,18 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 85vh;
     margin: auto;
-    width: 100vw;
+    width: 95%;
   
     h1 {
-      font-size: 20px;
+      font-size: 28px;
       font-weight: bold;
       margin: 10px 0;
       text-align: center;
     }
     .single-screening-cont {
       background: $primary-card;
-      width: 90%;
+      width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -108,7 +106,7 @@
         display: flex;
         text-align: start;
         margin: .3em 0;
-        font-size: 14px;
+        font-size: 20px;
       }
 
       .data-btn-cont {
@@ -119,7 +117,7 @@
         .edit-btn {
           background: none;
           border: .75px solid $primary-btn;
-          font-size: 14px;
+          font-size: 18px;
           color: $primary-btn;
           padding: 3%;
           border-radius: 10px;
