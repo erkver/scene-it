@@ -22,8 +22,8 @@ class RepStepThree extends Component {
 
   componentDidUpdate(prevProps) {
     const { getPressComments, pressComments, pressComment, report } = this.props;
-    console.log("comments:", pressComments,
-    "prevProps:", prevProps.pressComments);
+    // console.log("comments:", pressComments,
+    // "prevProps:", prevProps.pressComments);
     if (pressComments.length !== prevProps.pressComments.length || pressComment !== prevProps.pressComment) {
       getPressComments(report[0].tr_id);
     }

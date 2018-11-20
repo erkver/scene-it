@@ -122,7 +122,7 @@
     margin: 5px auto;
     border: solid 1px $primary-btn;
     border-radius: 10px;
-    font-size: 16px;
+    font-size: 20px;
     @include box-shadow;
 
   
@@ -145,7 +145,7 @@
       }
 
       .btn-cont {
-        width:100%;
+        width: 100%;
         display: flex;
         align-items: center;
         justify-content: flex-end;
@@ -157,6 +157,7 @@
           text-decoration: none;
           padding: 2%;
           text-align: center;
+          width: 25%;
         }
       }
     }
@@ -197,11 +198,12 @@
 
         .info-btn {
           border: none;
-          font-size: 16px;
+          font-size: 18px;
           color: black;
           text-decoration: none;
           padding: 2%;
           text-align: center;
+          width: 25%;
         }
       }
     }

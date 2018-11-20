@@ -55,7 +55,7 @@ class RepStepTwo extends Component {
   render() {
     const { scene } = this.state;
     const { report, screening, scenes } = this.props;
-    console.log(this.props);
+    // console.log(this.props);
     return (
       <div className="step2-cont">
         <h1>{screening[0] ? `${screening[0].title} - Scenes` : "Scenes"}</h1>

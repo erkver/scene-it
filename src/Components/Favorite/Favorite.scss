@@ -31,6 +31,7 @@
       img {
         margin: .5em auto;
         border: 1px solid $primary-btn;
+        width: 80%;
       }
 
       p {
@@ -73,7 +74,7 @@
     margin: 5px auto;
     border: solid 1px $primary-btn;
     border-radius: 10px;
-    font-size: 14px;
+    font-size: 20px;
     @include box-shadow;
 
 
@@ -88,6 +89,7 @@
       img {
         margin: .5em auto;
         border: 1px solid $primary-btn;
+        width: 80%;
       }
 
       p {

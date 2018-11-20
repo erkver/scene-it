@@ -26,7 +26,7 @@ class Screening extends Component {
     const { getScreening, getFavorites, user } = this.props;
     const { id } = this.props.match.params;
     getScreening(+id).then(response => {
-      console.log(response);
+      // console.log(response);
       const { data } = response.value;
       this.setState({center: {lat: +data[0].latitude, lng: +data[0].longitude} })
         getFavorites(user.user_id).then(res => {
@@ -73,7 +73,6 @@ class Screening extends Component {
     if(claimed) {
       btnText = 'Claimed!'
     }
-    console.log(screening[0] && screening[0].latitude);
     let screeningInfo = screening.map((e, i) => (
       <div key={i} className="main-screening-cont">
         <h1 className="title-text">{e.title} screening</h1>
@@ -101,7 +100,7 @@ class Screening extends Component {
               <Theatre
                 lat={+e.latitude}
                 lng={+e.longitude}
-                text={<FontAwesomeIcon icon="film" />}
+                text={<FontAwesomeIcon icon="map-pin" />}
               // className="marker"
               />
             </GoogleMapReact>

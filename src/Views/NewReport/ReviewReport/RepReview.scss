@@ -98,10 +98,10 @@
     align-items: center;
     min-height: 30em;
     margin: auto;
-    width: 100vw;
+    width: 95%;
 
     h1 {
-      font-size: 20px;
+      font-size: 28px;
       font-weight: bold;
       margin: 10px 0;
       text-align: center;
@@ -109,7 +109,7 @@
 
     .report-final-inner-cont {
       background: $primary-card;
-      width: 90%;
+      width: 100%;
       min-height: 75vh;
       display: flex;
       flex-direction: column;
@@ -117,7 +117,7 @@
       justify-content: flex-start;
       border: solid 1px $primary-btn;
       border-radius: 10px;
-      font-size: 16px;
+      font-size: 20px;
       @include box-shadow;
 
       .report-card-cont-final {
@@ -138,6 +138,7 @@
 
           h2{
             font-weight: bold;
+            font-size: 24px;
           }
         }
         
@@ -158,12 +159,12 @@
 
         p {
           margin: .4em 0 .4em .3em;
-          font-size: 14px;
+          font-size: 20px;
         }
       }
 
       .report-links {
-        font-size: 12px;
+        font-size: 16px;
         text-decoration: none;
         width: 5em;
         height: 2.5em;

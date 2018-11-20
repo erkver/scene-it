@@ -139,7 +139,7 @@
 }
 
 @media(min-width: 320px) and (max-width: 800px) {
-  .ind-pComm-cont {
+    .ind-pComm-cont {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -147,22 +147,23 @@
     margin: .5em 0;
 
     p {
-      margin-left: .3em;
+     width: 90%;
+     text-align: start;
     }
 
     #expand-arr {
       background: $primary-card;
       border: none;
-      font-size: 16px;
-      color: black;
+      font-size: 24px;
+      text-align: center;
+      color: $primary-btn;
       padding: 2%;
       text-decoration: none;
-      width: 15%;
-    }
+      width: 10%;
+    }       
 
     .pComm-text-cont{
-      height: 100%;
-      width: 85%;
+      width: 90%;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
@@ -181,33 +182,33 @@
       width: 100%;
       display: flex;
       align-items: flex-start;
-      justify-content: space-evenly;
+      justify-content: space-between;
 
       .pComm-inputs-cont {
+        width: 100%;
         display: flex;
         flex-direction: column;
-        align-items: center;
-        justify-content: space-evenly;
-        height: 100%;
+        align-items: flex-start;
 
         .name-outlet-cont {
           display: flex;
           align-items: center;
-          justify-content: space-evenly;
+          justify-content: space-between;
           width: 100%;
-          margin: .3em 0;
+          margin: .5em 0;
 
           input {
-            width: 7.5em;
-            height: 2em;
+            width: 45%;
+            height: 2.5em;
             border-radius: 5px;
             border: solid 1px $primary-border; 
             -webkit-transition: .3s;
             transition: .3s;
             outline: none;
             background: white;
-            margin-left: .3em;
-            padding-left: .3em;
+            padding-left: .5em;
+            font-family: 'Didact Gothic', sans-serif;
+            font-size: 16px;
           }
 
           input:focus {
@@ -216,15 +217,16 @@
         }
 
         textarea {
-          width: 15.8em;
+          width: 98%;
           border-radius: 5px;
           border: solid 1px $primary-border; 
           -webkit-transition: .3s;
           transition: .3s;
           outline: none;
           background: white;
-          margin-left: .3em;
           font-family: 'Didact Gothic', sans-serif;
+          font-size: 16px;
+          padding-left: .5em;
         }
 
         textarea:focus {
@@ -232,7 +234,7 @@
         }
       }
 
-      button {
+      .close-arr {
         background: $primary-card;
         border: none;
         font-size: 24px;
@@ -244,21 +246,24 @@
       }
     }
 
-    .pComm-btn-cont {
+    .pComment-btns-cont {
+      width: 100%;
       display: flex;
       align-items: center;
       justify-content: space-evenly;
-      width: 100%;
+      margin: .5em auto;
 
-      button {
-        background: $primary-btn;
-        border: none;
-        font-size: 14px;
-        color: white;
-        padding: 2%;
-        border-radius: 7.5px;
+      .pcomm-btns {
+        background: none;
+        border: .75px solid $primary-btn;
+        font-size: 18px;
+        font-family: 'Didact Gothic', sans-serif;
+        color: $primary-btn;
+        padding: 1% 2%;
+        border-radius: 10px;
         text-decoration: none;
-        width: 8.5em;
+        text-align: center;
+        width: 8.8em;
       }
     }
   }

@@ -53,7 +53,7 @@ class RepStepOne extends Component {
   render() {
   const { screenings, screening, report } = this.props;
   const { attendance, ratio, reaction } = this.state;
-  console.log(this.props);
+  // console.log(this.props);
   // console.log(this.state);
     return (
       <div className="new-report-cont">

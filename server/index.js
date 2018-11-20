@@ -8,8 +8,7 @@ const {
   PASS,
   TWILIO_ACCOUNT_SID,
   TWILIO_AUTH_TOKEN,
-  TWILIO_PHONE_NUMBER,
-  PHONE
+  TWILIO_PHONE_NUMBER
 } = process.env;
 const express = require("express");
 const session = require("express-session");
@@ -178,7 +177,7 @@ app.post('/send', (req, res) => {
     }
   });
   
-  emails.forEach(function(user, i, array) {
+  emails.forEach((user, i, array) => {
     let mailOptions = {
       from: `SceneItTeam <${USER}>`,
       to: 'erkver250@gmail.com',

@@ -19,7 +19,7 @@
 
     .new-screening-inner-cont {
       background: $primary-card;
-      width: 90%;
+      width: 100%;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
@@ -128,39 +128,46 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 70vh;
+    min-height: 80vh;
     margin: auto;
-    width: 100vw;
+    width: 95%;
 
     h1 {
-        font-size: 20px;
-        font-weight: bold;
-        margin: 10px 0;
-        text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+      margin: 10px 0;
+      text-align: center;
     }
 
     .new-screening-inner-cont {
       background: $primary-card;
       width: 90%;
-      height: 100%;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      justify-content: space-around;
-      margin: auto;
+      justify-content: flex-start;
       border: solid 1px $primary-btn;
       border-radius: 10px;
       text-align: center;
-      font-size: 16px;
+      font-size: 20px;
+      @include box-shadow;
 
       .mov-row-cont {
-        height: 60px;
-        width: 80%;
+        width: 96%;
         display: flex;
         flex-direction: column;
         align-items: flex-start;
         justify-content: space-evenly;
-        margin-left: 10px;
+        margin: 0 auto;
+
+        p { 
+          margin: .5em 0;
+        }
+
+        h3 {
+          font-size: 24px;
+          font-weight: bold;
+        }
 
         select {
           width: 15em;
@@ -171,6 +178,8 @@
           transition: .3s;
           outline: none;
           background: white;
+          font-family: 'Didact Gothic', sans-serif;
+          font-size: 16px;
         }
 
         select:focus {
@@ -179,13 +188,15 @@
 
         .seat-input {
           width: 18%;
-          height: 1.8em;
+          height: 2.25em;
           border-radius: 5px;
           border: solid 1px $primary-border; 
           -webkit-transition: .3s;
           transition: .3s;
           outline: none;
           padding-left: 7px;
+          font-family: 'Didact Gothic', sans-serif;
+          font-size: 16px;
         }
 
         .seat-input:focus {
@@ -194,13 +205,15 @@
 
         .date-cont {
           border-radius: 5px;
-          height: 2em;
-          width: 14.6em;
+          height: 2.25em;
+          width: 14.575em;
           border: solid 1px $primary-border; 
           -webkit-transition: .3s;
           transition: .3s;
           outline: none;
           padding-left: .3em;
+          font-family: 'Didact Gothic', sans-serif;
+          font-size: 16px;
         }
 
         .date-cont:focus {
@@ -209,14 +222,17 @@
       }
 
       .submit-btn {
-        background: $primary-btn;
-        border: none;
-        font-size: 14px;
-        color: white;
-        padding: 3%;
+        background: none;
+        border: .75px solid $primary-btn;
+        font-size: 20px;
+        font-family: 'Didact Gothic', sans-serif;
+        color: $primary-btn;
+        padding: 2% 2%;
         border-radius: 10px;
         text-decoration: none;
-        margin: 0 auto;
+        margin: 1em auto;
+        text-align: center;
+        width: 35%;
       }
     }
   }
