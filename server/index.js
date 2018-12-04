@@ -1,5 +1,5 @@
 require('dotenv').config();
-
+const path = require('path');
 const {
   SECRET,
   CONNECTION_STRING,
@@ -68,7 +68,7 @@ const {
 
 app.use(json());
 massive(CONNECTION_STRING).then(db => app.set("db", db)).catch(err => console.log(err));
-
+app.use(express.static(`${__dirname}/../build`));
 app.use(
   session({
     secret: SECRET,
