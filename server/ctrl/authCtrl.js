@@ -1,6 +1,6 @@
 const Auth0Strategy = require("passport-auth0");
 
-const { DOMAIN, CLIENT_ID, CLIENT_SECRET } = process.env;
+const { DOMAIN, CLIENT_ID, CLIENT_SECRET, REACT_APP_HOME } = process.env;
 
 const strat = new Auth0Strategy(
   {
@@ -22,7 +22,7 @@ const getUser = (req, res) => {
 
 const logout = (req, res) => {
   req.session.destroy(() => {
-    res.redirect('http://localhost:3000')
+    res.redirect(REACT_APP_HOME)
   });
 };
 
