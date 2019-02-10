@@ -8,7 +8,7 @@ module.exports = {
         console.log("favorites q success");
         return res.status(200).json(userResult);
       } catch(err) {
-        res.status(500).send({ errorMessage: "Could not get user favorites" });
+        res.status(500).send({ errorMessage: "Get user favorites failed" });
         console.log(err);
       };
     } else if(req.query.m) {
@@ -17,7 +17,7 @@ module.exports = {
         console.log("get fill success");
         return res.status(200).json(fillResult[0].total);
       } catch(err) {
-        res.status(500).send({ errorMessage: "Couldn't get fill results" });
+        res.status(500).send({ errorMessage: "Get fill results failed" });
         console.log(err);
       };
     } else {
@@ -26,7 +26,7 @@ module.exports = {
         console.log("get favs success");
         return res.status(200).json(favoritesResult);
       } catch(err) {
-        res.status(500).send({ errorMessage: "Could not get favorites" });
+        res.status(500).send({ errorMessage: "Get favorites failed" });
         console.log(err);
       };
     }
@@ -38,7 +38,7 @@ module.exports = {
       console.log("add fav success");
       return res.status(200).json(result);
     } catch(err) {
-      res.status(500).send({ errorMessage: "Could not add favorite" });
+      res.status(500).send({ errorMessage: "Add favorite failed" });
       console.log(err);
     };
   },
@@ -49,7 +49,7 @@ module.exports = {
       console.log("delete fav success");
       return res.status(200).json(result);
     } catch(err) {
-      res.status(500).send({ errorMessage: "Couldn't delete favorite" });
+      res.status(500).send({ errorMessage: "Delete favorite failed" });
       console.log(err);
     };
   }

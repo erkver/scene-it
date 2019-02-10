@@ -5,7 +5,7 @@ module.exports = {
       console.log("GET theatres success");
       return res.status(200).json(result);
     } catch(err) {
-      res.status(500).send({ errorMessage: "Something went wrong" });
+      res.status(500).send({ errorMessage: "Get theatres failed" });
       console.log(err);
     };
   },
@@ -15,7 +15,7 @@ module.exports = {
       const result = await req.app.get('db').theatres.get_theatre([id]);
       return res.status(200).json(result);
     } catch(err) {
-      res.status(500).send({ errorMessage: "Something went wrong" });
+      res.status(500).send({ errorMessage: "Get theatre failed" });
       console.log(err);
     };
   }

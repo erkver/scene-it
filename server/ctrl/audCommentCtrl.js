@@ -6,7 +6,7 @@ module.exports = {
       console.log("get aComm success");
       return res.status(200).json(response);
     } catch(err) {
-      res.status(500).send({ errorMessage: "Something went wrong" });
+      res.status(500).send({ errorMessage: "Get audience comments failed" });
       console.log(err);
     };
   },
@@ -17,7 +17,7 @@ module.exports = {
       console.log("get aComm success");
       return res.status(200).json(response);
     } catch(err) {
-      res.status(500).send({ errorMessage: "Something went wrong" });
+      res.status(500).send({ errorMessage: "Get audience comment failed" });
       console.log(err);
     };
   },
@@ -27,7 +27,7 @@ module.exports = {
       const response = await req.app.get("db").comments.audience.add_audience_comment([gender, age, comment, reportId]);
       return res.status(200).json(response.data);
     } catch(err) {
-      res.status(500).send({ errorMessage: "Something went wrong" });
+      res.status(500).send({ errorMessage: "Add audience comment failed" });
       console.log(err);
     };
   },
@@ -39,7 +39,7 @@ module.exports = {
       console.log("edit aComm success");
       return res.status(200).json(response);
     } catch(err) {
-      res.status(500).send({ errorMessage: "Something went wrong" });
+      res.status(500).send({ errorMessage: "Edit audience comment failed" });
       console.log(err);
     };
   },
@@ -50,7 +50,7 @@ module.exports = {
       console.log("delete aComm success");
       return res.status(200).json(response);
     } catch(err) {
-      res.status(500).send({ errorMessage: "Something went wrong" });
+      res.status(500).send({ errorMessage: "Delete audience comment failed" });
       console.log(err);
     };
   }

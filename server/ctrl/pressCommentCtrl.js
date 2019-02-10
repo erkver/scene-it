@@ -6,7 +6,7 @@ module.exports = {
         console.log("get pComm success");
         return res.status(200).json(result);
       } catch(err) {
-        res.status(500).send({ errorMessage: "Could not get press comments" });
+        res.status(500).send({ errorMessage: "Get press comments failed" });
         console.log(err);
       };
   },
@@ -17,7 +17,7 @@ module.exports = {
       console.log("get pComm success");
       return res.status(200).json(result);
     } catch(err) {
-      res.status(500).send({ errorMessage: "Something went wrong" });
+      res.status(500).send({ errorMessage: "Get press comment failed" });
       console.log(err);
     };
   },
@@ -29,7 +29,7 @@ module.exports = {
       console.log("add pComm success");
       return res.status(200).json(result);
     } catch(err) {
-      res.status(500).send({ errorMessage: "Something went wrong" });
+      res.status(500).send({ errorMessage: "Add press comment failed" });
       console.log(err);
     };
   },
@@ -43,7 +43,7 @@ module.exports = {
       console.log("edit pComm success");
       return res.status(200).json(result);
     } catch(err) {
-      res.status(500).send({ errorMessage: "Something went wrong" });
+      res.status(500).send({ errorMessage: "Edit press comment failed" });
       console.log(err);
     };
   },
@@ -55,7 +55,7 @@ module.exports = {
       console.log("delete pComm success");
       return res.status(200).json(result);
     } catch(err) {
-      res.status(500).send({ errorMessage: "Something went wrong" });
+      res.status(500).send({ errorMessage: "Delete press comment failed" });
       console.log(err);
     };
   }

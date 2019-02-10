@@ -7,7 +7,7 @@ module.exports = {
       console.log("get request scene success");
       return res.status(200).json(result);
     } catch(err) {
-      res.status(500).send({ errorMessage: "Something went wrong" });
+      res.status(500).send({ errorMessage: "Get scenes failed" });
       console.log(err);
     };
   },
@@ -18,7 +18,7 @@ module.exports = {
       console.log("get scene success");
       return res.status(200).json(result);
     } catch(err) {
-      res.status(500).send({ errorMessage: "Something went wrong" });
+      res.status(500).send({ errorMessage: "Get scene failed" });
       console.log(err);
     };
   },
@@ -29,7 +29,7 @@ module.exports = {
       console.log("add scene success");
       return res.status(200).json(result);
     } catch(err) {
-      res.status(500).send({ errorMessage: "Something went wrong" });
+      res.status(500).send({ errorMessage: "Add scene failed" });
       console.log(err);
     };
   },
@@ -41,7 +41,7 @@ module.exports = {
       console.log("edit scene success");
       return res.status(200).json(result);
     } catch(err) {
-      res.status(500).send({ errorMessage: "Something went wrong" });
+      res.status(500).send({ errorMessage: "Edit scene failed" });
       console.log(err);
     };
   },
@@ -53,7 +53,7 @@ module.exports = {
       console.log("delete scene success");
       return res.status(200).json(result);
     } catch(err) {
-      res.status(500).send({ errorMessage: "Something went wrong" });
+      res.status(500).send({ errorMessage: "Delete scene failed" });
       console.log(err);
     };
   }

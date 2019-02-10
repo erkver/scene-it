@@ -11,7 +11,7 @@ module.exports = {
         console.log("GET screenings query success");
         return res.status(200).json(result);
       } catch(err){
-        res.status(500).send({ errorMessage: "Something went wrong" });
+        res.status(500).send({ errorMessage: "Get screenings search query failed" });
         console.log(err);
       };
     } else {
@@ -20,7 +20,7 @@ module.exports = {
         console.log("GET all screenings success" );
         return res.status(200).json(result);
       } catch(err)  {
-        res.status(500).send({errorMessage: "Something went wrong"});
+        res.status(500).send({errorMessage: "Get screenings failed"});
         console.log(err);
       };
     }
@@ -32,7 +32,7 @@ module.exports = {
       console.log("get screening success ");
       return res.status(200).json(result);
     } catch(err) {
-      res.status(500).send({ errorMessage: "Something went wrong" });
+      res.status(500).send({ errorMessage: "Get screening failed" });
       console.log(err);
     };
   },
@@ -45,7 +45,7 @@ module.exports = {
         console.log(result);
       return res.status(200).json(result.data);
     } catch(err) {
-      res.status(500).send({ errorMessage: "Something went wrong" });
+      res.status(500).send({ errorMessage: "Get screening info failed" });
       console.log(err);
     };
   },
@@ -85,7 +85,7 @@ module.exports = {
       console.log("POST screening success")
       return res.status(200).json(result);
       } catch(err) {
-        res.status(500).send({ errorMessage: "Something went wrong" });
+        res.status(500).send({ errorMessage: "Add screening failed" });
         console.log(err);
       };
   },
@@ -97,7 +97,7 @@ module.exports = {
       console.log("PUT screening success");
       return res.status(200).json(result);
     } catch(err)  {
-      res.status(500).send({ errorMessage: "Something went wrong" });
+      res.status(500).send({ errorMessage: "Edit screening failed" });
       console.log(err);
     };
   }

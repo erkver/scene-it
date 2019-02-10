@@ -9,7 +9,7 @@ module.exports = {
         console.log("report query sucess");
         return res.status(200).json(result);
       } catch(err) {
-        res.status(500).send({ errorMessage: "Something went wrong" });
+        res.status(500).send({ errorMessage: "Get reports query failed" });
         console.log(err);
       };
     } else {
@@ -18,7 +18,7 @@ module.exports = {
         console.log("get all reports success");
         return res.status(200).json(result);
       } catch(err) {
-        res.status(500).send({ errorMessage: "Something went wrong" });
+        res.status(500).send({ errorMessage: "Get reports failed" });
         console.log(err);
       };
     }
@@ -30,7 +30,7 @@ module.exports = {
       console.log("GET report success");
       return res.status(200).json(result);
     } catch(err) {
-      res.status(500).send({ errorMessage: "Something went wrong" });
+      res.status(500).send({ errorMessage: "Get report failed" });
       console.log(err);
     };
   },
@@ -41,7 +41,7 @@ module.exports = {
       console.log("add report sucess");
       return res.status(200).json(result);
     } catch(err) {
-      res.status(500).send({ errorMessage: "Something went wrong" });
+      res.status(500).send({ errorMessage: "Add report failed" });
       console.log(err);
     };
   },
@@ -53,7 +53,7 @@ module.exports = {
       console.log("edit report success");
       return res.status(200).json(result);
     } catch(err) {
-      res.status(500).send({ errorMessage: "Something went wrong" });
+      res.status(500).send({ errorMessage: "Edit report failed" });
       console.log(err);
     };
   },
@@ -64,7 +64,7 @@ module.exports = {
       console.log("Delete report success");
       return res.status(200).json(result);
     } catch(err) {
-      res.status(500).send({ errorMessage: "Something went wrong" });
+      res.status(500).send({ errorMessage: "Delete report failed" });
       console.log(err);
     };
   }
