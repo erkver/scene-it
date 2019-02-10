@@ -2,71 +2,57 @@ const axios = require('axios');
 const { API_KEY } = process.env;
 
 module.exports = {
-  getScreenings: (req, res) => {
+  getScreenings: async (req, res) => {
     const db = req.app.get('db');
     const { q } = req.query;
-    if(req.query.q) {
-      db.screenings.screening_search([`%${q}%`]).then(response => {
-        return res.status(200).json(response);
-      }).catch(err => {
+    if(q) {
+      try {
+        const result = await db.screenings.screening_search([`%${q}%`]);
+        console.log("GET screenings query success");
+        return res.status(200).json(result);
+      } catch(err){
         res.status(500).send({ errorMessage: "Something went wrong" });
         console.log(err);
-      });
+      };
     } else {
-      db.screenings.get_screenings().then(response => {
-        // console.log(response);
-        return res.status(200).json(response);
-      }).catch(err => {
+      try {
+        const result = await db.screenings.get_screenings();
+        console.log("GET all screenings success" );
+        return res.status(200).json(result);
+      } catch(err)  {
         res.status(500).send({errorMessage: "Something went wrong"});
         console.log(err);
-      });
+      };
     }
   },
-  getScreening: (req, res) => {
-    const db = req.app.get('db');
-    const { id } = req.params;
-    db.screenings.get_screening([id]).then(response => {
+  getScreening: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const result = await req.app.get('db').screenings.get_screening([id]);
       console.log("get screening success ");
-      return res.status(200).json(response);
-    }).catch(err => {
+      return res.status(200).json(result);
+    } catch(err) {
       res.status(500).send({ errorMessage: "Something went wrong" });
       console.log(err);
-    });
+    };
   },
-  getScreeningInfo: (req, res) => {
-    const { id } = req.params;
-    // console.log(req.params.id);
-    axios
-      .get(`https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=en-US`)
-      .then(response => {
-        // console.log(response);
-        return res.status(200).json(response.data);
-      })
-      .catch(err => {
-        res.status(500).send({ errorMessage: "Something went wrong" });
-        console.log(err);
-      });
+  getScreeningInfo: async (req, res) => {
+    try {
+      const { id } = req.params;
+      // console.log(req.params.id);
+      const result = await axios
+      .get(`https://api.themoviedb.org/1/movie/${id}?api_key=${API_KEY}&language=en-US`);
+        console.log(result);
+      return res.status(200).json(result.data);
+    } catch(err) {
+      res.status(500).send({ errorMessage: "Something went wrong" });
+      console.log(err);
+    };
   },
-  createScreening: (req, res) => {
+  createScreening: async (req, res) => {
     // console.log(req.body);
-    const db = req.app.get('db');
-    const {
-      title,
-      img_url,
-      release_date,
-      synopsis,
-      isScreening,
-      screening_date,
-      userId,
-      studio,
-      genre,
-      mov_url,
-      runtime,
-      theatreId,
-      seat_count
-    } = req.body;
-    db.screenings
-      .add_screening([
+    try {
+      const {
         title,
         img_url,
         release_date,
@@ -80,28 +66,39 @@ module.exports = {
         runtime,
         theatreId,
         seat_count
-      ])
-      .then(response => {
-        return res.status(200).json(response);
-      })
-      .catch(err => {
+      } = req.body;
+      const result = await req.app.get('db').screenings.add_screening([
+        title,
+        img_url,
+        release_date,
+        synopsis,
+        isScreening,
+        screening_date,
+        userId,
+        studio,
+        genre,
+        mov_url,
+        runtime,
+        theatreId,
+        seat_count
+      ]);
+      console.log("POST screening success")
+      return res.status(200).json(result);
+      } catch(err) {
         res.status(500).send({ errorMessage: "Something went wrong" });
         console.log(err);
-      });
+      };
   },
-  editScreening: (req, res) => {
-    const db = req.app.get('db');
-    const { screening_date,
-      theatreId,
-      seat_count } = req.body;
-    const { id } = req.params;
-    // console.log(id, screening_date, theatreId, seat_count);
-    db.screenings.edit_screening([id, screening_date, theatreId, seat_count]).then(response => {
-      // console.log(response);
-      return res.status(200).json(response);
-    }).catch(err => {
+  editScreening: async (req, res) => {
+    try {
+      const { screening_date, theatreId, seat_count } = req.body;
+      const { id } = req.params;
+      const result = await req.app.get('db').screenings.edit_screening([id,screening_date, theatreId, seat_count]);
+      console.log("PUT screening success");
+      return res.status(200).json(result);
+    } catch(err)  {
       res.status(500).send({ errorMessage: "Something went wrong" });
       console.log(err);
-    });
+    };
   }
 }

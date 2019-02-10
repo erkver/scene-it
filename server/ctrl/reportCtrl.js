@@ -1,86 +1,71 @@
 module.exports = {
-  getReports: (req, res) => {
+  getReports: async (req, res) => {
     const db = req.app.get("db");
     const { r } = req.query;
     console.log("report: ", req.query)
     if(req.query.r) {
-      db.reports
-      .get_reports(r)
-      .then(response => {
+      try {
+        const result = await db.reports.get_reports(r);
         console.log("report query sucess");
-        return res.status(200).json(response);
-      })
-      .catch(err => {
+        return res.status(200).json(result);
+      } catch(err) {
         res.status(500).send({ errorMessage: "Something went wrong" });
         console.log(err);
-      });
+      };
     } else {
-      db.reports
-        .get_reports()
-        .then(response => {
-          console.log("get all reports success");
-          return res.status(200).json(response);
-        })
-        .catch(err => {
-          res.status(500).send({ errorMessage: "Something went wrong" });
-          console.log(err);
-        });
-      }
-  },
-  getReport: (req, res) => {
-    const db = req.app.get("db");
-    const { id } = req.params;
-    db.reports
-      .get_report([id])
-      .then(response => {
-        return res.status(200).json(response);
-      })
-      .catch(err => {
+      try {
+        const result = await db.reports.get_reports();
+        console.log("get all reports success");
+        return res.status(200).json(result);
+      } catch(err) {
         res.status(500).send({ errorMessage: "Something went wrong" });
         console.log(err);
-      });
+      };
+    }
   },
-  addReport: (req, res) => {
-    const db = req.app.get("db");
-    const { attendance, ratio, reaction, movieId } = req.body;
-    console.log(req.body);
-    db.reports
-      .add_report([attendance, ratio, reaction, movieId])
-      .then(response => {
-        console.log("add report sucess");
-        return res.status(200).json(response);
-      })
-      .catch(err => {
-        res.status(500).send({ errorMessage: "Something went wrong" });
-        console.log(err);
-      });
+  getReport: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const result = await req.app.get("db").reports.get_report([id]);
+      console.log("GET report success");
+      return res.status(200).json(result);
+    } catch(err) {
+      res.status(500).send({ errorMessage: "Something went wrong" });
+      console.log(err);
+    };
   },
-  editReport: (req, res) => {
-    const db = req.app.get("db");
-    const { attendance, ratio, reaction } = req.body;
-    const { id } = req.params;
-    db.reports
-      .edit_report([id, attendance, ratio, reaction])
-      .then(response => {
-        console.log("edit report success");
-        return res.status(200).json(response);
-      })
-      .catch(err => {
-        res.status(500).send({ errorMessage: "Something went wrong" });
-        console.log(err);
-      });
+  addReport: async (req, res) => {
+    try {
+      const { attendance, ratio, reaction, movieId } = req.body;
+      const result = await req.app.get("db").reports.add_report([attendance, ratio, reaction, movieId]);
+      console.log("add report sucess");
+      return res.status(200).json(result);
+    } catch(err) {
+      res.status(500).send({ errorMessage: "Something went wrong" });
+      console.log(err);
+    };
   },
-  deleteReport: (req, res) => {
-    const db = req.app.get("db");
-    const { id } = req.params;
-    db.reports
-      .delete_report([id])
-      .then(response => {
-        return res.status(200).json(response);
-      })
-      .catch(err => {
-        res.status(500).send({ errorMessage: "Something went wrong" });
-        console.log(err);
-      });
+  editReport: async (req, res) => {
+    try {
+      const { attendance, ratio, reaction } = req.body;
+      const { id } = req.params;
+      const result = await req.app.get("db").reports.edit_report([id, attendance, ratio, reaction]);
+      console.log("edit report success");
+      return res.status(200).json(result);
+    } catch(err) {
+      res.status(500).send({ errorMessage: "Something went wrong" });
+      console.log(err);
+    };
+  },
+  deleteReport: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const result = await req.app.get("db").reports.delete_report([id]);
+      console.log("Delete report success");
+      return res.status(200).json(result);
+    } catch(err) {
+      res.status(500).send({ errorMessage: "Something went wrong" });
+      console.log(err);
+    };
   }
 };

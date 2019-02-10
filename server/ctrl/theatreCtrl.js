@@ -1,24 +1,22 @@
 module.exports = {
-  getTheatres: (req, res) => {
-    const db = req.app.get('db');
-    db.theatres
-      .get_theatres().then(response => {
-        // console.log(response);
-        return res.status(200).json(response);
-      })
-      .catch(err => {
-        res.status(500).send({ errorMessage: "Something went wrong" });
-        console.log(err);
-      });
-  },
-  getTheatre: (req, res) => {
-    const db = req.app.get('db');
-    const { id } = req.params
-    db.theatres.get_theatre([id]).then(response => {
-      return res.status(200).json(response);
-    }).catch(err => {
+  getTheatres: async (req, res) => {
+    try {
+      const result = await req.app.get('db').theatres.get_theatres();
+      console.log("GET theatres success");
+      return res.status(200).json(result);
+    } catch(err) {
       res.status(500).send({ errorMessage: "Something went wrong" });
       console.log(err);
-    });
+    };
+  },
+  getTheatre: async (req, res) => {
+    try {
+      const { id } = req.params
+      const result = await req.app.get('db').theatres.get_theatre([id]);
+      return res.status(200).json(result);
+    } catch(err) {
+      res.status(500).send({ errorMessage: "Something went wrong" });
+      console.log(err);
+    };
   }
 }
