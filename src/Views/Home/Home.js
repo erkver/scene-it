@@ -2,15 +2,13 @@ import React,{ Component } from "react";
 import { connect } from "react-redux";
 import { getUser } from "../../Ducks/userReducer";
 import { getScreenings, getScreening } from "../../Ducks/screeningReducer";
-import { withRouter } from "react-router-dom";
 import Movie from "../../Components/Movie/Movie";
 import "./Home.scss";
 
 class Home extends Component {
   componentDidMount() {
-    const { getScreenings, getUser } = this.props;
-    getScreenings();
-    getUser();
+    this.props.getUser();
+    this.props.getScreenings();
   }
     
   render() {
@@ -24,7 +22,7 @@ class Home extends Component {
           getScreening={getScreening}
         />
       </div>
-  ));
+    ));
     return (
       <div className="home-list-cont">
         <div>
@@ -36,6 +34,10 @@ class Home extends Component {
   }
 }
 
-const mapStateToProps = ({userReducer, screeningReducer}) => ({...userReducer, ...screeningReducer});
+const mapStateToProps = ({userReducer, screeningReducer}) => {
+  const { user } = userReducer;
+  const { screenings } = screeningReducer;
+  return {user, screenings};
+};
 
-export default withRouter(connect(mapStateToProps, {getScreenings, getScreening, getUser})(Home));
+export default connect(mapStateToProps, {getScreenings, getScreening, getUser})(Home);

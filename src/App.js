@@ -19,7 +19,7 @@ class App extends Component {
             <div>
               <Navbar />
               {routes}
-              <p className="footer">Data for this site was provided by The Movie DB</p>
+              <p className="footer">Data for this site provided by The Movie DB</p>
             </div>
           </ScrollToTop>
         </BrowserRouter>
