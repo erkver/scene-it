@@ -1,21 +1,21 @@
-import axios from "axios";
+import axios from 'axios';
 
-const GET_USER = "GET_USER";
+const GET_USER = 'GET_USER';
 
 export function getUser() {
   return {
     type: GET_USER,
     payload: axios.get('/api/me')
-  }
+  };
 }
 
 const initialState = {
   user: {},
   isAuthed: false
-}
+};
 
 export default function userReducer(state = initialState, action) {
-  switch(action.type) {
+  switch (action.type) {
     case `${GET_USER}_PENDING`:
       return {
         ...state,
@@ -36,4 +36,3 @@ export default function userReducer(state = initialState, action) {
       return state;
   }
 }
-

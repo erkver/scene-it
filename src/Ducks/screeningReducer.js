@@ -1,17 +1,17 @@
 import axios from 'axios';
 
-const GET_SCREENINGS = "GET_SCREENINGS";
-const SEARCH_SCREENINGS = "SEARCH_SCREENINGS"
-;const GET_SCREENING = "GET_SCREENING";
-const GET_SCREENING_INFO = "GET_SCREENING_INFO";
-const ADD_SCREENING = "ADD_SCREENING";
+const GET_SCREENINGS = 'GET_SCREENINGS';
+const SEARCH_SCREENINGS = 'SEARCH_SCREENINGS';
+const GET_SCREENING = 'GET_SCREENING';
+const GET_SCREENING_INFO = 'GET_SCREENING_INFO';
+const ADD_SCREENING = 'ADD_SCREENING';
 const EDIT_SCREENING = 'EDIT_SCREENING';
 const CLEAR_SCREENINGS = 'CLEAR_SCREENINGS';
 
 export function getScreenings() {
   return {
     type: GET_SCREENINGS,
-    payload: axios.get("/api/screenings")
+    payload: axios.get('/api/screenings')
   };
 }
 
@@ -49,10 +49,11 @@ export function addScreening(
   mov_url,
   runtime,
   theatreId,
-  seat_count) {
+  seat_count
+) {
   return {
     type: ADD_SCREENING,
-    payload: axios.post("/api/screening", {
+    payload: axios.post('/api/screening', {
       title,
       img_url,
       release_date,
@@ -70,11 +71,7 @@ export function addScreening(
   };
 }
 
-export function editScreening(
-  id,
-  screening_date,
-  theatreId,
-  seat_count) {
+export function editScreening(id, screening_date, theatreId, seat_count) {
   return {
     type: ADD_SCREENING,
     payload: axios.put(`/api/screening/${id}`, {
@@ -88,8 +85,8 @@ export function editScreening(
 export function clearScreenings() {
   return {
     type: CLEAR_SCREENINGS,
-    payload: {screenings: initialState, screening: initialState}
-  }
+    payload: { screenings: initialState, screening: initialState }
+  };
 }
 
 const initialState = {
@@ -149,7 +146,7 @@ export default function screeningReducer(state = initialState, action) {
       return {
         ...state,
         isLoading: true
-      };      
+      };
     case `${ADD_SCREENING}_FULFILLED`:
       return {
         ...state,
@@ -173,7 +170,7 @@ export default function screeningReducer(state = initialState, action) {
         screenings: action.payload,
         screening: action.payload
       };
-    default: 
+    default:
       return state;
   }
 }

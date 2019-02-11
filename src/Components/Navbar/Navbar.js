@@ -13,18 +13,14 @@ class Navbar extends Component {
   }
 
   handleClick = () => {
-    const app = document.getElementById('main-react-app');
-    this.setState({ visible: !this.state.visible }, () => {
-      app.removeEventListener('click', this.handleClick);
-      // app.addEventListener('click', this.handleOutsideClick);
+    this.setState({ visible: true }, () => {
+      document.addEventListener('click', this.handleOutsideClick);
     });
   };
 
   handleOutsideClick = () => {
-    const app = document.getElementById('main-react-app');
     this.setState({ visible: false }, () => {
-      app.removeEventListener('click', this.handleOutsideClick);
-      // app.addEventListener('click', this.handleClick);
+      document.removeEventListener('click', this.handleOutsideClick);
     });
   };
 
@@ -32,17 +28,13 @@ class Navbar extends Component {
     const { isAuthed, user } = this.props;
     const { visible } = this.state;
     const { REACT_APP_LOGIN } = process.env;
-    console.log(visible);
+    // console.log(visible);
     return (
       <div className="nav-cont">
         <div className="inner-nav-cont">
           {!isAuthed ? (
             <>
-              <a
-                className="login-link"
-                href={REACT_APP_LOGIN}
-                onClick={() => this.handleClick()}
-              >
+              <a className="login-link" href={REACT_APP_LOGIN}>
                 Login
               </a>
             </>
@@ -52,7 +44,7 @@ class Navbar extends Component {
                 className={`hamburger hamburger--3dx ${
                   !visible ? '' : 'is-active'
                 }`}
-                onClick={() => this.handleClick()}
+                onClick={this.handleClick}
               >
                 <span className="hamburger-box">
                   <span className="hamburger-inner" />

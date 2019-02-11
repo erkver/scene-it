@@ -1,21 +1,21 @@
-import React from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
-import { connect } from "react-redux";
-import Home from "./Views/Home/Home";
+import React from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import Home from './Views/Home/Home';
 // import Profile from "./Views/Profile/Profile";
-import Watchlist from "./Views/Watchlist/Watchlist";
-import Screening from "./Views/Screening/Screening";
-import AdminHome from "./Views/AdminHome/AdminHome";
-import AdminScreening from "./Views/AdminScreening/AdminScreening";
-import NewScreening from "./Views/NewScreening/NewScreening";
-import RepStepOne from "./Views/NewReport/StepOne/RepStepOne";
-import RepStepTwo from "./Views/NewReport/StepTwo/RepStepTwo";
-import RepStepThree from "./Views/NewReport/StepThree/RepStepThree";
-import RepStepFour from "./Views/NewReport/StepFour/RepStepFour";
-import RepReview from "./Views/NewReport/ReviewReport/RepReview";
-import Reports from "./Views/Reports/Reports";
-import ScreeningData from "./Views/ScreeningData/ScreeningData";
-import NewEmail from "./Views/NewEmail/NewEmail";
+import Watchlist from './Views/Watchlist/Watchlist';
+import Screening from './Views/Screening/Screening';
+import AdminHome from './Views/AdminHome/AdminHome';
+import AdminScreening from './Views/AdminScreening/AdminScreening';
+import NewScreening from './Views/NewScreening/NewScreening';
+import RepStepOne from './Views/NewReport/StepOne/RepStepOne';
+import RepStepTwo from './Views/NewReport/StepTwo/RepStepTwo';
+import RepStepThree from './Views/NewReport/StepThree/RepStepThree';
+import RepStepFour from './Views/NewReport/StepFour/RepStepFour';
+import RepReview from './Views/NewReport/ReviewReport/RepReview';
+import Reports from './Views/Reports/Reports';
+import ScreeningData from './Views/ScreeningData/ScreeningData';
+import NewEmail from './Views/NewEmail/NewEmail';
 
 const mapStateToProps = ({ userReducer }) => ({ ...userReducer });
 
@@ -26,24 +26,11 @@ export default (
       exact
       component={connect(mapStateToProps)(props => {
         if (props.user && props.user.isadmin) {
-          // console.log(props.user && props.user.isadmin);
-          // return <Redirect to="/admin" />
           return <AdminHome {...props} />;
         } else {
-          // console.log(props.user && props.user.isadmin);
           return <Home {...props} />;
         }
       })}
-    />
-    {/* <Route
-      path="/profile"
-      component={connect(mapStateToProps)(props => {
-        if (props.isAuthed) {
-          return <Profile {...props} />;
-        } else {
-          return <Redirect to="/" />;
-        }
-      })} */}
     />
     <Route
       path="/watchlist"
@@ -56,7 +43,6 @@ export default (
       })}
     />
     <Route path="/screening/:id" component={Screening} />
-
     <Route
       path="/admin/send"
       component={connect(mapStateToProps)(props => {
@@ -131,10 +117,8 @@ export default (
       path="/admin/screening/edit/:id"
       component={connect(mapStateToProps)(props => {
         if (props.user && props.user.isadmin) {
-          // console.log(props.user && props.user.isadmin);
           return <NewScreening {...props} />;
         } else {
-          // console.log(props.user && props.user.isadmin);
           return <Home {...props} />;
         }
       })}
@@ -169,7 +153,6 @@ export default (
         }
       })}
     />
-
 
     <Route path="*" render={() => <h4>404 Not Found!</h4>} />
   </Switch>
