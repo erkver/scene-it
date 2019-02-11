@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getMovies, getMovie } from '../../Ducks/adminReducer';
+// import { getMovie } from '../../Ducks/adminReducer';
 import { getTheatres } from '../../Ducks/theatreReducer';
 import {
   addScreening,
@@ -14,13 +14,16 @@ import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import './NewScreening.scss';
 import 'react-datepicker/dist/react-datepicker.css';
+import axios from 'axios';
 
 class NewScreening extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      movies: [],
       startDate: moment(),
       selectedTheatre: {},
+      selectedMovie: {},
       seatCount: 0,
       newMov: true
     };
@@ -33,7 +36,7 @@ class NewScreening extends Component {
   componentDidMount() {
     const { path } = this.props.match;
     const { id } = this.props.match.params;
-    this.props.getMovies();
+    this.getMovies();
     this.props.getTheatres();
     // this.props.getUser();
     if (id && path.includes('edit')) {
@@ -52,8 +55,17 @@ class NewScreening extends Component {
     }
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    // console.log(this.props);
+  getMovies = () => {
+    axios
+      .get('/api/movies')
+      .then(res => {
+        console.log(res);
+        this.setState({ movies: res.data.results });
+      })
+      .catch(err => alert(err));
+  };
+
+  componentDidUpdate(prevProps) {
     if (this.props.match.path !== prevProps.match.path) {
       this.setState({ newMov: !this.state.newMov });
     }
@@ -64,11 +76,14 @@ class NewScreening extends Component {
   }
 
   handleMovie(e) {
-    let selMovie = this.props.movies.filter(event =>
-      event.title.includes(e.target.value)
+    let selMovie = this.state.movies.filter(event =>
+      event.title.match(e.target.value)
     );
-    this.props.getMovie(selMovie[0].id);
-    this.setState({ selectedMovie: this.props.movie });
+    // this.props.getMovie(selMovie[0].id);
+    axios.get(`/api/movie/${selMovie[0].id}`).then(res => {
+      console.log(res);
+      this.setState({ selectedMovie: res.data });
+    });
   }
 
   handleTheatre(e) {
@@ -82,21 +97,45 @@ class NewScreening extends Component {
     this.setState({ seatCount: 0 });
   }
 
+  // addScreening = () => {
+  //   const { selectedMovie, startDate } = this.state;
+  //   axios.post('/api/screening', {
+  //     selectedMovie.title,
+  //     `http://image.tmdb.org/t/p/original/${selectedMovie.poster_path}`,
+  //     moment(selectedMovie.release_date).format('ll'),
+  //     selectedMovie.overview,
+  //     true,
+  //     moment(startDate._d).format('lll'),
+  //     this.props.user.user_id,
+  //     selectedMovie.production_companies[0].name,
+  //     selectedMovie.genres[0].name || 'N/A',
+  //     selectedMovie.homepage,
+  //     selectedMovie.runtime || 'N/A',
+  //     selectedTheatre[0].theatre_id,
+  //     +seatCount
+  //   }).then(res => {
+  //     this.props.history.push('/');
+  //     this.clearInputs();
+  //   }).catch(err => alert(err));
+  // };
+
   render() {
     const {
-      movies,
       theatres,
       addScreening,
-      movie,
       user,
       screening,
-      editScreening,
-      getScreenings
+      editScreening
     } = this.props;
-    const { startDate, seatCount, selectedTheatre, newMov } = this.state;
-    console.log(this.state.newMov);
-    // console.log(this.props);
-    let movieList = movies.map((movie, i) => (
+    const {
+      startDate,
+      seatCount,
+      selectedTheatre,
+      newMov,
+      selectedMovie
+    } = this.state;
+    console.log(this.state.selectedMovie);
+    let movieList = this.state.movies.map((movie, i) => (
       <option className="movie-option-cont" key={i}>
         {movie.title}
       </option>
@@ -209,17 +248,19 @@ class NewScreening extends Component {
                 className="submit-btn"
                 onClick={() => {
                   addScreening(
-                    movie.title,
-                    `http://image.tmdb.org/t/p/original/${movie.poster_path}`,
-                    moment(movie.release_date).format('ll'),
-                    movie.overview,
+                    selectedMovie.title,
+                    `http://image.tmdb.org/t/p/original/${
+                      selectedMovie.poster_path
+                    }`,
+                    moment(selectedMovie.release_date).format('ll'),
+                    selectedMovie.overview,
                     true,
                     moment(startDate._d).format('lll'),
                     user.user_id,
-                    movie.production_companies[0].name,
-                    movie.genres[0].name,
-                    movie.homepage,
-                    movie.runtime,
+                    selectedMovie.production_companies[0].name,
+                    selectedMovie.genres[0].name || 'N/A',
+                    selectedMovie.homepage,
+                    selectedMovie.runtime || 'N/A',
                     selectedTheatre[0].theatre_id,
                     +seatCount
                   );
@@ -251,9 +292,9 @@ const mapStateToProps = ({
 export default connect(
   mapStateToProps,
   {
-    getMovies,
+    // getMovies,
     getTheatres,
-    getMovie,
+    // getMovie,
     addScreening,
     getUser,
     editScreening,
