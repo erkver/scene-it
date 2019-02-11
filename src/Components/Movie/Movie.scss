@@ -1,9 +1,8 @@
 @import '../../index';
 
-
-@media(min-width: 800px) {
+@media (min-width: 800px) {
   .movie-cont:hover {
-    transition: .2s;
+    transition: 0.2s;
     background-color: $primary-background;
   }
   .movie-cont {
@@ -17,7 +16,7 @@
     border: solid 1px $primary-btn;
     border-radius: 10px;
     font-size: 20px;
-    transition: .2s;
+    transition: 0.2s;
     @include box-shadow;
 
     .inner-movie-cont {
@@ -26,28 +25,27 @@
       flex-direction: column;
       align-items: flex-start;
       justify-content: space-evenly;
-      margin: .5em auto;
+      margin: 0.5em auto;
 
       img {
-        margin: .5em auto;
+        margin: 0.5em auto;
         border: 1px solid $primary-btn;
-        width: 80%;
-        // height: 70%;
+        width: 50%;
       }
 
       p {
-        margin: .2em 0;
+        margin: 0.2em 0;
       }
 
       .btn-cont {
-        width:100%;
+        width: 100%;
         display: flex;
         align-items: center;
         justify-content: flex-end;
 
         .info-btn:hover {
           color: $primary-card;
-          transition: .2s;
+          transition: 0.2s;
         }
         .info-btn {
           border: none;
@@ -56,14 +54,14 @@
           text-decoration: none;
           padding: 1%;
           text-align: center;
-          transition: .2s;
+          transition: 0.2s;
           width: 30%;
         }
       }
     }
   }
   .admin-movie-cont:hover {
-    transition: .2s;
+    transition: 0.2s;
     background-color: $primary-background;
   }
   .admin-movie-cont {
@@ -85,15 +83,14 @@
       flex-direction: column;
       align-items: flex-start;
       justify-content: space-evenly;
-      margin: .5em auto;
+      margin: 0.5em auto;
 
       p {
-        margin: .2em 0;
+        margin: 0.2em 0;
       }
 
-    
       .btn-cont {
-        width:100%;
+        width: 100%;
         display: flex;
         align-items: center;
         justify-content: flex-end;
@@ -112,8 +109,8 @@
   }
 }
 
-@media(min-width: 320px) and (max-width: 800px)  {
- .movie-cont {
+@media (min-width: 320px) and (max-width: 800px) {
+  .movie-cont {
     background: $primary-card;
     width: 100%;
     display: flex;
@@ -126,23 +123,22 @@
     font-size: 20px;
     @include box-shadow;
 
-  
     .inner-movie-cont {
       width: 96%;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       justify-content: space-evenly;
-      margin: .5em auto;
+      margin: 0.5em auto;
 
       img {
         width: 80%;
-        margin: .5em auto;
+        margin: 0.5em auto;
         border: 1px solid $primary-btn;
       }
 
       p {
-        margin: .2em 0;
+        margin: 0.2em 0;
       }
 
       .btn-cont {
@@ -177,22 +173,20 @@
     font-size: 14px;
     @include box-shadow;
 
-
     .admin-inner-mov-cont {
       width: 96%;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       justify-content: space-evenly;
-      margin: .5em auto;
+      margin: 0.5em auto;
 
       p {
-        margin: .2em 0;
+        margin: 0.2em 0;
       }
 
-    
       .btn-cont {
-        width:100%;
+        width: 100%;
         display: flex;
         align-items: center;
         justify-content: flex-end;
@@ -210,4 +204,3 @@
     }
   }
 }
-

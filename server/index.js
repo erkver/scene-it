@@ -9,18 +9,18 @@ const {
   TWILIO_AUTH_TOKEN,
   TWILIO_PHONE_NUMBER
 } = process.env;
-const express = require("express");
-const session = require("express-session");
-const passport = require("passport");
+const express = require('express');
+const session = require('express-session');
+const passport = require('passport');
 const app = express();
 const port = 3001;
-const massive = require("massive");
-const { json } = require("body-parser");
+const massive = require('massive');
+const { json } = require('body-parser');
 const nodemailer = require('nodemailer');
 const client = require('twilio')(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
 
-const { strat, getUser, logout } = require("./ctrl/authCtrl");
-const { getMovies, getMovie, getAllUsers } = require("./ctrl/adminCtrl.js");
+const { strat, getUser, logout } = require('./ctrl/authCtrl');
+const { getMovies, getMovie, getAllUsers } = require('./ctrl/adminCtrl.js');
 
 const {
   getScreenings,
@@ -28,17 +28,21 @@ const {
   getScreeningInfo,
   createScreening,
   editScreening
-} = require("./ctrl/screeningCtrl");
+} = require('./ctrl/screeningCtrl');
 
-const { getTheatres, getTheatre } = require("./ctrl/theatreCtrl");
-const { getFavorites, addFavorite, deleteFavorite } = require('./ctrl/favoritesCtrl');
+const { getTheatres, getTheatre } = require('./ctrl/theatreCtrl');
+const {
+  getFavorites,
+  addFavorite,
+  deleteFavorite
+} = require('./ctrl/favoritesCtrl');
 
 const {
   getReports,
   getReport,
   addReport,
   editReport,
-  deleteReport,
+  deleteReport
 } = require('./ctrl/reportCtrl');
 
 const {
@@ -63,11 +67,16 @@ const {
   addAudComment,
   editAudComment,
   deleteAudComment
-} = require('./ctrl/audCommentCtrl')
+} = require('./ctrl/audCommentCtrl');
 
 app.use(json());
-massive(CONNECTION_STRING).then(db => app.set("db", db)).catch(err => console.log(err));
+
+massive(CONNECTION_STRING)
+  .then(db => app.set('db', db))
+  .catch(err => console.log(err));
+
 app.use(express.static(`${__dirname}/../build`));
+
 app.use(
   session({
     secret: SECRET,
@@ -87,22 +96,35 @@ passport.use(strat);
 passport.serializeUser((user, done) => {
   // console.log(user);
   const db = app.get('db');
-  db.getUserByAuthid([user.id]).then(response => {
-    // console.log(response);
-    if(!response[0]){
-      db.addUserByAuthid([user.displayName, user.id, user.emails[0].value, user.picture, user.gender]).then(res => done(null, res[0])).catch(console.log);
-    } else return done(null, response[0]);
-  }).catch(console.log)
+  db.getUserByAuthid([user.id])
+    .then(response => {
+      // console.log(response);
+      if (!response[0]) {
+        db.addUserByAuthid([
+          user.displayName,
+          user.id,
+          user.emails[0].value,
+          user.picture,
+          user.gender
+        ])
+          .then(res => done(null, res[0]))
+          .catch(console.log);
+      } else return done(null, response[0]);
+    })
+    .catch(console.log);
 });
 
 passport.deserializeUser((user, done) => {
   done(null, user);
 });
 
-app.get('/login', passport.authenticate('auth0', {
-  successRedirect: REACT_APP_HOME,
-  failureRedirect: '/login'
-}));
+app.get(
+  '/login',
+  passport.authenticate('auth0', {
+    successRedirect: REACT_APP_HOME,
+    failureRedirect: '/login'
+  })
+);
 
 //Auth endpoints
 app.get('/api/me', getUser);
@@ -117,27 +139,27 @@ app.get('/api/data', getAllUsers);
 app.get('/api/screenings', getScreenings);
 app.get('/api/screening/:id', getScreening);
 app.get('/api/screeningInfo/:id', getScreeningInfo);
-app.post("/api/screening", createScreening);
+app.post('/api/screening', createScreening);
 app.put('/api/screening/:id', editScreening);
 
 //Theatre endpoints
-app.get("/api/theatres", getTheatres);
-app.get("/api/theatres/:id", getTheatre);
+app.get('/api/theatres', getTheatres);
+app.get('/api/theatres/:id', getTheatre);
 
 //Favorites endpoints
-app.get("/api/favorites", getFavorites);
-app.post("/api/favorite", addFavorite);
-app.delete("/api/favorite/:id", deleteFavorite);
+app.get('/api/favorites', getFavorites);
+app.post('/api/favorite', addFavorite);
+app.delete('/api/favorite/:id', deleteFavorite);
 
 //Report endpoints
 app.get('/api/reports', getReports);
 app.get('/api/report/:id', getReport);
 app.post('/api/report', addReport);
-app.put("/api/report/:id", editReport);
-app.delete("/api/report/:id", deleteReport);
+app.put('/api/report/:id', editReport);
+app.delete('/api/report/:id', deleteReport);
 
 //Scene endpoints
-app.get("/api/scenes", getScenes);
+app.get('/api/scenes', getScenes);
 app.get('/api/scene/:id', getScene);
 app.post('/api/scene', addScene);
 app.put('/api/scene/:id', editScene);
@@ -147,15 +169,15 @@ app.delete('/api/scene/:id', deleteScene);
 app.get('/api/comments/press', getPressComments);
 app.get('/api/comment/press/:id', getPressComment);
 app.post('/api/comment/press', addPressComment);
-app.put("/api/comment/press/:id", editPressComment);
-app.delete("/api/comment/press/:id", deletePressComment);
+app.put('/api/comment/press/:id', editPressComment);
+app.delete('/api/comment/press/:id', deletePressComment);
 
 //AudComm endpoints
 app.get('/api/comments/audience', getAudComments);
 app.get('/api/comment/audience/:id', getAudComment);
 app.post('/api/comment/audience', addAudComment);
-app.put("/api/comment/audience/:id", editAudComment);
-app.delete("/api/comment/audience/:id", deleteAudComment);
+app.put('/api/comment/audience/:id', editAudComment);
+app.delete('/api/comment/audience/:id', deleteAudComment);
 
 //Nodemailer
 app.post('/send', (req, res) => {
@@ -164,7 +186,7 @@ app.post('/send', (req, res) => {
   const subject = req.body.subject;
 
   let transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
+    host: 'smtp.gmail.com',
     port: 587,
     secure: false,
     auth: {
@@ -175,7 +197,7 @@ app.post('/send', (req, res) => {
       rejectUnauthorized: false
     }
   });
-  
+
   emails.forEach((user, i, array) => {
     let mailOptions = {
       from: `SceneItTeam <${USER}>`,
@@ -189,7 +211,7 @@ app.post('/send', (req, res) => {
       console.log(mailOptions);
       if (error) {
         return console.log(error);
-      } else if(i === emails.length - 1) {
+      } else if (i === emails.length - 1) {
         emails.tansport.close();
       }
       console.log('Message sent: %s', info.messageId);
@@ -202,16 +224,19 @@ app.post('/send', (req, res) => {
 app.post('/api/messages', (req, res) => {
   console.log(req.body);
   res.header('Content-type', 'applcation/json');
-  client.messages.create({
-    from: TWILIO_PHONE_NUMBER,
-    to: req.body.to,
-    body: req.body.body
-  }).then(() => {
-    res.send(JSON.stringify({success: true}));
-  }).catch(err => {
-    console.log(err);
-    res.send(JSON.stringify({success: false}));
-  });
+  client.messages
+    .create({
+      from: TWILIO_PHONE_NUMBER,
+      to: req.body.to,
+      body: req.body.body
+    })
+    .then(() => {
+      res.send(JSON.stringify({ success: true }));
+    })
+    .catch(err => {
+      console.log(err);
+      res.send(JSON.stringify({ success: false }));
+    });
 });
 
 app.listen(port, () => console.log(`Server is listening on port ${port}`));

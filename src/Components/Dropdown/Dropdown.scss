@@ -1,11 +1,11 @@
 @import '../../index';
 
-@media(min-width: 800px) {
+@media (min-width: 800px) {
   #main-dropdown-cont {
     position: fixed;
     left: 0;
     top: 12vh;
-    transition: transform .2s cubic-bezier(0, .52, 0, 1);
+    transition: transform 0.2s cubic-bezier(0, 0.52, 0, 1);
     width: 20vw;
     background: $primary-btn;
     overflow: scroll;
@@ -15,29 +15,29 @@
     align-items: center;
     justify-content: center;
     margin: auto;
-    border-top: solid .5px white;
+    border-top: solid 0.5px white;
 
     .menu-link:hover {
-      transition: .2s;
+      transition: 0.2s;
       background: $primary-header;
     }
     .menu-link {
-      color: white; 
+      color: white;
       font-size: 28px;
-      border-bottom: solid .5px white;
+      border-bottom: solid 0.5px white;
       width: 100%;
       display: flex;
       align-items: center;
-      justify-content: start;
+      justify-content: flex-start;
       text-decoration: none;
-      padding: .5em .5em;
+      padding: 0.5em 0.5em;
       margin: auto;
     }
   }
 
   #main-dropdown-cont.hide {
     transform: translate3d(-100vw, 0, 0);
-    transition: transform .2s cubic-bezier(.52, 0, 1, 0);
+    transition: transform 0.2s cubic-bezier(0.52, 0, 1, 0);
   }
 
   #main-dropdown-cont.show {
@@ -47,12 +47,12 @@
   }
 }
 
-@media(min-width: 320px) and (max-width: 800px) {
+@media (min-width: 320px) and (max-width: 800px) {
   #main-dropdown-cont {
     position: fixed;
     left: 0;
     top: 70px;
-    transition: transform .2s cubic-bezier(0, .52, 0, 1);
+    transition: transform 0.2s cubic-bezier(0, 0.52, 0, 1);
     width: 45vw;
     background: $primary-btn;
     overflow: scroll;
@@ -62,25 +62,25 @@
     align-items: center;
     justify-content: center;
     margin: auto;
-    border-top: solid .5px white;
+    border-top: solid 0.5px white;
 
     .menu-link {
-      color: white; 
+      color: white;
       font-size: 24px;
-      border-bottom: solid .5px white;
+      border-bottom: solid 0.5px white;
       width: 100%;
       display: flex;
       align-items: center;
-      justify-content: start;
+      justify-content: flex-start;
       text-decoration: none;
-      padding: .5em .2em;
+      padding: 0.5em 0.2em;
       margin: auto;
     }
   }
 
   #main-dropdown-cont.hide {
     transform: translate3d(-100vw, 0, 0);
-    transition: transform .2s cubic-bezier(.52, 0, 1, 0);
+    transition: transform 0.2s cubic-bezier(0.52, 0, 1, 0);
   }
 
   #main-dropdown-cont.show {
@@ -89,5 +89,3 @@
     position: absolute;
   }
 }
-
-

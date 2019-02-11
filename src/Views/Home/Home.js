@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { getUser } from '../../Ducks/userReducer';
 import { getScreenings, getScreening } from '../../Ducks/screeningReducer';
 import Movie from '../../Components/Movie/Movie';
+import Spinner from '../../Components/Spinner/Spinner';
 import './Home.scss';
 
 class Home extends Component {
@@ -13,7 +14,6 @@ class Home extends Component {
 
   render() {
     const { screenings, user, getScreening } = this.props;
-    console.log(this.props);
     let screeningList = screenings.map((movie, i) => (
       <div className="main-home-cont" key={i}>
         <Movie movie={movie} user={user} getScreening={getScreening} />
@@ -24,16 +24,16 @@ class Home extends Component {
         <div>
           <h1 className="list-text">Screenings</h1>
         </div>
-        {screeningList}
+        {screenings[0] ? screeningList : <Spinner />}
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ userReducer, screeningReducer }) => {
-  const { user } = userReducer;
-  const { screenings, screening } = screeningReducer;
-  return { user, screenings, screening };
+const mapStateToProps = state => {
+  const { user } = state.userReducer;
+  const { screenings } = state.screeningReducer;
+  return { user, screenings };
 };
 
 export default connect(

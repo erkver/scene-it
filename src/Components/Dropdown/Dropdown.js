@@ -10,23 +10,15 @@ import './Dropdown.scss';
 
 class Dropdown extends Component {
   clearAllReportData = () => {
-    const {
-      clearReports,
-      clearAudComments,
-      clearPressComments,
-      clearScenes,
-      clearScreenings,
-      handleClick
-    } = this.props;
-    handleClick();
-    clearReports();
-    clearAudComments();
-    clearPressComments();
-    clearScenes();
-    clearScreenings();
+    this.props.clearReports();
+    this.props.clearAudComments();
+    this.props.clearPressComments();
+    this.props.clearScenes();
+    this.props.clearScreenings();
+    this.props.handleClick();
   };
+
   render() {
-    // console.log(this.props);
     const { REACT_APP_LOGOUT } = process.env;
     const { visible, handleClick, user, clearScreenings } = this.props;
     return (
@@ -100,21 +92,7 @@ class Dropdown extends Component {
   }
 }
 
-const mapStateToProps = ({
-  userReducer,
-  screeningReducer,
-  reportReducer,
-  sceneReducer,
-  audCommentReducer,
-  pressCommentReducer
-}) => ({
-  ...userReducer,
-  ...screeningReducer,
-  ...reportReducer,
-  ...sceneReducer,
-  ...audCommentReducer,
-  ...pressCommentReducer
-});
+const mapStateToProps = ({ userReducer }) => ({ ...userReducer });
 
 export default connect(
   mapStateToProps,

@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { getScreening } from "../../Ducks/screeningReducer";
-import { getFavorites } from "../../Ducks/favoritesReducer";
-import { withRouter } from "react-router-dom";
-import Favorite from "../../Components/Favorite/Favorite";
-import "./Watchlist.scss";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { getScreening } from '../../Ducks/screeningReducer';
+import { getFavorites } from '../../Ducks/favoritesReducer';
+import { withRouter } from 'react-router-dom';
+import Movie from '../../Components/Movie/Movie';
+import './Watchlist.scss';
 
 class Watchlist extends Component {
   componentDidMount() {
@@ -14,14 +14,9 @@ class Watchlist extends Component {
 
   render() {
     const { favorites, user } = this.props;
-    // console.log(this.props);
-    let favList = favorites.map((fav, i) => (
+    let favList = favorites.map((movie, i) => (
       <div className="main-fav-cont" key={i}>
-        <Favorite
-          fav={fav}
-          user={user}
-          getScreening={getScreening}
-        />
+        <Movie movie={movie} user={user} getScreening={getScreening} />
       </div>
     ));
     return (
@@ -33,14 +28,17 @@ class Watchlist extends Component {
       </div>
     );
   }
-} 
+}
 
-const mapStateToProps = ({ 
-  userReducer, 
-  screeningReducer,
-  favoritesReducer }) => ({ 
-  ...userReducer, 
-  ...screeningReducer,
-  ...favoritesReducer });
+const mapStateToProps = ({ userReducer, favoritesReducer }) => {
+  const { user } = userReducer;
+  const { favorites } = favoritesReducer;
+  return { user, favorites };
+};
 
-export default withRouter(connect(mapStateToProps, { getFavorites, getScreening })(Watchlist));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { getFavorites, getScreening }
+  )(Watchlist)
+);

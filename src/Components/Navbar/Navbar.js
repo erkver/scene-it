@@ -28,7 +28,6 @@ class Navbar extends Component {
     const { isAuthed, user } = this.props;
     const { visible } = this.state;
     const { REACT_APP_LOGIN } = process.env;
-    // console.log(visible);
     return (
       <div className="nav-cont">
         <div className="inner-nav-cont">

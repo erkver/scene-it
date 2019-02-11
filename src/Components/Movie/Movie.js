@@ -22,8 +22,8 @@ export default function Movie(props) {
             <p>Location: {movie.theatre_name}</p>
             <div className="btn-cont">
               <Link
-                onMouseOver={() => getScreening(movie.id)}
-                to={`/screening/${movie.id}`}
+                onMouseOver={() => getScreening(movie.id || movie.movieid)}
+                to={`/screening/${movie.id || movie.movieid}`}
                 className="info-btn"
               >
                 More Info >
@@ -37,8 +37,8 @@ export default function Movie(props) {
             <p>Location: {movie.theatre_name}</p>
             <div className="btn-cont">
               <Link
-                onMouseOver={() => getScreening(movie.id)}
-                to={`/admin/screening/${movie.id}`}
+                onMouseOver={() => getScreening(movie.id || movie.movieid)}
+                to={`/admin/screening/${movie.id || movie.movieid}`}
                 className="info-btn"
               >
                 More Info >

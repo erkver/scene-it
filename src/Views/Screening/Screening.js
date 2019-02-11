@@ -89,6 +89,7 @@ class Screening extends Component {
         <h1 className="title-text">{e.title} screening</h1>
         <div className="screening-cont">
           <div className="movie-info-cont">
+            <img src={e.img_url} alt={e.title} className="poster" />
             <div className="inner-movie-info-cont">
               <p className="info-text">Title: {e.title}</p>
               <p className="info-text">Studio: {e.studio}</p>
@@ -104,11 +105,10 @@ class Screening extends Component {
               <p className="info-text">
                 Runtime: {!e.runtime ? 'TBD' : `${e.runtime} minutes`}
               </p>
+              <p className="info-text">Synopsis: {e.synopsis}</p>
+              <p className="info-text">Location: {e.theatre_name}</p>
             </div>
-            <img src={e.img_url} alt={e.title} className="poster" />
           </div>
-          <p className="info-text">Synopsis: {e.synopsis}</p>
-          <p className="info-text">Location: {e.theatre_name}</p>
           <div className="map-cont">
             <GoogleMapReact
               bootstrapURLKeys={{ key: REACT_APP_GOOGLE_KEY }}
