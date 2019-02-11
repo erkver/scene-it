@@ -16,7 +16,7 @@ class App extends Component {
     return <Provider store={store}>
         <BrowserRouter>
           <ScrollToTop>
-            <div>
+            <div id="main-react-app">
               <Navbar />
               {routes}
               <p className="footer">Data for this site provided by The Movie DB</p>

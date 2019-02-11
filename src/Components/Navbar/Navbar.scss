@@ -1,7 +1,8 @@
 @import '../../index';
 @import '../../../node_modules/hamburgers/_sass/hamburgers/hamburgers.scss';
+@import './BurgerSettings.scss';
 
-@media(min-width: 800px) {
+@media (min-width: 800px) {
   .nav-cont {
     @include display-flex-center;
     height: 12vh;
@@ -9,7 +10,7 @@
     color: $primary-card;
     justify-content: space-between;
 
-     .inner-nav-cont {
+    .inner-nav-cont {
       @include display-flex-center;
       width: 96%;
       justify-content: space-between;
@@ -32,7 +33,6 @@
         width: 80px;
       }
 
-      
       p {
         width: 80px;
       }
@@ -44,7 +44,7 @@
   }
 }
 
-@media(min-width: 320px) and (max-width: 800px) {
+@media (min-width: 320px) and (max-width: 800px) {
   .nav-cont {
     @include display-flex-center;
     height: 70px;
@@ -76,26 +76,22 @@
         width: 40px;
       }
 
-      button {
-        $hamburger-padding-x: 5px !default;
-        $hamburger-padding-y: 5px !default;
-        $hamburger-layer-width: 20% !default;
-        // $hamburger-layer-height: 4px !default;
-        // $hamburger-layer-spacing: 6px !default;
-        // $hamburger-layer-color;
-      }
-
       p {
         width: 40px;
-        font-size: 12px
+        font-size: 12px;
       }
     }
   }
 }
 
-
-
-
-
-
-
+$hamburger-padding-x: 15px !default;
+$hamburger-padding-y: 15px !default;
+$hamburger-layer-width: 40px !default;
+$hamburger-layer-height: 4px !default;
+$hamburger-layer-spacing: 6px !default;
+$hamburger-layer-color: #fff !default;
+$hamburger-layer-border-radius: 4px !default;
+$hamburger-hover-opacity: 1 !default;
+$hamburger-active-layer-color: whitesmoke !default;
+$hamburger-active-hover-opacity: #fff !default;
+$hamburger-types: (collapse);

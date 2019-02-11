@@ -1,34 +1,42 @@
-import React, {Component} from "react";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import { clearReports } from "../../Ducks/reportReducer";
-import { clearScreenings } from "../../Ducks/screeningReducer";
-import { clearAudComments } from "../../Ducks/audCommentReducer";
-import { clearPressComments } from "../../Ducks/pressCommentReducer";
-import { clearScenes } from "../../Ducks/sceneReducer";
-import "./Dropdown.scss";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { clearReports } from '../../Ducks/reportReducer';
+import { clearScreenings } from '../../Ducks/screeningReducer';
+import { clearAudComments } from '../../Ducks/audCommentReducer';
+import { clearPressComments } from '../../Ducks/pressCommentReducer';
+import { clearScenes } from '../../Ducks/sceneReducer';
+import './Dropdown.scss';
 
 class Dropdown extends Component {
   clearAllReportData = () => {
-    const { clearReports, clearAudComments, clearPressComments, clearScenes, clearScreenings, handleClick } = this.props;
+    const {
+      clearReports,
+      clearAudComments,
+      clearPressComments,
+      clearScenes,
+      clearScreenings,
+      handleClick
+    } = this.props;
     handleClick();
-    clearReports(); 
-    clearAudComments(); 
-    clearPressComments(); 
+    clearReports();
+    clearAudComments();
+    clearPressComments();
     clearScenes();
     clearScreenings();
-  }
+  };
   render() {
     // console.log(this.props);
     const { REACT_APP_LOGOUT } = process.env;
-    const {
-      visibility,
-      handleClick,
-      user,
-      clearScreenings
-    } = this.props;
+    const { visible, handleClick, user, clearScreenings } = this.props;
     return (
-      <div id="main-dropdown-cont" ref={node => {this.node = node}} className={visibility}>
+      <div
+        id="main-dropdown-cont"
+        ref={node => {
+          this.node = node;
+        }}
+        className={visible ? 'show' : 'hide'}
+      >
         {!(user && user.isadmin) ? (
           <>
             <Link className="menu-link" to="/" onClick={() => handleClick()}>
@@ -92,18 +100,29 @@ class Dropdown extends Component {
   }
 }
 
-const mapStateToProps = ({ 
+const mapStateToProps = ({
   userReducer,
   screeningReducer,
-  reportReducer, 
-  sceneReducer, 
-  audCommentReducer, 
-  pressCommentReducer }) => ({ 
+  reportReducer,
+  sceneReducer,
+  audCommentReducer,
+  pressCommentReducer
+}) => ({
   ...userReducer,
   ...screeningReducer,
-  ...reportReducer, 
-  ...sceneReducer, 
-  ...audCommentReducer, 
-  ...pressCommentReducer });
+  ...reportReducer,
+  ...sceneReducer,
+  ...audCommentReducer,
+  ...pressCommentReducer
+});
 
-export default connect(mapStateToProps, { clearReports, clearScreenings, clearAudComments, clearPressComments, clearScenes})(Dropdown);
+export default connect(
+  mapStateToProps,
+  {
+    clearReports,
+    clearScreenings,
+    clearAudComments,
+    clearPressComments,
+    clearScenes
+  }
+)(Dropdown);

@@ -32,7 +32,7 @@
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
     "react-router-scroll-top": "^0.1.1",
-    "react-scripts": "2.0.4",
+    "react-scripts": "^2.1.4",
     "react-toastify": "^4.4.0",
     "redux": "^4.0.0",
     "redux-promise-middleware": "^5.1.1"
@@ -54,6 +54,7 @@
   ],
   "proxy": "http://localhost:3001",
   "devDependencies": {
+    "prettier": "^1.16.4",
     "twilio": "^3.23.1"
   }
 }

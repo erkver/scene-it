@@ -1,69 +1,70 @@
-import React, { Component } from "react";
-import Dropdown from "../Dropdown/Dropdown";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import "./Navbar.scss";
+import React, { Component } from 'react';
+import Dropdown from '../Dropdown/Dropdown';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import './Navbar.scss';
 
 class Navbar extends Component {
   constructor() {
     super();
     this.state = {
-      visible: false,
+      visible: false
     };
   }
 
   handleClick = () => {
-    this.setState({ visible: !this.state.visible})
-      // , () => {document.addEventListener('click', this.hanldeClickOutside)}); 
-  }
+    const app = document.getElementById('main-react-app');
+    this.setState({ visible: !this.state.visible }, () => {
+      app.removeEventListener('click', this.handleClick);
+      // app.addEventListener('click', this.handleOutsideClick);
+    });
+  };
 
-  // hanldeOutsideClick = () => {
-  //   this.setState({visible: !this.state.visible})
-  //     // , () => {document.removeEventListener('click', this.handleClick)});
-  // }
+  handleOutsideClick = () => {
+    const app = document.getElementById('main-react-app');
+    this.setState({ visible: false }, () => {
+      app.removeEventListener('click', this.handleOutsideClick);
+      // app.addEventListener('click', this.handleClick);
+    });
+  };
 
   render() {
-    const { isAuthed, user} = this.props;
+    const { isAuthed, user } = this.props;
     const { visible } = this.state;
     const { REACT_APP_LOGIN } = process.env;
-    // console.log(this.state);
-    let visibility = "hide";
-    if (this.state.visible) {
-      visibility = "show";
-    }
+    console.log(visible);
     return (
-      <div className="nav-cont" >
-      <div className="inner-nav-cont">
-        {!isAuthed ? (
-          <>
-            <a
-              className="login-link"
-              href={REACT_APP_LOGIN}
-              onClick={() => this.handleClick()}
-            >
-              Login
-            </a>
-            </>
-        ) : (
-          <>
-            <button 
-              className={`hamburger hamburger--3dx ${!visible ? "" : "is-active"}`}
-              onClick={() => this.handleClick()}
+      <div className="nav-cont">
+        <div className="inner-nav-cont">
+          {!isAuthed ? (
+            <>
+              <a
+                className="login-link"
+                href={REACT_APP_LOGIN}
+                onClick={() => this.handleClick()}
               >
-              <span className="hamburger-box">
-                <span className="hamburger-inner"></span>
-              </span>
-            </button>
-            <Dropdown
-              handleClick={this.handleClick}
-              visibility={visibility}
-            />
-          </>
-        )}
-        <Link to="/" className="title-treatment">
-          SceneIt
-        </Link>
-        {!user ? <p></p> : <p>{user.name}</p>}
+                Login
+              </a>
+            </>
+          ) : (
+            <>
+              <button
+                className={`hamburger hamburger--3dx ${
+                  !visible ? '' : 'is-active'
+                }`}
+                onClick={() => this.handleClick()}
+              >
+                <span className="hamburger-box">
+                  <span className="hamburger-inner" />
+                </span>
+              </button>
+              <Dropdown handleClick={this.handleClick} visible={visible} />
+            </>
+          )}
+          <Link to="/" className="title-treatment">
+            SceneIt
+          </Link>
+          {!user ? <p /> : <p>{user.name}</p>}
         </div>
       </div>
     );
