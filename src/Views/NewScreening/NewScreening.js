@@ -1,26 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import { getMovie } from '../../Ducks/adminReducer';
 import { getTheatres } from '../../Ducks/theatreReducer';
-import {
-  addScreening,
-  editScreening,
-  getScreening,
-  getScreenings
-} from '../../Ducks/screeningReducer';
-import { getUser } from '../../Ducks/userReducer';
+import { getScreening } from '../../Ducks/screeningReducer';
 import { Link } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
-import './NewScreening.scss';
 import 'react-datepicker/dist/react-datepicker.css';
 import axios from 'axios';
+import './NewScreening.scss';
 
 class NewScreening extends Component {
   constructor(props) {
     super(props);
     this.state = {
       movies: [],
+      theatres: [],
       startDate: moment(),
       selectedTheatre: {},
       selectedMovie: {},
@@ -55,6 +49,12 @@ class NewScreening extends Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.match.path !== prevProps.match.path) {
+      this.setState({ newMov: !this.state.newMov });
+    }
+  }
+
   getMovies = () => {
     axios
       .get('/api/movies')
@@ -64,12 +64,6 @@ class NewScreening extends Component {
       })
       .catch(err => alert(err));
   };
-
-  componentDidUpdate(prevProps) {
-    if (this.props.match.path !== prevProps.match.path) {
-      this.setState({ newMov: !this.state.newMov });
-    }
-  }
 
   handleDate(date) {
     this.setState({ startDate: date });
@@ -97,36 +91,60 @@ class NewScreening extends Component {
     this.setState({ seatCount: 0 });
   }
 
-  // addScreening = () => {
-  //   const { selectedMovie, startDate } = this.state;
-  //   axios.post('/api/screening', {
-  //     selectedMovie.title,
-  //     `http://image.tmdb.org/t/p/original/${selectedMovie.poster_path}`,
-  //     moment(selectedMovie.release_date).format('ll'),
-  //     selectedMovie.overview,
-  //     true,
-  //     moment(startDate._d).format('lll'),
-  //     this.props.user.user_id,
-  //     selectedMovie.production_companies[0].name,
-  //     selectedMovie.genres[0].name || 'N/A',
-  //     selectedMovie.homepage,
-  //     selectedMovie.runtime || 'N/A',
-  //     selectedTheatre[0].theatre_id,
-  //     +seatCount
-  //   }).then(res => {
-  //     this.props.history.push('/');
-  //     this.clearInputs();
-  //   }).catch(err => alert(err));
-  // };
+  addScreening = (
+    title,
+    img_url,
+    release_date,
+    synopsis,
+    isScreening,
+    screening_date,
+    userId,
+    studio,
+    genre,
+    mov_url,
+    runtime,
+    theatreId,
+    seat_count
+  ) => {
+    axios
+      .post('/api/screening', {
+        title,
+        img_url,
+        release_date,
+        synopsis,
+        isScreening,
+        screening_date,
+        userId,
+        studio,
+        genre,
+        mov_url,
+        runtime,
+        theatreId,
+        seat_count
+      })
+      .then(res => {
+        this.props.history.push('/');
+        this.clearInputs();
+      })
+      .catch(err => alert(err));
+  };
+
+  editScreening = (id, screening_date, theatreId, seat_count) => {
+    axios
+      .put(`/api/screening/${id}`, {
+        screening_date,
+        theatreId,
+        seat_count
+      })
+      .then(res => {
+        this.props.history.push('/');
+        this.clearInputs();
+      })
+      .catch(err => alert(err));
+  };
 
   render() {
-    const {
-      theatres,
-      addScreening,
-      user,
-      screening,
-      editScreening
-    } = this.props;
+    const { theatres, user, screening } = this.props;
     const {
       startDate,
       seatCount,
@@ -134,7 +152,6 @@ class NewScreening extends Component {
       newMov,
       selectedMovie
     } = this.state;
-    console.log(this.state.selectedMovie);
     let movieList = this.state.movies.map((movie, i) => (
       <option className="movie-option-cont" key={i}>
         {movie.title}
@@ -208,10 +225,7 @@ class NewScreening extends Component {
               required
             />
           </div>
-          <div
-            className="mov-row-cont"
-            onSubmit={e => this.setState({ seatCount: e.target.value })}
-          >
+          <div className="mov-row-cont">
             <p className="desc-text">Seat Count:</p>
             <input
               type="number"
@@ -225,29 +239,26 @@ class NewScreening extends Component {
           </div>
           {!newMov ? (
             <>
-              <Link
-                to="/"
+              <button
                 className="submit-btn"
-                onClick={() => {
-                  editScreening(
+                onClick={() =>
+                  this.editScreening(
                     screening[0].id,
                     moment(startDate._d).format('lll'),
                     selectedTheatre.theatre_id || selectedTheatre[0].theatre_id,
                     +seatCount
-                  );
-                  this.clearInputs();
-                }}
+                  )
+                }
               >
                 Submit Edit
-              </Link>
+              </button>
             </>
           ) : (
             <>
-              <Link
-                to="/"
+              <button
                 className="submit-btn"
-                onClick={() => {
-                  addScreening(
+                onClick={() =>
+                  this.addScreening(
                     selectedMovie.title,
                     `http://image.tmdb.org/t/p/original/${
                       selectedMovie.poster_path
@@ -263,12 +274,11 @@ class NewScreening extends Component {
                     selectedMovie.runtime || 'N/A',
                     selectedTheatre[0].theatre_id,
                     +seatCount
-                  );
-                  this.clearInputs();
-                }}
+                  )
+                }
               >
                 Submit Screening
-              </Link>
+              </button>
             </>
           )}
         </div>
@@ -277,28 +287,17 @@ class NewScreening extends Component {
   }
 }
 
-const mapStateToProps = ({
-  screeningReducer,
-  adminReducer,
-  theatreReducer,
-  userReducer
-}) => ({
-  ...screeningReducer,
-  ...adminReducer,
-  ...theatreReducer,
-  ...userReducer
-});
+const mapStateToProps = state => {
+  const { user } = state.userReducer;
+  const { theatres } = state.theatreReducer;
+  const { screening } = state.screeningReducer;
+  return { user, theatres, screening };
+};
 
 export default connect(
   mapStateToProps,
   {
-    // getMovies,
     getTheatres,
-    // getMovie,
-    addScreening,
-    getUser,
-    editScreening,
-    getScreening,
-    getScreenings
+    getScreening
   }
 )(NewScreening);

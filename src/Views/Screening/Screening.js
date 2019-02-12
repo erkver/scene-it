@@ -11,6 +11,7 @@ import { getScreening, clearScreenings } from '../../Ducks/screeningReducer';
 import GoogleMapReact from 'google-map-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './Screening.scss';
+import axios from 'axios';
 
 const Theatre = ({ text }) => <div className="marker">{text}</div>;
 
@@ -49,22 +50,28 @@ class Screening extends Component {
     }
   }
 
-  handleDelete = () => {
-    const { favorites, screening, deleteFavorite } = this.props;
+  deleteFavorite = () => {
+    const { favorites, screening } = this.props;
     let fav = favorites.filter(fav => fav.movieid === screening[0].id);
-    deleteFavorite(fav[0].fav_id);
-    this.setState({ claimed: false });
+    axios
+      .delete(`/api/favorite/${fav[0].fav_id}`)
+      .then(() => this.setState({ claimed: false }))
+      .catch(err => console.log(err));
   };
 
-  addByText = () => {
-    const { addFavorite, screening, user, sendText } = this.props;
-    addFavorite(screening[0].id, user.user_id);
-    // console.log(screening[0].id, user.user_id);
-    sendText(
-      +18173085007,
-      JSON.stringify(`Here are your passes for ${screening[0].title}`)
-    );
-    this.setState({ claimed: !this.state.claimed });
+  addFavorite = (movieId, userId) => {
+    axios
+      .post('/api/favorite', { movieId, userId })
+      .then(() => this.setState({ claimed: !this.state.claimed }))
+      .catch(err => console.log(err));
+  };
+
+  addByText = (to, body) => {
+    this.addFavorite();
+    axios
+      .post('/api/messages', { to, body })
+      .then(() => console.log('Text sent'))
+      .catch(err => console.log(err));
   };
 
   addByEmail = () => {
@@ -80,10 +87,10 @@ class Screening extends Component {
   };
 
   render() {
-    const { screening, isAuthed } = this.props;
+    const { screening, isAuthed, user } = this.props;
     const { claimed, center } = this.state;
     const { REACT_APP_GOOGLE_KEY } = process.env;
-
+    console.log('hello');
     let screeningInfo = screening.map((e, i) => (
       <div key={i} className="main-screening-cont">
         <h1 className="title-text">{e.title} screening</h1>
@@ -129,7 +136,17 @@ class Screening extends Component {
             <>
               <h3>Claim your passes below!</h3>
               <div className="txt-btn-cont">
-                <button className="add-btn" onClick={() => this.addByText()}>
+                <button
+                  className="add-btn"
+                  onClick={() =>
+                    this.addByText(
+                      +18173085007,
+                      JSON.stringify(
+                        `Here are your passes for ${screening[0].title}`
+                      )
+                    )
+                  }
+                >
                   Via text
                 </button>
                 <button className="add-btn" onClick={() => this.addByEmail()}>
@@ -143,7 +160,7 @@ class Screening extends Component {
               <Link
                 to="/"
                 className="del-link"
-                onClick={() => this.handleDelete()}
+                onClick={() => this.deleteFavorite()}
               >
                 Click here to release your seats...
               </Link>

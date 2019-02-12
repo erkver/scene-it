@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 const GET_FAVORITES = 'GET_FAVORITES';
-// const GET_FILL = 'GET_FILL';
 const ADD_FAVORITE = 'ADD_FAVORITE';
 const DELETE_FAVORITE = 'DELETE_FAVORITE';
 

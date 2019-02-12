@@ -1,22 +1,34 @@
-import React from "react";
-import "./SingleReport.scss";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './SingleReport.scss';
 
 export default function SingleReport(props) {
-  const { report, getReport } = props;
-  // console.log(props);
+  const {
+    title,
+    theatre_name,
+    attendance,
+    seat_count,
+    ratio,
+    tr_id
+  } = props.report;
+  console.log(ratio);
   return (
     <div className="report-card-cont">
       <div className="inner-card-cont">
-        <p>Film: {report.title}</p>
-        <p>Theatre: {report.theatre_name}</p>
-        <p>Fill info: {report.attendance}/{report.seat_count}</p>
-        <p>Booking Ratio: {report.ratio}:1</p>
+        <p>Film: {title}</p>
+        <p>Theatre: {theatre_name}</p>
+        <p>
+          Fill info: {attendance}/{seat_count}
+        </p>
+        <p>Booking Ratio: {ratio}:1</p>
         <div className="btn-cont">
           <Link
-            to={`/admin/report/final/${report.tr_id}`}
+            to={`/admin/report/final/${tr_id}`}
             className="info-btn"
-            onClick={() => getReport(report.tr_id) }>More Info ></Link>
+            onMouseOver={() => props.getReport(tr_id)}
+          >
+            More Info >
+          </Link>
         </div>
       </div>
     </div>

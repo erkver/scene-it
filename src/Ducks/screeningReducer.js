@@ -4,8 +4,6 @@ const GET_SCREENINGS = 'GET_SCREENINGS';
 const SEARCH_SCREENINGS = 'SEARCH_SCREENINGS';
 const GET_SCREENING = 'GET_SCREENING';
 const GET_SCREENING_INFO = 'GET_SCREENING_INFO';
-const ADD_SCREENING = 'ADD_SCREENING';
-const EDIT_SCREENING = 'EDIT_SCREENING';
 const CLEAR_SCREENINGS = 'CLEAR_SCREENINGS';
 
 export function getScreenings() {
@@ -33,52 +31,6 @@ export function getScreeningInfo(id) {
   return {
     type: GET_SCREENING,
     payload: axios.get(`/api/screeningInfo/${id}`)
-  };
-}
-
-export function addScreening(
-  title,
-  img_url,
-  release_date,
-  synopsis,
-  isScreening,
-  screening_date,
-  userId,
-  studio,
-  genre,
-  mov_url,
-  runtime,
-  theatreId,
-  seat_count
-) {
-  return {
-    type: ADD_SCREENING,
-    payload: axios.post('/api/screening', {
-      title,
-      img_url,
-      release_date,
-      synopsis,
-      isScreening,
-      screening_date,
-      userId,
-      studio,
-      genre,
-      mov_url,
-      runtime,
-      theatreId,
-      seat_count
-    })
-  };
-}
-
-export function editScreening(id, screening_date, theatreId, seat_count) {
-  return {
-    type: ADD_SCREENING,
-    payload: axios.put(`/api/screening/${id}`, {
-      screening_date,
-      theatreId,
-      seat_count
-    })
   };
 }
 
@@ -141,28 +93,6 @@ export default function screeningReducer(state = initialState, action) {
         ...state,
         isLoading: false,
         screeningInfo: action.payload.data
-      };
-    case `${ADD_SCREENING}_PENDING`:
-      return {
-        ...state,
-        isLoading: true
-      };
-    case `${ADD_SCREENING}_FULFILLED`:
-      return {
-        ...state,
-        isLoading: false,
-        screening: action.payload.data
-      };
-    case `${EDIT_SCREENING}_PENDING`:
-      return {
-        ...state,
-        isLoading: true
-      };
-    case `${EDIT_SCREENING}_FULFILLED`:
-      return {
-        ...state,
-        isLoading: false,
-        screenings: action.payload.data
       };
     case CLEAR_SCREENINGS:
       return {
