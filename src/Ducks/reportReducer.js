@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 const GET_REPORT = 'GET_REPORT';
-const ADD_REPORT = 'ADD_REPORT';
 const EDIT_REPORT = 'EDIT_REPORT';
 const DELETE_REPORT = 'DELETE_REPORT';
 const CLEAR_REPORTS = 'CLEAR_REPORTS';
@@ -10,18 +9,6 @@ export function getReport(tr_id) {
   return {
     type: GET_REPORT,
     payload: axios.get(`/api/report/${tr_id}`)
-  };
-}
-
-export function addReport(attendance, ratio, reaction, movieId) {
-  return {
-    type: ADD_REPORT,
-    payload: axios.post('/api/report', {
-      attendance,
-      ratio,
-      reaction,
-      movieId
-    })
   };
 }
 
@@ -63,17 +50,6 @@ export default function reportReducer(state = initialState, action) {
         isLoading: true
       };
     case `${GET_REPORT}_FULFILLED`:
-      return {
-        ...state,
-        isLoading: false,
-        report: action.payload.data
-      };
-    case `${ADD_REPORT}_PENDING`:
-      return {
-        ...state,
-        isLoading: true
-      };
-    case `${ADD_REPORT}_FULFILLED`:
       return {
         ...state,
         isLoading: false,

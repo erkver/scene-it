@@ -1,6 +1,6 @@
 import React from 'react';
-import './Movie.scss';
 import { Link } from 'react-router-dom';
+import './Movie.scss';
 
 export default function Movie(props) {
   let divName = 'movie-cont';
@@ -10,7 +10,6 @@ export default function Movie(props) {
     divName = 'admin-movie-cont';
     innerDivName = 'admin-inner-mov-cont';
   }
-  // console.log(props);
   return (
     <div className={divName}>
       <div className={innerDivName}>

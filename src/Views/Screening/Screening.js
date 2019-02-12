@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-  addFavorite,
-  getFavorites,
-  deleteFavorite
-} from '../../Ducks/favoritesReducer';
+import { getFavorites } from '../../Ducks/favoritesReducer';
 import { withRouter, Link } from 'react-router-dom';
-import { sendEmailAll, sendText } from '../../Ducks/adminReducer';
-import { getScreening, clearScreenings } from '../../Ducks/screeningReducer';
+import { sendEmailAll } from '../../Ducks/adminReducer';
+import { getScreening } from '../../Ducks/screeningReducer';
 import GoogleMapReact from 'google-map-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import './Screening.scss';
 import axios from 'axios';
+import './Screening.scss';
 
 const Theatre = ({ text }) => <div className="marker">{text}</div>;
 
@@ -55,42 +51,44 @@ class Screening extends Component {
     let fav = favorites.filter(fav => fav.movieid === screening[0].id);
     axios
       .delete(`/api/favorite/${fav[0].fav_id}`)
-      .then(() => this.setState({ claimed: false }))
+      .then(() => {
+        this.setState({ claimed: false }, () => this.props.history.push('/'));
+      })
       .catch(err => console.log(err));
   };
 
   addFavorite = (movieId, userId) => {
     axios
       .post('/api/favorite', { movieId, userId })
-      .then(() => this.setState({ claimed: !this.state.claimed }))
+      .then(() => this.setState({ claimed: true }))
       .catch(err => console.log(err));
   };
 
-  addByText = (to, body) => {
-    this.addFavorite();
+  addByText = (movieId, userId, to, body) => {
+    console.log(movieId, userId);
+    this.addFavorite(movieId, userId);
     axios
       .post('/api/messages', { to, body })
       .then(() => console.log('Text sent'))
       .catch(err => console.log(err));
   };
 
-  addByEmail = () => {
-    const { addFavorite, screening, user, sendEmailAll } = this.props;
-    addFavorite(screening[0].id, user.user_id);
-    // console.log(screening[0].id, user.user_id);
-    sendEmailAll(
-      [user.email],
-      `Here are your passes for ${screening[0].title}`,
-      `${screening[0].title} passes!`
-    );
-    this.setState({ claimed: !this.state.claimed });
+  addByEmail = (movieId, userId, email, body, subject) => {
+    this.addFavorite(movieId, userId);
+    this.props
+      .sendEmailAll(email, body, subject)
+      .then(response => {
+        if (response.value.data === 'Success') {
+          this.setState({ claimed: true });
+        }
+      })
+      .catch(error => console.log(error));
   };
 
   render() {
     const { screening, isAuthed, user } = this.props;
     const { claimed, center } = this.state;
     const { REACT_APP_GOOGLE_KEY } = process.env;
-    console.log('hello');
     let screeningInfo = screening.map((e, i) => (
       <div key={i} className="main-screening-cont">
         <h1 className="title-text">{e.title} screening</h1>
@@ -126,7 +124,6 @@ class Screening extends Component {
                 lat={+e.latitude}
                 lng={+e.longitude}
                 text={<FontAwesomeIcon icon="map-pin" />}
-                // className="marker"
               />
             </GoogleMapReact>
           </div>
@@ -140,6 +137,8 @@ class Screening extends Component {
                   className="add-btn"
                   onClick={() =>
                     this.addByText(
+                      e.id,
+                      user.user_id,
                       +18173085007,
                       JSON.stringify(
                         `Here are your passes for ${screening[0].title}`
@@ -149,7 +148,18 @@ class Screening extends Component {
                 >
                   Via text
                 </button>
-                <button className="add-btn" onClick={() => this.addByEmail()}>
+                <button
+                  className="add-btn"
+                  onClick={() =>
+                    this.addByEmail(
+                      e.id,
+                      user.user_id,
+                      [user.email],
+                      `Here are your passes for ${screening[0].title}`,
+                      `${screening[0].title} passes!`
+                    )
+                  }
+                >
                   Via email
                 </button>
               </div>
@@ -157,13 +167,12 @@ class Screening extends Component {
           ) : (
             <>
               <p className="add-text">{claimed ? 'Claimed!' : 'Get Passes!'}</p>
-              <Link
-                to="/"
+              <button
                 className="del-link"
                 onClick={() => this.deleteFavorite()}
               >
                 Click here to release your seats...
-              </Link>
+              </button>
             </>
           )}
         </div>
@@ -175,26 +184,20 @@ class Screening extends Component {
 const mapStateToProps = ({
   userReducer,
   favoritesReducer,
-  screeningReducer,
-  adminReducer
+  screeningReducer
 }) => ({
   ...userReducer,
   ...favoritesReducer,
-  ...screeningReducer,
-  ...adminReducer
+  ...screeningReducer
 });
 
 export default withRouter(
   connect(
     mapStateToProps,
     {
-      addFavorite,
       getScreening,
-      clearScreenings,
       getFavorites,
-      deleteFavorite,
-      sendEmailAll,
-      sendText
+      sendEmailAll
     }
   )(Screening)
 );

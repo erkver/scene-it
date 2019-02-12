@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getTheatres } from '../../Ducks/theatreReducer';
 import { getScreening } from '../../Ducks/screeningReducer';
-import { Link } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -32,7 +31,6 @@ class NewScreening extends Component {
     const { id } = this.props.match.params;
     this.getMovies();
     this.props.getTheatres();
-    // this.props.getUser();
     if (id && path.includes('edit')) {
       this.props.getScreening(+id).then(result => {
         const { data } = result.value;
@@ -73,7 +71,6 @@ class NewScreening extends Component {
     let selMovie = this.state.movies.filter(event =>
       event.title.match(e.target.value)
     );
-    // this.props.getMovie(selMovie[0].id);
     axios.get(`/api/movie/${selMovie[0].id}`).then(res => {
       console.log(res);
       this.setState({ selectedMovie: res.data });

@@ -210,7 +210,8 @@ app.post('/send', (req, res) => {
     transporter.sendMail(mailOptions, (error, info) => {
       console.log(mailOptions);
       if (error) {
-        return console.log(error);
+        console.log(error);
+        return res.status(500).json({ error: 'Failed to send email' });
       } else if (i === emails.length - 1) {
         emails.tansport.close();
       }
@@ -218,6 +219,7 @@ app.post('/send', (req, res) => {
       console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
     });
   });
+  return res.status(200).json('Success');
 });
 
 //Twilio

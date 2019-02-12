@@ -6,7 +6,6 @@ const GET_USERS_BY_ETH = 'GET_USERS_BY_ETH';
 const GET_USERS_BY_GENRE = 'GET_USERS_BY_GENRE';
 const GET_USERS_BY_PARAMS = 'GET_USERS_BY_PARAMS';
 const SEND_EMAIL_ALL = 'SEND_EMAIL_ALL';
-const SEND_TEXT = 'SEND_TEXT';
 
 export function getUsersByGen(movieid) {
   return {
@@ -59,20 +58,12 @@ export function sendEmailAll(users, message, subject) {
   };
 }
 
-export function sendText(to, body) {
-  return {
-    type: SEND_TEXT,
-    payload: axios.post('/api/messages', { to, body })
-  };
-}
-
 const initialState = {
   gender: [],
   age: [],
   eth: [],
   genre: [],
   users: [],
-  text: [],
   isLoading: false
 };
 
@@ -143,17 +134,6 @@ export default function adminReducer(state = initialState, action) {
         ...state,
         isLoading: false,
         email: action.payload.data
-      };
-    case `${SEND_TEXT}_PENDING`:
-      return {
-        ...state,
-        isLoading: true
-      };
-    case `${SEND_TEXT}_FULFILLED`:
-      return {
-        ...state,
-        isLoading: false,
-        text: action.payload.data
       };
     default:
       return state;

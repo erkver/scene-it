@@ -11,7 +11,6 @@ export default function SingleReport(props) {
     ratio,
     tr_id
   } = props.report;
-  console.log(ratio);
   return (
     <div className="report-card-cont">
       <div className="inner-card-cont">
