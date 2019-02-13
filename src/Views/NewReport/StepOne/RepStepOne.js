@@ -51,7 +51,7 @@ class RepStepOne extends Component {
       .catch(err => console.log(err));
   };
 
-  editReport = (tr_id, attendance, ratio, reaction, step) => {
+  editReport = (tr_id, attendance, ratio, reaction) => {
     axios
       .put(`/api/report/${tr_id}`, {
         attendance,

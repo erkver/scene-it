@@ -1,66 +1,100 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { withRouter, Link } from "react-router-dom";
-import { addScene, getScenes } from "../../../Ducks/sceneReducer";
-import { getScreening } from "../../../Ducks/screeningReducer";
-import Scene from "../../../Components/Scene/Scene";
-import "./RepStepTwo.scss";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { getScenes } from '../../../Ducks/sceneReducer';
+import { getScreening } from '../../../Ducks/screeningReducer';
+import Scene from '../../../Components/Scene/Scene';
+import axios from 'axios';
+import './RepStepTwo.scss';
 
 class RepStepTwo extends Component {
   constructor() {
     super();
     this.state = {
-      scene: ''
-    }
+      scene: '',
+      scenes: []
+    };
   }
 
   componentDidMount() {
     const { getScreening, report, getScenes } = this.props;
     getScreening(report[0] && report[0].movieid);
-    getScenes(report[0] && report[0].tr_id);
+    getScenes(report[0] && report[0].tr_id)
+      .then(res => {
+        this.setState({ scenes: res.value.data });
+      })
+      .catch(err => console.log(err));
   }
 
-  componentDidUpdate(prevProps) {
-    const { scenes, scene, getScenes, report } = this.props;
-    // console.log("scenes:", scenes,
-    // "prevProps:", prevProps);
-    if (scenes.length !== prevProps.scenes.length || scene !== prevProps.scene) {
+  componentDidUpdate(prevProps, prevState) {
+    const { scenes } = this.state;
+    const { getScenes, report } = this.props;
+    if (this.props.scenes.length !== scenes.length) {
       getScenes(report[0].tr_id);
     }
   }
 
-  updateScenes = rID => {
-    const { getScenes } = this.props;
-    getScenes(rID);
-  }
-
-  addScene = (e) => {
-    const { scene } = this.state;
-    const { addScene, report } = this.props;
-    addScene(scene, report[0].tr_id);
-    this.setState({ scene: "" });
+  addScene = (e, scene, reportId) => {
     e.preventDefault();
-  }
+    axios
+      .post('/api/scene', { scene, reportId })
+      .then(res => {
+        console.log(res);
+        this.setState({ scenes: res.data, scene: '' });
+      })
+      .catch(err => console.log(err));
+  };
+
+  editScenes = (tS_id, scene) => {
+    axios
+      .put(`/api/scene/${tS_id}`, { scene })
+      .then(res => {
+        console.log(res);
+        this.setState({ scenes: res.data });
+      })
+      .catch(err => console.log(err));
+  };
+
+  deleteScenes = tS_id => {
+    axios
+      .delete(`/api/scene/${tS_id}`)
+      .then(res => {
+        console.log(res);
+        this.setState({ scenes: res.data });
+      })
+      .catch(err => console.log(err));
+  };
 
   renderScenes = () => {
     const { scenes } = this.props;
     let sceneList = scenes.map((scene, i) => (
       <div className="scene-list-cont" key={i}>
-        <Scene repScene={scene}/>
+        <Scene
+          repScene={scene}
+          editScenes={this.editScenes}
+          deleteScenes={this.deleteScenes}
+        />
       </div>
     ));
-    return (<><h3>Added Scenes:</h3>{sceneList}</>);
-  }
+    return (
+      <>
+        <h3>Added Scenes:</h3>
+        {sceneList}
+      </>
+    );
+  };
 
   render() {
     const { scene } = this.state;
     const { report, screening, scenes } = this.props;
-    // console.log(this.props);
     return (
       <div className="step2-cont">
-        <h1>{screening[0] ? `${screening[0].title} - Scenes` : "Scenes"}</h1>
-        <div className="scene-row-cont" >
-          <form className="scene-input-cont" onSubmit={this.addScene}>
+        <h1>{screening[0] ? `${screening[0].title} - Scenes` : 'Scenes'}</h1>
+        <div className="scene-row-cont">
+          <form
+            className="scene-input-cont"
+            onSubmit={e => this.addScene(e, scene, report[0].tr_id)}
+          >
             <p>Important Scenes:</p>
             <textarea
               required
@@ -72,32 +106,29 @@ class RepStepTwo extends Component {
             <div className="add-btn-cont">
               <Link
                 to={`/admin/report/final/${report[0] && report[0].tr_id}`}
-                className="scene-btn" id="rev-link">Review Report</Link>
-              <button 
                 className="scene-btn"
-                type="submit"
-                // value="Submit"
-                // onClick={() => this.addScene()} 
-                >Add Scene</button>
+                id="rev-link"
+              >
+                Review Report
+              </Link>
+              <button className="scene-btn">Add Scene</button>
             </div>
             <div className="link-cont">
               <Link
-                to='/admin/report/step1'
-                className="link-btn">{`< Previous Step`}</Link>
-              <Link 
-                to='/admin/report/step3' 
-                className="link-btn">Next Step ></Link>
+                to="/admin/report/step1"
+                className="link-btn"
+              >{`< Previous Step`}</Link>
+              <Link to="/admin/report/step3" className="link-btn">
+                Next Step >
+              </Link>
             </div>
           </form>
           <div className="bottom-scene-cont">
-            {!scenes[0] 
-              ? <></>
-              : this.renderScenes()
-            }
+            {!scenes[0] ? <></> : this.renderScenes()}
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
@@ -113,4 +144,7 @@ const mapStateToProps = ({
   ...screeningReducer
 });
 
-export default withRouter(connect(mapStateToProps, { addScene, getScreening, getScenes })(RepStepTwo));
+export default connect(
+  mapStateToProps,
+  { getScreening, getScenes }
+)(RepStepTwo);

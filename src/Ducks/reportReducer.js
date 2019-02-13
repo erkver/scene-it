@@ -13,7 +13,7 @@ export function getReport(tr_id) {
 export function clearReports() {
   return {
     type: CLEAR_REPORTS,
-    payload: { reports: initialState, report: initialState }
+    payload: { report: initialState }
   };
 }
 
@@ -38,7 +38,6 @@ export default function reportReducer(state = initialState, action) {
     case CLEAR_REPORTS:
       return {
         ...state,
-        reports: action.payload,
         report: action.payload
       };
     default:
