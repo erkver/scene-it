@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getScreenings, getScreening } from '../../../Ducks/screeningReducer';
-import { getReport, editReport } from '../../../Ducks/reportReducer';
+import { getReport } from '../../../Ducks/reportReducer';
 import axios from 'axios';
 import './RepStepOne.scss';
 
@@ -34,6 +34,7 @@ class RepStepOne extends Component {
     let selected = this.props.screenings.filter(event =>
       event.title.includes(e.target.value)
     );
+    console.log(selected);
     this.props.getScreening(selected[0].id);
   };
 
@@ -50,6 +51,19 @@ class RepStepOne extends Component {
       .catch(err => console.log(err));
   };
 
+  editReport = (tr_id, attendance, ratio, reaction, step) => {
+    axios
+      .put(`/api/report/${tr_id}`, {
+        attendance,
+        ratio,
+        reaction
+      })
+      .then(() => {
+        console.log('Successfully edited report');
+      })
+      .catch(err => console.log(err));
+  };
+
   renderScreenings = () => {
     const { screenings } = this.props;
     let screeningList = screenings.map((screening, i) => (
@@ -63,8 +77,6 @@ class RepStepOne extends Component {
   render() {
     const { screenings, screening, report } = this.props;
     const { attendance, ratio, reaction } = this.state;
-    // console.log(this.props);
-    // console.log(this.state);
     return (
       <div className="new-report-cont">
         <h1>{!report[0] ? 'Create Report' : 'Edit Report'}</h1>
@@ -127,7 +139,7 @@ class RepStepOne extends Component {
               <div className="ratio-inline-cont">
                 <input
                   type="number"
-                  min=".5"
+                  min="1"
                   max="30"
                   required
                   placeholder="#"
@@ -169,7 +181,12 @@ class RepStepOne extends Component {
                 <Link
                   to={`/admin/report/final/${report[0].tr_id}`}
                   onClick={() =>
-                    editReport(report[0].tr_id, +attendance, +ratio, reaction)
+                    this.editReport(
+                      report[0].tr_id,
+                      +attendance,
+                      +ratio,
+                      reaction
+                    )
                   }
                   className="submit-btn"
                 >
@@ -178,7 +195,12 @@ class RepStepOne extends Component {
                 <Link
                   to="/admin/report/step2"
                   onClick={() =>
-                    editReport(report[0].tr_id, +attendance, +ratio, reaction)
+                    this.editReport(
+                      report[0].tr_id,
+                      +attendance,
+                      +ratio,
+                      reaction
+                    )
                   }
                   className="submit-btn"
                 >
@@ -204,7 +226,6 @@ export default connect(
   {
     getScreenings,
     getScreening,
-    getReport,
-    editReport
+    getReport
   }
 )(RepStepOne);
