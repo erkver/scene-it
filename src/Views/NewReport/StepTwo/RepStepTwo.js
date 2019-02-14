@@ -29,7 +29,7 @@ class RepStepTwo extends Component {
   componentDidUpdate(prevProps, prevState) {
     const { scenes } = this.state;
     const { getScenes, report } = this.props;
-    if (this.props.scenes.length !== scenes.length) {
+    if (scenes.length !== prevState.scenes.length) {
       getScenes(report[0].tr_id);
     }
   }
@@ -45,9 +45,9 @@ class RepStepTwo extends Component {
       .catch(err => console.log(err));
   };
 
-  editScenes = (tS_id, scene) => {
+  editScenes = (tS_id, scene, reportId) => {
     axios
-      .put(`/api/scene/${tS_id}`, { scene })
+      .put(`/api/scene/${tS_id}`, { scene, reportId })
       .then(res => {
         console.log(res);
         this.setState({ scenes: res.data });
@@ -73,6 +73,7 @@ class RepStepTwo extends Component {
           repScene={scene}
           editScenes={this.editScenes}
           deleteScenes={this.deleteScenes}
+          repId={this.props.report[0].tr_id}
         />
       </div>
     ));

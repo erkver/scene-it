@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import axios from 'axios';
 import './Scene.scss';
 
 class Scene extends Component {
@@ -20,14 +21,44 @@ class Scene extends Component {
   }
 
   editScene = () => {
-    const { repScene } = this.props;
-    this.props.editScenes(repScene.tS_id, repScene);
+    this.props.editScenes(
+      this.props.repScene.ts_id,
+      this.state.sceneInput,
+      this.props.repId
+    );
     this.setState({ edit: !this.state.edit });
+  };
+
+  deleteScene = () => {
+    const { repScene } = this.props;
+    this.props.deleteScenes(repScene.ts_id, this.props.repId);
+    this.setState({ edit: !this.state.edit });
+  };
+
+  // editScenes = (tS_id, scene) => {
+  //   axios
+  //     .put(`/api/scene/${tS_id}`, { scene })
+  //     .then(res => {
+  //       console.log(res);
+  //       this.setState({ scenes: res.data });
+  //     })
+  //     .catch(err => console.log(err));
+  // };
+
+  deleteScenes = tS_id => {
+    axios
+      .delete(`/api/scene/${tS_id}`)
+      .then(res => {
+        console.log(res);
+        this.setState({ edit: false });
+      })
+      .catch(err => console.log(err));
   };
 
   render() {
     const { repScene } = this.props;
     const { edit, sceneInput } = this.state;
+    console.log(repScene);
     return (
       <div className={!edit ? 'ind-scene-cont' : 'edit-ind-scene-cont'}>
         {!edit ? (
@@ -59,8 +90,14 @@ class Scene extends Component {
               </button>
             </div>
             <div className="scene-btn-cont">
-              <button onClick={() => this.deleteScenes()}>Delete scene</button>
-              <button onClick={() => this.editScenes()}>Submit edit</button>
+              <button onClick={() => this.deleteScene(repScene.ts_id)}>
+                Delete scene
+              </button>
+              <button
+                onClick={() => this.editScene(repScene.ts_id, sceneInput)}
+              >
+                Submit edit
+              </button>
             </div>
           </>
         )}
