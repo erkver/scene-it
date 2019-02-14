@@ -13,8 +13,8 @@ module.exports = {
   },
   getScene: async (req, res) => {
     try {
-      const { tS_id } = req.params;
-      const result = await req.app.get('db').scenes.get_scene([tS_id]);
+      const { id } = req.params;
+      const result = await req.app.get('db').scenes.get_scene([id]);
       console.log('get scene success');
       return res.status(200).json(result);
     } catch (err) {

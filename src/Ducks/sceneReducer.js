@@ -13,13 +13,12 @@ export function getScenes(reportId) {
 export function clearScenes() {
   return {
     type: CLEAR_SCENES,
-    payload: { scene: initialState, scenes: initialState }
+    payload: initialState
   };
 }
 
 const initialState = {
   scenes: [],
-  scene: [],
   isLoading: false
 };
 
@@ -39,7 +38,6 @@ export default function sceneReducer(state = initialState, action) {
     case CLEAR_SCENES:
       return {
         ...state,
-        scene: action.payload,
         scenes: action.payload
       };
     default:

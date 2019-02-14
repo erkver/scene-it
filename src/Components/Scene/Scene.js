@@ -20,45 +20,22 @@ class Scene extends Component {
     }
   }
 
-  editScene = () => {
-    this.props.editScenes(
-      this.props.repScene.ts_id,
-      this.state.sceneInput,
-      this.props.repId
-    );
-    this.setState({ edit: !this.state.edit });
-  };
-
-  deleteScene = () => {
+  componentDidUpdate(prevProps) {
     const { repScene } = this.props;
-    this.props.deleteScenes(repScene.ts_id, this.props.repId);
-    this.setState({ edit: !this.state.edit });
-  };
+    if (repScene.scene !== prevProps.repScene.scene) {
+      this.getScene(repScene.ts_id);
+    }
+  }
 
-  // editScenes = (tS_id, scene) => {
-  //   axios
-  //     .put(`/api/scene/${tS_id}`, { scene })
-  //     .then(res => {
-  //       console.log(res);
-  //       this.setState({ scenes: res.data });
-  //     })
-  //     .catch(err => console.log(err));
-  // };
-
-  deleteScenes = tS_id => {
-    axios
-      .delete(`/api/scene/${tS_id}`)
-      .then(res => {
-        console.log(res);
-        this.setState({ edit: false });
-      })
-      .catch(err => console.log(err));
+  getScene = tS_id => {
+    axios.get(`/api/scene/${tS_id}`).then(res => {
+      this.setState({ sceneInput: res.data[0].scene, edit: false });
+    });
   };
 
   render() {
     const { repScene } = this.props;
     const { edit, sceneInput } = this.state;
-    console.log(repScene);
     return (
       <div className={!edit ? 'ind-scene-cont' : 'edit-ind-scene-cont'}>
         {!edit ? (
@@ -90,11 +67,19 @@ class Scene extends Component {
               </button>
             </div>
             <div className="scene-btn-cont">
-              <button onClick={() => this.deleteScene(repScene.ts_id)}>
+              <button
+                onClick={() => {
+                  this.props.deleteScene(repScene.ts_id);
+                  this.setState({ edit: !edit });
+                }}
+              >
                 Delete scene
               </button>
               <button
-                onClick={() => this.editScene(repScene.ts_id, sceneInput)}
+                onClick={() => {
+                  this.props.editScene(repScene.ts_id, sceneInput);
+                  this.setState({ edit: !edit });
+                }}
               >
                 Submit edit
               </button>

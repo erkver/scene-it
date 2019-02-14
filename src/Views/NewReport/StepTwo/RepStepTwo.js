@@ -17,39 +17,42 @@ class RepStepTwo extends Component {
   }
 
   componentDidMount() {
-    const { getScreening, report, getScenes } = this.props;
+    const { getScreening, report } = this.props;
     getScreening(report[0] && report[0].movieid);
-    getScenes(report[0] && report[0].tr_id)
-      .then(res => {
-        this.setState({ scenes: res.value.data });
-      })
-      .catch(err => console.log(err));
+    this.getAllScenes(report[0] && report[0].tr_id);
   }
 
   componentDidUpdate(prevProps, prevState) {
     const { scenes } = this.state;
-    const { getScenes, report } = this.props;
+    const { report } = this.props;
     if (scenes.length !== prevState.scenes.length) {
-      getScenes(report[0].tr_id);
+      this.getAllScenes(report[0].tr_id);
     }
   }
+
+  getAllScenes = id => {
+    this.props
+      .getScenes(id)
+      .then(res => {
+        this.setState({ scenes: res.value.data });
+      })
+      .catch(err => console.log(err));
+  };
 
   addScene = (e, scene, reportId) => {
     e.preventDefault();
     axios
       .post('/api/scene', { scene, reportId })
       .then(res => {
-        console.log(res);
         this.setState({ scenes: res.data, scene: '' });
       })
       .catch(err => console.log(err));
   };
 
-  editScenes = (tS_id, scene, reportId) => {
+  editScenes = (tS_id, scene) => {
     axios
-      .put(`/api/scene/${tS_id}`, { scene, reportId })
+      .put(`/api/scene/${tS_id}`, { scene })
       .then(res => {
-        console.log(res);
         this.setState({ scenes: res.data });
       })
       .catch(err => console.log(err));
@@ -59,7 +62,6 @@ class RepStepTwo extends Component {
     axios
       .delete(`/api/scene/${tS_id}`)
       .then(res => {
-        console.log(res);
         this.setState({ scenes: res.data });
       })
       .catch(err => console.log(err));
@@ -71,8 +73,8 @@ class RepStepTwo extends Component {
       <div className="scene-list-cont" key={i}>
         <Scene
           repScene={scene}
-          editScenes={this.editScenes}
-          deleteScenes={this.deleteScenes}
+          editScene={this.editScenes}
+          deleteScene={this.deleteScenes}
           repId={this.props.report[0].tr_id}
         />
       </div>
