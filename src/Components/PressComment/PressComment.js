@@ -1,51 +1,73 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-import {
-  editPressComment,
-  deletePressComment,
-  getPressComments
-} from "../../Ducks/pressCommentReducer";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "./PressComment.scss";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { getPressComments } from '../../Ducks/pressCommentReducer';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import axios from 'axios';
+
+import './PressComment.scss';
 
 class PressComment extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      pCommentInput: "",
-      pName:"",
-      pOutlet: "",
+      pCommentInput: '',
+      pName: '',
+      pOutlet: '',
       edit: false
     };
   }
 
   componentDidMount() {
-    // console.log(this.props);
     const { prComm } = this.props;
-    if(prComm) {
-      // console.log(this.props);
+    if (prComm) {
       this.setState({
         pCommentInput: prComm.comment,
         pName: prComm.name,
-        pOutlet: prComm.outlet });
+        pOutlet: prComm.outlet
+      });
     }
   }
 
+  componentDidUpdate(prevProps) {
+    const { prComm } = this.props;
+    if (
+      prComm.name !== prevProps.prComm.name ||
+      prComm.outlet !== prevProps.prComm.outlet ||
+      prComm.comment !== prevProps.prComm.comment
+    ) {
+      this.getComment(prComm.tpc_id);
+    }
+  }
+
+  getComment = id => {
+    axios.get(`/api/comment/press/${id}`).then(res => {
+      console.log(res);
+      this.setState({
+        pCommentInput: res.data[0].comment,
+        pName: res.data[0].name,
+        pOutlet: res.data[0].outlet
+      });
+    });
+  };
+
   render() {
-    const { prComm, editPressComment, deletePressComment } = this.props;
+    const { prComm, editComment, deleteComment } = this.props;
     const { edit, pCommentInput, pName, pOutlet } = this.state;
-    // console.log(prComm);
-    // console.log(this.state);
     return (
-      <div className={!edit ? "ind-pComm-cont" : "edit-ind-pComm-cont"}>
+      <div className={!edit ? 'ind-pComm-cont' : 'edit-ind-pComm-cont'}>
         {!edit ? (
           <>
             <div className="pComm-text-cont">
-              <p>{prComm.name} - {prComm.outlet}</p>
+              <p>
+                {prComm.name} - {prComm.outlet}
+              </p>
               <p>"{prComm.comment}"</p>
             </div>
-            <button id="expand-arr" onClick={() => this.setState({ edit: !this.state.edit })}>
+            <button
+              id="expand-arr"
+              onClick={() => this.setState({ edit: !this.state.edit })}
+            >
               <FontAwesomeIcon
                 icon="angle-double-down"
                 className="expand-arr"
@@ -53,10 +75,10 @@ class PressComment extends Component {
             </button>
           </>
         ) : (
-            <>
-              <div className="pComm-text">
-                <div className="pComm-inputs-cont">
-                  <div className="name-outlet-cont">
+          <>
+            <div className="pComm-text">
+              <div className="pComm-inputs-cont">
+                <div className="name-outlet-cont">
                   <input
                     required
                     placeholder="Name"
@@ -69,45 +91,46 @@ class PressComment extends Component {
                     value={pOutlet}
                     onChange={e => this.setState({ pOutlet: e.target.value })}
                   />
-                  </div>
-                  <textarea
-                    required
-                    value={pCommentInput}
-                    onChange={e => this.setState({ pCommentInput: e.target.value })}
-                    type="text"
-                    rows="3"
-                  />
                 </div>
-                <button
-                  className="close-arr"
-                  onClick={() => this.setState({ edit: !this.state.edit })}
-                ><FontAwesomeIcon
-                    icon="angle-double-up"
-                    
-                  />
-                </button>
+                <textarea
+                  required
+                  value={pCommentInput}
+                  onChange={e =>
+                    this.setState({ pCommentInput: e.target.value })
+                  }
+                  type="text"
+                  rows="3"
+                />
               </div>
-              <div className="pComment-btns-cont">
-                <button
-                  className="pcomm-btns"
-                  onClick={() => {
-                    deletePressComment(prComm.tpc_id);
-                    this.setState({ edit: !this.state.edit });
-                  }}>
-                  Delete comment
+              <button
+                className="close-arr"
+                onClick={() => this.setState({ edit: !this.state.edit })}
+              >
+                <FontAwesomeIcon icon="angle-double-up" />
               </button>
-                <button
-                  className="pcomm-btns"
-                  onClick={() => {
-                    editPressComment(prComm.tpc_id, pName, pOutlet, pCommentInput);
-                    this.setState({ edit: !this.state.edit });
-                  }}
-                >
-                  Submit edit
+            </div>
+            <div className="pComment-btns-cont">
+              <button
+                className="pcomm-btns"
+                onClick={() => {
+                  deleteComment(prComm.tpc_id);
+                  this.setState({ edit: !this.state.edit });
+                }}
+              >
+                Delete comment
               </button>
-              </div>
-            </>
-          )}
+              <button
+                className="pcomm-btns"
+                onClick={() => {
+                  editComment(prComm.tpc_id, pName, pOutlet, pCommentInput);
+                  this.setState({ edit: !this.state.edit });
+                }}
+              >
+                Submit edit
+              </button>
+            </div>
+          </>
+        )}
       </div>
     );
   }
@@ -116,18 +139,16 @@ class PressComment extends Component {
 const mapStateToProps = ({
   reportReducer,
   userReducer,
-  pressCommentReducer,
-  screeningReducer
+  pressCommentReducer
 }) => ({
   ...reportReducer,
   ...userReducer,
-  ...pressCommentReducer,
-  ...screeningReducer
+  ...pressCommentReducer
 });
 
 export default withRouter(
   connect(
     mapStateToProps,
-    { editPressComment, deletePressComment, getPressComments }
+    { getPressComments }
   )(PressComment)
 );
