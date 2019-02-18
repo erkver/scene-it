@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import './Scene.scss';
@@ -41,7 +40,7 @@ class Scene extends Component {
         {!edit ? (
           <>
             <p>{repScene.scene}</p>
-            <button onClick={() => this.setState({ edit: !this.state.edit })}>
+            <button onClick={() => this.setState({ edit: !edit })}>
               <FontAwesomeIcon
                 icon="angle-double-down"
                 className="expand-arr"
@@ -91,16 +90,4 @@ class Scene extends Component {
   }
 }
 
-const mapStateToProps = ({
-  reportReducer,
-  userReducer,
-  sceneReducer,
-  screeningReducer
-}) => ({
-  ...reportReducer,
-  ...userReducer,
-  ...sceneReducer,
-  ...screeningReducer
-});
-
-export default connect(mapStateToProps)(Scene);
+export default Scene;

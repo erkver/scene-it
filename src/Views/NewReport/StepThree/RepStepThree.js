@@ -46,9 +46,7 @@ class RepStepThree extends Component {
   getAllComments = id => {
     this.props
       .getPressComments(id)
-      .then(res => {
-        this.setState({ comments: res.value.data });
-      })
+      .then(res => this.setState({ comments: res.value.data }))
       .catch(err => console.log(err));
   };
 
@@ -95,10 +93,7 @@ class RepStepThree extends Component {
   deleteComment = id => {
     axios
       .delete(`/api/comment/press/${id}`)
-      .then(res => {
-        console.log(res);
-        this.setState({ comments: res.data });
-      })
+      .then(res => this.setState({ comments: res.data }))
       .catch(err => console.log(err));
   };
 

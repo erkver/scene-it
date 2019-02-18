@@ -1,3 +1,3 @@
 SELECT *
-FROM testAComments
+FROM testAComment
 WHERE tAC_id = $1;

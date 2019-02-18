@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { getPressComments } from '../../Ducks/pressCommentReducer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
-
 import './PressComment.scss';
 
 class PressComment extends Component {
@@ -41,7 +38,6 @@ class PressComment extends Component {
 
   getComment = id => {
     axios.get(`/api/comment/press/${id}`).then(res => {
-      console.log(res);
       this.setState({
         pCommentInput: res.data[0].comment,
         pName: res.data[0].name,
@@ -135,11 +131,4 @@ class PressComment extends Component {
   }
 }
 
-const mapStateToProps = ({ pressCommentReducer }) => ({
-  ...pressCommentReducer
-});
-
-export default connect(
-  mapStateToProps,
-  { getPressComments }
-)(PressComment);
+export default PressComment;

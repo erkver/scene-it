@@ -19,23 +19,21 @@ class RepStepTwo extends Component {
   componentDidMount() {
     const { getScreening, report } = this.props;
     getScreening(report[0] && report[0].movieid);
-    this.getAllScenes(report[0] && report[0].tr_id);
+    this.getAllScenes();
   }
 
   componentDidUpdate(prevProps, prevState) {
     const { scenes } = this.state;
-    const { report } = this.props;
     if (scenes.length !== prevState.scenes.length) {
-      this.getAllScenes(report[0].tr_id);
+      this.getAllScenes();
     }
   }
 
-  getAllScenes = id => {
+  getAllScenes = () => {
+    const { report } = this.props;
     this.props
-      .getScenes(id)
-      .then(res => {
-        this.setState({ scenes: res.value.data });
-      })
+      .getScenes(report[0] && report[0].tr_id)
+      .then(res => this.setState({ scenes: res.value.data }))
       .catch(err => console.log(err));
   };
 
@@ -43,27 +41,21 @@ class RepStepTwo extends Component {
     e.preventDefault();
     axios
       .post('/api/scene', { scene, reportId })
-      .then(res => {
-        this.setState({ scenes: res.data, scene: '' });
-      })
+      .then(res => this.setState({ scenes: res.data, scene: '' }))
       .catch(err => console.log(err));
   };
 
   editScenes = (tS_id, scene) => {
     axios
       .put(`/api/scene/${tS_id}`, { scene })
-      .then(res => {
-        this.setState({ scenes: res.data });
-      })
+      .then(res => this.setState({ scenes: res.data }))
       .catch(err => console.log(err));
   };
 
   deleteScenes = tS_id => {
     axios
       .delete(`/api/scene/${tS_id}`)
-      .then(res => {
-        this.setState({ scenes: res.data });
-      })
+      .then(res => this.setState({ scenes: res.data }))
       .catch(err => console.log(err));
   };
 
