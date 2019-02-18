@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import { getPressComments } from '../../Ducks/pressCommentReducer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
@@ -31,11 +30,11 @@ class PressComment extends Component {
 
   componentDidUpdate(prevProps) {
     const { prComm } = this.props;
-    if (
-      prComm.name !== prevProps.prComm.name ||
-      prComm.outlet !== prevProps.prComm.outlet ||
-      prComm.comment !== prevProps.prComm.comment
-    ) {
+    if (prComm.name !== prevProps.prComm.name) {
+      this.getComment(prComm.tpc_id);
+    } else if (prComm.outlet !== prevProps.prComm.outlet) {
+      this.getComment(prComm.tpc_id);
+    } else if (prComm.comment !== prevProps.prComm.comment) {
       this.getComment(prComm.tpc_id);
     }
   }
@@ -66,7 +65,7 @@ class PressComment extends Component {
             </div>
             <button
               id="expand-arr"
-              onClick={() => this.setState({ edit: !this.state.edit })}
+              onClick={() => this.setState({ edit: !edit })}
             >
               <FontAwesomeIcon
                 icon="angle-double-down"
@@ -104,7 +103,7 @@ class PressComment extends Component {
               </div>
               <button
                 className="close-arr"
-                onClick={() => this.setState({ edit: !this.state.edit })}
+                onClick={() => this.setState({ edit: !edit })}
               >
                 <FontAwesomeIcon icon="angle-double-up" />
               </button>
@@ -114,7 +113,7 @@ class PressComment extends Component {
                 className="pcomm-btns"
                 onClick={() => {
                   deleteComment(prComm.tpc_id);
-                  this.setState({ edit: !this.state.edit });
+                  this.setState({ edit: !edit });
                 }}
               >
                 Delete comment
@@ -123,7 +122,7 @@ class PressComment extends Component {
                 className="pcomm-btns"
                 onClick={() => {
                   editComment(prComm.tpc_id, pName, pOutlet, pCommentInput);
-                  this.setState({ edit: !this.state.edit });
+                  this.setState({ edit: !edit });
                 }}
               >
                 Submit edit
@@ -136,19 +135,11 @@ class PressComment extends Component {
   }
 }
 
-const mapStateToProps = ({
-  reportReducer,
-  userReducer,
-  pressCommentReducer
-}) => ({
-  ...reportReducer,
-  ...userReducer,
+const mapStateToProps = ({ pressCommentReducer }) => ({
   ...pressCommentReducer
 });
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    { getPressComments }
-  )(PressComment)
-);
+export default connect(
+  mapStateToProps,
+  { getPressComments }
+)(PressComment);

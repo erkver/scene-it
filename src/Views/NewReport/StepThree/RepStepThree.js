@@ -30,6 +30,16 @@ class RepStepThree extends Component {
       comments[0].name !== prevState.comments[0].name
     ) {
       this.getAllComments(this.props.report[0].tr_id);
+    } else if (
+      comments.length === 1 &&
+      comments[0].comment !== prevState.comments[0].comment
+    ) {
+      this.getAllComments(this.props.report[0].tr_id);
+    } else if (
+      comments.length === 1 &&
+      comments[0].outlet !== prevState.comments[0].outlet
+    ) {
+      this.getAllComments(this.props.report[0].tr_id);
     }
   }
 
@@ -72,7 +82,6 @@ class RepStepThree extends Component {
         comment
       })
       .then(res => {
-        console.log(res);
         this.setState({
           comments: res.data,
           name: '',
