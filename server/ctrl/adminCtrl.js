@@ -43,84 +43,27 @@ module.exports = {
       }
     } else if (req.query.a) {
       try {
-        const genders = await db.users.get_genders([a]);
-        let ageOne = Math.round(
-          (result.filter(user => user.age <= 24).length / result.length) * 100
-        );
-        let ageTwo = Math.round(
-          (result.filter(user => user.age >= 25 && user.age < 35).length /
-            result.length) *
-            100
-        );
-        let ageThree = Math.round(
-          (result.filter(user => user.age >= 35 && user.age < 45).length /
-            result.length) *
-            100
-        );
-        let ageFour = Math.round(
-          (result.filter(user => user.age >= 45 && user.age < 55).length /
-            result.length) *
-            100
-        );
-        let ageFive = Math.round(
-          (result.filter(user => user.age >= 55).length / result.length) * 100
-        );
-        let maleAgeOne = Math.round(
-          (males.filter(user => user.age <= 24).length / result.length) * 100
-        );
-        let maleAgeTwo = Math.round(
-          (males.filter(user => user.age >= 25 && user.age < 35).length /
-            result.length) *
-            100
-        );
-        let maleAgeThree = Math.round(
-          (males.filter(user => user.age >= 35 && user.age < 45).length /
-            result.length) *
-            100
-        );
-        let maleAgeFour = Math.round(
-          (males.filter(user => user.age >= 45 && user.age < 55).length /
-            result.length) *
-            100
-        );
-        let maleAgeFive = Math.round(
-          (males.filter(user => user.age >= 55).length / result.length) * 100
-        );
-        let femaleAgeOne = Math.round(
-          (females.filter(user => user.age <= 24).length / result.length) * 100
-        );
-        let femaleAgeTwo = Math.round(
-          (females.filter(user => user.age >= 25 && user.age < 35).length /
-            result.length) *
-            100
-        );
-        let femaleAgeThree = Math.round(
-          (females.filter(user => user.age >= 35 && user.age < 45).length /
-            result.length) *
-            100
-        );
-        let femaleAgeFour = Math.round(
-          (females.filter(user => user.age >= 45 && user.age < 55).length /
-            result.length) *
-            100
-        );
-        let femaleAgeFive = Math.round(
-          (females.filter(user => user.age >= 55).length / result.length) * 100
-        );
-        let all = [ageOne, ageTwo, ageThree, ageFour, ageFive];
+        const result = await db.users.get_all_ages([a]);
+        let all = [
+          +result[0].age_one,
+          +result[0].age_two,
+          +result[0].age_three,
+          +result[0].age_four,
+          +result[0].age_five
+        ];
         let allMales = [
-          maleAgeOne,
-          maleAgeTwo,
-          maleAgeThree,
-          maleAgeFour,
-          maleAgeFive
+          +result[0].m_age_one,
+          +result[0].m_age_two,
+          +result[0].m_age_three,
+          +result[0].m_age_four,
+          +result[0].m_age_five
         ];
         let allFemales = [
-          femaleAgeOne,
-          femaleAgeTwo,
-          femaleAgeThree,
-          femaleAgeFour,
-          femaleAgeFive
+          +result[0].f_age_one,
+          +result[0].f_age_two,
+          +result[0].f_age_three,
+          +result[0].f_age_four,
+          +result[0].f_age_five
         ];
         console.log('age q success');
         return res.status(200).json([all, allMales, allFemales]);
@@ -134,114 +77,29 @@ module.exports = {
       try {
         const result = await db.users.get_all_users([e]);
         console.log('eth success');
-        let males = result.filter(user => user.gender.includes('Male'));
-        let females = result.filter(user => user.gender.includes('Female'));
-        let ethOne = Math.round(
-          (result.filter(user => user.race.includes('Asain')).length /
-            result.length) *
-            100
-        );
-        let ethTwo = Math.round(
-          (result.filter(user => user.race.includes('Hispanic')).length /
-            result.length) *
-            100
-        );
-        let ethThree = Math.round(
-          (result.filter(user => user.race.includes('African')).length /
-            result.length) *
-            100
-        );
-        let ethFour = Math.round(
-          (result.filter(user => user.race.includes('Caucasian')).length /
-            result.length) *
-            100
-        );
-        let ethFive = Math.round(
-          (result.filter(user => user.race.includes('Native')).length /
-            result.length) *
-            100
-        );
-        let ethSix = Math.round(
-          (result.filter(user => user.race.includes('Middle Eastern')).length /
-            result.length) *
-            100
-        );
-        let maleEthOne = Math.round(
-          (males.filter(user => user.race.includes('Asain')).length /
-            result.length) *
-            100
-        );
-        let maleEthTwo = Math.round(
-          (males.filter(user => user.race.includes('Hispanic')).length /
-            result.length) *
-            100
-        );
-        let maleEthThree = Math.round(
-          (males.filter(user => user.race.includes('African')).length /
-            result.length) *
-            100
-        );
-        let maleEthFour = Math.round(
-          (males.filter(user => user.race.includes('Caucasian')).length /
-            result.length) *
-            100
-        );
-        let maleEthFive = Math.round(
-          (males.filter(user => user.race.includes('Native')).length /
-            result.length) *
-            100
-        );
-        let maleEthSix = Math.round(
-          (males.filter(user => user.race.includes('Middle Eastern')).length /
-            result.length) *
-            100
-        );
-        let femaleEthOne = Math.round(
-          (females.filter(user => user.race.includes('Asain')).length /
-            result.length) *
-            100
-        );
-        let femaleEthTwo = Math.round(
-          (females.filter(user => user.race.includes('Hispanic')).length /
-            result.length) *
-            100
-        );
-        let femaleEthThree = Math.round(
-          (females.filter(user => user.race.includes('African')).length /
-            result.length) *
-            100
-        );
-        let femaleEthFour = Math.round(
-          (females.filter(user => user.race.includes('Caucasian')).length /
-            result.length) *
-            100
-        );
-        let femaleEthFive = Math.round(
-          (females.filter(user => user.race.includes('Native')).length /
-            result.length) *
-            100
-        );
-        let femaleEthSix = Math.round(
-          (females.filter(user => user.race.includes('Middle Eastern')).length /
-            result.length) *
-            100
-        );
-        let all = [ethOne, ethTwo, ethThree, ethFour, ethFive, ethSix];
+        let all = [
+          +result[0].eth_one,
+          +result[0].eth_two,
+          +result[0].eth_three,
+          +result[0].eth_four,
+          +result[0].eth_five,
+          +result[0].eth_six
+        ];
         let allMales = [
-          maleEthOne,
-          maleEthTwo,
-          maleEthThree,
-          maleEthFour,
-          maleEthFive,
-          maleEthSix
+          +result[0].m_eth_one,
+          +result[0].m_eth_two,
+          +result[0].m_eth_three,
+          +result[0].m_eth_four,
+          +result[0].m_eth_five,
+          +result[0].m_eth_six
         ];
         let allFemales = [
-          femaleEthOne,
-          femaleEthTwo,
-          femaleEthThree,
-          femaleEthFour,
-          femaleEthFive,
-          femaleEthSix
+          +result[0].f_eth_one,
+          +result[0].f_eth_two,
+          +result[0].f_eth_three,
+          +result[0].f_eth_four,
+          +result[0].f_eth_five,
+          +result[0].f_eth_six
         ];
         console.log('eth success');
         return res.status(200).json([all, allMales, allFemales]);
@@ -253,90 +111,27 @@ module.exports = {
       }
     } else if (req.query.genre) {
       try {
-        const result = await db.users.get_all_users([genre]);
-        let males = result.filter(user => user.gender.includes('Male'));
-        let females = result.filter(user => user.gender.includes('Female'));
-        let genOne = result.filter(user => user.fav_genre.includes('Action'));
-        let genTwo = result.filter(user => user.fav_genre.includes('Comedy'));
-        let genThree = result.filter(user => user.fav_genre.includes('Drama'));
-        let genFour = result.filter(user => user.fav_genre.includes('Sci-Fi'));
-        let genFive = result.filter(user => user.fav_genre.includes('Romance'));
-        let sum =
-          genOne.length +
-          genTwo.length +
-          genThree.length +
-          genFour.length +
-          genFive.length;
-        let maleGenOne = Math.round(
-          (males.filter(user => user.fav_genre.includes('Action')).length /
-            sum) *
-            100
-        );
-        let maleGenTwo = Math.round(
-          (males.filter(user => user.fav_genre.includes('Comedy')).length /
-            sum) *
-            100
-        );
-        let maleGenThree = Math.round(
-          (males.filter(user => user.fav_genre.includes('Drama')).length /
-            sum) *
-            100
-        );
-        let maleGenFour = Math.round(
-          (males.filter(user => user.fav_genre.includes('Sci-Fi')).length /
-            sum) *
-            100
-        );
-        let maleGenFive = Math.round(
-          (males.filter(user => user.fav_genre.includes('Romance')).length /
-            sum) *
-            100
-        );
-        let femaleGenOne = Math.round(
-          (females.filter(user => user.fav_genre.includes('Action')).length /
-            sum) *
-            100
-        );
-        let femaleGenTwo = Math.round(
-          (females.filter(user => user.fav_genre.includes('Comedy')).length /
-            sum) *
-            100
-        );
-        let femaleGenThree = Math.round(
-          (females.filter(user => user.fav_genre.includes('Drama')).length /
-            sum) *
-            100
-        );
-        let femaleGenFour = Math.round(
-          (females.filter(user => user.fav_genre.includes('Sci-Fi')).length /
-            sum) *
-            100
-        );
-        let femaleGenFive = Math.round(
-          (females.filter(user => user.fav_genre.includes('Romance')).length /
-            sum) *
-            100
-        );
+        const result = await db.users.get_all_genres([genre]);
         let genres = [
-          Math.round((genOne.length / sum) * 100),
-          Math.round((genTwo.length / sum) * 100),
-          Math.round((genThree.length / sum) * 100),
-          Math.round((genFour.length / sum) * 100),
-          Math.round((genFive.length / sum) * 100)
+          +result[0].genre_one,
+          +result[0].genre_two,
+          +result[0].genre_three,
+          +result[0].genre_four,
+          +result[0].genre_five
         ];
         let maleGenres = [
-          maleGenOne,
-          maleGenTwo,
-          maleGenThree,
-          maleGenFour,
-          maleGenFive
+          +result[0].m_genre_one,
+          +result[0].m_genre_two,
+          +result[0].m_genre_three,
+          +result[0].m_genre_four,
+          +result[0].m_genre_five
         ];
         let femaleGenres = [
-          femaleGenOne,
-          femaleGenTwo,
-          femaleGenThree,
-          femaleGenFour,
-          femaleGenFive
+          +result[0].f_genre_one,
+          +result[0].f_genre_two,
+          +result[0].f_genre_three,
+          +result[0].f_genre_four,
+          +result[0].f_genre_five
         ];
         console.log('genres success');
         return res.status(200).json([genres, maleGenres, femaleGenres]);

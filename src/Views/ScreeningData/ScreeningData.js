@@ -362,7 +362,7 @@ class ScreeningData extends Component {
     let ethMax = Math.max(...ethData.datasets[0].data);
     let ethInd = ethData.datasets[0].data.indexOf(ethMax);
     let selEth = ethData.labels[ethInd];
-    // console.log(screening[0].id, selGender, selEth, minAge, maxAge, selGenre);
+    console.log(screening[0].id, selGender, selEth, minAge, maxAge, selGenre);
     getUsersByParams(
       screening[0].id,
       selGender,
