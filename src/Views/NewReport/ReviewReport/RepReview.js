@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { getReport } from '../../../Ducks/reportReducer';
 import { getScenes } from '../../../Ducks/sceneReducer';
 import { getPressComments } from '../../../Ducks/pressCommentReducer';
 import { getAudComments } from '../../../Ducks/audCommentReducer';
 import { getScreening } from '../../../Ducks/screeningReducer';
+import Spinner from '../../../Components/Spinner/Spinner';
 import './RepReview.scss';
 
 class RepReview extends Component {
@@ -18,8 +19,7 @@ class RepReview extends Component {
       getReport
     } = this.props;
     const { id } = this.props.match.params;
-    const report = getReport(+id);
-    const response = await report;
+    const response = await getReport(+id);
     const { data } = response.value;
     getScreening(data[0].movieid);
     getScenes(data[0].tr_id);
@@ -28,8 +28,7 @@ class RepReview extends Component {
   }
 
   renderScenes = () => {
-    const { scenes } = this.props;
-    let sceneList = scenes.map((scene, i) => (
+    let sceneList = this.props.scenes.map((scene, i) => (
       <div className="single-comment-cont" key={i}>
         <p>
           <u>Scene {i + 1}</u>: {scene.scene}
@@ -40,8 +39,7 @@ class RepReview extends Component {
   };
 
   renderPressComments = () => {
-    const { pressComments } = this.props;
-    let pressCommentList = pressComments.map((pressComment, i) => (
+    let pressCommentList = this.props.pressComments.map((pressComment, i) => (
       <div className="single-comment-cont" key={i}>
         <p>
           <u>Comment {i + 1}</u>: {pressComment.name} - {pressComment.outlet}
@@ -53,8 +51,7 @@ class RepReview extends Component {
   };
 
   renderAudComments = () => {
-    const { audienceComments } = this.props;
-    let audCommentList = audienceComments.map((audComment, i) => (
+    let audCommentList = this.props.audienceComments.map((audComment, i) => (
       <div className="single-comment-cont" key={i}>
         <p>
           <u>Comment {i + 1}</u>: {audComment.gender} - {audComment.age}
@@ -66,7 +63,6 @@ class RepReview extends Component {
   };
 
   render() {
-    // console.log(this.props);
     const {
       screening,
       report,
@@ -74,6 +70,7 @@ class RepReview extends Component {
       pressComments,
       audienceComments
     } = this.props;
+    console.log(this.props.audienceComments);
     return (
       <div className="report-final-cont">
         {report[0] ? (
@@ -137,7 +134,7 @@ class RepReview extends Component {
             </div>
           </>
         ) : (
-          <div>Loading...</div>
+          <Spinner />
         )}
       </div>
     );
@@ -146,29 +143,25 @@ class RepReview extends Component {
 
 const mapStateToProps = ({
   reportReducer,
-  userReducer,
   audCommentReducer,
   sceneReducer,
   pressCommentReducer,
   screeningReducer
 }) => ({
   ...reportReducer,
-  ...userReducer,
   ...audCommentReducer,
   ...sceneReducer,
   ...pressCommentReducer,
   ...screeningReducer
 });
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    {
-      getScenes,
-      getPressComments,
-      getAudComments,
-      getReport,
-      getScreening
-    }
-  )(RepReview)
-);
+export default connect(
+  mapStateToProps,
+  {
+    getScenes,
+    getPressComments,
+    getAudComments,
+    getReport,
+    getScreening
+  }
+)(RepReview);
