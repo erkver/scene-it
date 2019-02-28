@@ -37,7 +37,7 @@ export function getScreeningInfo(id) {
 export function clearScreenings() {
   return {
     type: CLEAR_SCREENINGS,
-    payload: { screenings: initialState, screening: initialState }
+    payload: []
   };
 }
 
@@ -97,7 +97,6 @@ export default function screeningReducer(state = initialState, action) {
     case CLEAR_SCREENINGS:
       return {
         ...state,
-        screenings: action.payload,
         screening: action.payload
       };
     default:

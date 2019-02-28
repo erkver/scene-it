@@ -28,7 +28,9 @@ class Reports extends Component {
   getReports = () => {
     axios
       .get('/api/reports')
-      .then(res => this.setState({ reports: res.data }))
+      .then(res => {
+        this.setState({ reports: res.data });
+      })
       .catch(err => alert(err));
   };
 

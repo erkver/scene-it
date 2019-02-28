@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getReport } from '../../../Ducks/reportReducer';
-import { getScenes } from '../../../Ducks/sceneReducer';
-import { getPressComments } from '../../../Ducks/pressCommentReducer';
-import { getAudComments } from '../../../Ducks/audCommentReducer';
+import { getReport, clearReports } from '../../../Ducks/reportReducer';
+import { getScenes, clearScenes } from '../../../Ducks/sceneReducer';
+import {
+  getPressComments,
+  clearPressComments
+} from '../../../Ducks/pressCommentReducer';
+import {
+  getAudComments,
+  clearAudComments
+} from '../../../Ducks/audCommentReducer';
 import { getScreening } from '../../../Ducks/screeningReducer';
 import Spinner from '../../../Components/Spinner/Spinner';
 import './RepReview.scss';
@@ -68,12 +74,17 @@ class RepReview extends Component {
       report,
       scenes,
       pressComments,
-      audienceComments
+      audienceComments,
+      audComLoading,
+      isLoading,
+      sceneLoading,
+      prComLoading
     } = this.props;
-    console.log(this.props.audienceComments);
     return (
       <div className="report-final-cont">
-        {report[0] ? (
+        {audComLoading && isLoading && sceneLoading && prComLoading ? (
+          <Spinner />
+        ) : (
           <>
             <h1>View {screening[0] && screening[0].title} Report</h1>
             <div className="report-final-inner-cont">
@@ -133,8 +144,6 @@ class RepReview extends Component {
               </div>
             </div>
           </>
-        ) : (
-          <Spinner />
         )}
       </div>
     );
@@ -162,6 +171,10 @@ export default connect(
     getPressComments,
     getAudComments,
     getReport,
-    getScreening
+    getScreening,
+    clearReports,
+    clearScenes,
+    clearPressComments,
+    clearAudComments
   }
 )(RepReview);

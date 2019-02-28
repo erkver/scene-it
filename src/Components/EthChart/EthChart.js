@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { Radar } from "react-chartjs-2";
+import React, { Component } from 'react';
+import { Radar } from 'react-chartjs-2';
 import './EthChart.scss';
 
 class EthChart extends Component {
@@ -7,13 +7,13 @@ class EthChart extends Component {
     super(props);
     this.state = {
       ethData: props.ethData
-    }
+    };
   }
 
   componentDidUpdate(prevProps) {
     const { ethData } = this.props;
     if (ethData.datasets[0] !== prevProps.ethData.datasets[0]) {
-      this.setState({ethData: this.props.ethData });
+      this.setState({ ethData: this.props.ethData });
     }
   }
 
@@ -22,19 +22,16 @@ class EthChart extends Component {
     const { data, borderColor } = this.state.ethData.datasets[0];
     let max = Math.max(...data);
     let ethInd = data.indexOf(max);
-    // console.log(max, ethInd);
     return (
       <>
         <h3 style={{ color: `${borderColor}` }}>{`${labels[ethInd]}`}</h3>
         <p>is {`${data[ethInd]}%`} of user's ethnicity</p>
       </>
     );
-  }
+  };
 
   render() {
     const { ethData } = this.state;
-    // console.log(ageData);
-    // console.log(this.props);
     return (
       <div className="eth-cont">
         <h2>Ethnicity</h2>
@@ -44,22 +41,23 @@ class EthChart extends Component {
             tooltips: {
               mode: 'label',
               callbacks: {
-                label: function (tooltipItem, data) {
-                  return data['datasets'][0]['data'][tooltipItem['index']] + '%'
+                label: function(tooltipItem, data) {
+                  return (
+                    data['datasets'][0]['data'][tooltipItem['index']] + '%'
+                  );
                 }
               }
             }
           }}
         />
-        {!(ethData.datasets && ethData.datasets[0]) ?
+        {!(ethData.datasets && ethData.datasets[0]) ? (
           <div>Loading...</div>
-          :
+        ) : (
           this.renderContent()
-        }
+        )}
       </div>
-    )
+    );
   }
 }
-
 
 export default EthChart;

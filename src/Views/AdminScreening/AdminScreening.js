@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getScreening } from '../../Ducks/screeningReducer';
+import { getScreening, clearScreenings } from '../../Ducks/screeningReducer';
 import { Link } from 'react-router-dom';
 import Spinner from '../../Components/Spinner/Spinner';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -23,6 +23,10 @@ class AdminScreening extends Component {
         this.setState({ fill: res.data });
       })
       .catch(err => alert(err));
+  }
+
+  componentWillUnmount() {
+    this.props.clearScreenings();
   }
 
   renderContent = () => {
@@ -68,5 +72,5 @@ const mapStateToProps = ({ screeningReducer }) => ({ ...screeningReducer });
 
 export default connect(
   mapStateToProps,
-  { getScreening }
+  { getScreening, clearScreenings }
 )(AdminScreening);

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Dropdown from '../Dropdown/Dropdown';
-import { Link } from 'react-router-dom';
+import Spinner from '../Spinner/Spinner';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import './Navbar.scss';
 
@@ -25,19 +26,13 @@ class Navbar extends Component {
   };
 
   render() {
-    const { isAuthed, user } = this.props;
+    const { isAuthed, user, isLoading } = this.props;
     const { visible } = this.state;
     const { REACT_APP_LOGIN } = process.env;
     return (
       <div className="nav-cont">
         <div className="inner-nav-cont">
-          {!isAuthed ? (
-            <>
-              <a className="login-link" href={REACT_APP_LOGIN}>
-                Login
-              </a>
-            </>
-          ) : (
+          {isAuthed && !isLoading ? (
             <>
               <button
                 className={`hamburger hamburger--3dx ${
@@ -50,6 +45,12 @@ class Navbar extends Component {
                 </span>
               </button>
               <Dropdown handleClick={this.handleClick} visible={visible} />
+            </>
+          ) : (
+            <>
+              <a className="login-link" href={REACT_APP_LOGIN}>
+                Login
+              </a>
             </>
           )}
           <Link to="/" className="title-treatment">
@@ -64,4 +65,4 @@ class Navbar extends Component {
 
 const mapStateToProps = ({ userReducer }) => ({ ...userReducer });
 
-export default connect(mapStateToProps)(Navbar);
+export default withRouter(connect(mapStateToProps)(Navbar));

@@ -34,7 +34,6 @@ class RepStepOne extends Component {
     let selected = this.props.screenings.filter(event =>
       event.title.includes(e.target.value)
     );
-    console.log(selected);
     this.props.getScreening(selected[0].id);
   };
 

@@ -13,13 +13,13 @@ export function getPressComments(reportId) {
 export function clearPressComments() {
   return {
     type: CLEAR_PRESS_COMMENTS,
-    payload: initialState
+    payload: []
   };
 }
 
 const initialState = {
   pressComments: [],
-  isLoading: false
+  prComLoading: false
 };
 
 export default function pressCommentReducer(state = initialState, action) {

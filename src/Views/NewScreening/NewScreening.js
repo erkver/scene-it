@@ -57,7 +57,6 @@ class NewScreening extends Component {
     axios
       .get('/api/movies')
       .then(res => {
-        console.log(res);
         this.setState({ movies: res.data.results });
       })
       .catch(err => alert(err));
@@ -72,7 +71,6 @@ class NewScreening extends Component {
       event.title.match(e.target.value)
     );
     axios.get(`/api/movie/${selMovie[0].id}`).then(res => {
-      console.log(res);
       this.setState({ selectedMovie: res.data });
     });
   }

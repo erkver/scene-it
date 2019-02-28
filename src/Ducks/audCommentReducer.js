@@ -13,13 +13,13 @@ export function getAudComments(reportId) {
 export function clearAudComments() {
   return {
     type: CLEAR_AUD_COMMENTS,
-    payload: { audienceComment: initialState, audienceComments: initialState }
+    payload: []
   };
 }
 
 const initialState = {
   audienceComments: [],
-  isLoading: false
+  audComLoading: false
 };
 
 export default function audCommentReducer(state = initialState, action) {
@@ -27,12 +27,12 @@ export default function audCommentReducer(state = initialState, action) {
     case `${GET_AUD_COMMENTS}_PENDING`:
       return {
         ...state,
-        isLoading: true
+        audComLoading: true
       };
     case `${GET_AUD_COMMENTS}_FULFILLED`:
       return {
         ...state,
-        isLoading: false,
+        audComLoading: false,
         audienceComments: action.payload.data
       };
     case CLEAR_AUD_COMMENTS:

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getFavorites } from '../../Ducks/favoritesReducer';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { sendEmailAll } from '../../Ducks/adminReducer';
 import { getScreening } from '../../Ducks/screeningReducer';
 import GoogleMapReact from 'google-map-react';
@@ -65,7 +65,6 @@ class Screening extends Component {
   };
 
   addByText = (movieId, userId, to, body) => {
-    console.log(movieId, userId);
     this.addFavorite(movieId, userId);
     axios
       .post('/api/messages', { to, body })

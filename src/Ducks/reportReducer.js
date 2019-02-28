@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const GET_REPORT = 'GET_REPORT';
-const CLEAR_REPORTS = 'CLEAR_REPORTS';
+const CLEAR_REPORT = 'CLEAR_REPORTS';
 
 export function getReport(tr_id) {
   return {
@@ -12,8 +12,8 @@ export function getReport(tr_id) {
 
 export function clearReports() {
   return {
-    type: CLEAR_REPORTS,
-    payload: { report: initialState }
+    type: CLEAR_REPORT,
+    payload: []
   };
 }
 
@@ -35,7 +35,7 @@ export default function reportReducer(state = initialState, action) {
         isLoading: false,
         report: action.payload.data
       };
-    case CLEAR_REPORTS:
+    case CLEAR_REPORT:
       return {
         ...state,
         report: action.payload

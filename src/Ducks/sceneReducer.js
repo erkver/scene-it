@@ -13,13 +13,13 @@ export function getScenes(reportId) {
 export function clearScenes() {
   return {
     type: CLEAR_SCENES,
-    payload: initialState
+    payload: []
   };
 }
 
 const initialState = {
   scenes: [],
-  isLoading: false
+  sceneLoading: false
 };
 
 export default function sceneReducer(state = initialState, action) {

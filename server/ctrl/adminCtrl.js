@@ -34,6 +34,7 @@ module.exports = {
     if (req.query.g) {
       try {
         const result = await db.users.get_genders([g]);
+        console.log(result);
         return res.status(200).json([+result[0].male, +result[0].female]);
       } catch (err) {
         res
@@ -159,6 +160,7 @@ module.exports = {
           fav
         ]);
         console.log('get emails success');
+        console.log(result);
         return res.status(200).json(result);
       } catch (err) {
         res

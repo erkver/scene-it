@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getScreening } from '../../Ducks/screeningReducer';
-import { withRouter, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { getTheatres } from '../../Ducks/theatreReducer';
 import {
   getUsersByGen,
   getUsersByAge,
   getUsersByEth,
   getUsersByGenre,
-  getUsersByParams
+  getUsersByParams,
+  clearAllData
 } from '../../Ducks/adminReducer';
 import GenderChart from '../../Components/GenderChart/GenderChart';
 import AgeChart from '../../Components/AgeChart/AgeChart';
@@ -362,7 +363,6 @@ class ScreeningData extends Component {
     let ethMax = Math.max(...ethData.datasets[0].data);
     let ethInd = ethData.datasets[0].data.indexOf(ethMax);
     let selEth = ethData.labels[ethInd];
-    console.log(screening[0].id, selGender, selEth, minAge, maxAge, selGenre);
     getUsersByParams(
       screening[0].id,
       selGender,
@@ -373,11 +373,13 @@ class ScreeningData extends Component {
     );
   };
 
+  componentWillUnmount() {
+    this.props.clearAllData();
+  }
+
   render() {
     const { screening } = this.props;
     const { genderData, ageData, ethData, genreData } = this.state;
-    // console.log(this.props);
-    // console.log(this.state);
     return (
       <div className="main-single-data-cont">
         <h1>{screening[0] && screening[0].title} Screening Data</h1>
@@ -500,17 +502,16 @@ const mapStateToProps = ({
   ...favoritesReducer
 });
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    {
-      getTheatres,
-      getScreening,
-      getUsersByGen,
-      getUsersByAge,
-      getUsersByEth,
-      getUsersByGenre,
-      getUsersByParams
-    }
-  )(ScreeningData)
-);
+export default connect(
+  mapStateToProps,
+  {
+    getTheatres,
+    getScreening,
+    getUsersByGen,
+    getUsersByAge,
+    getUsersByEth,
+    getUsersByGenre,
+    getUsersByParams,
+    clearAllData
+  }
+)(ScreeningData);

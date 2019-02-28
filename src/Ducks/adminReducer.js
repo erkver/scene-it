@@ -6,6 +6,7 @@ const GET_USERS_BY_ETH = 'GET_USERS_BY_ETH';
 const GET_USERS_BY_GENRE = 'GET_USERS_BY_GENRE';
 const GET_USERS_BY_PARAMS = 'GET_USERS_BY_PARAMS';
 const SEND_EMAIL_ALL = 'SEND_EMAIL_ALL';
+const CLEAR_ALL_DATA = 'CLEAR_ALL_DATA';
 
 export function getUsersByGen(movieid) {
   return {
@@ -55,6 +56,13 @@ export function sendEmailAll(users, message, subject) {
   return {
     type: SEND_EMAIL_ALL,
     payload: axios.post('/send', { users, message, subject })
+  };
+}
+
+export function clearAllData() {
+  return {
+    type: CLEAR_ALL_DATA,
+    payload: []
   };
 }
 
@@ -134,6 +142,15 @@ export default function adminReducer(state = initialState, action) {
         ...state,
         isLoading: false,
         email: action.payload.data
+      };
+    case CLEAR_ALL_DATA:
+      return {
+        ...state,
+        gender: action.payload,
+        age: action.payload,
+        eth: action.payload,
+        genre: action.payload,
+        users: action.payload
       };
     default:
       return state;

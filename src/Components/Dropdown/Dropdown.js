@@ -51,13 +51,17 @@ class Dropdown extends Component {
           </>
         ) : (
           <>
-            <Link className="menu-link" to="/" onClick={() => handleClick()}>
+            <Link
+              className="menu-link"
+              to="/"
+              onClick={() => this.clearAllReportData()}
+            >
               Home
             </Link>
             <Link
               className="menu-link"
               to="/admin/reports"
-              onClick={() => handleClick()}
+              onClick={() => this.clearAllReportData()}
             >
               View Reports
             </Link>
@@ -66,7 +70,7 @@ class Dropdown extends Component {
               to="/admin/add/screening"
               onClick={() => {
                 clearScreenings();
-                handleClick();
+                this.clearAllReportData();
               }}
             >
               Add New Screening
