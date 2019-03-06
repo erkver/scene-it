@@ -14,6 +14,7 @@ const session = require('express-session');
 const passport = require('passport');
 const app = express();
 const port = 3001;
+const path = require('path');
 const massive = require('massive');
 const { json } = require('body-parser');
 const nodemailer = require('nodemailer');
@@ -239,6 +240,10 @@ app.post('/api/messages', (req, res) => {
       console.log(err);
       res.send(JSON.stringify({ success: false }));
     });
+});
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../build/index.html'));
 });
 
 app.listen(port, () => console.log(`Server is listening on port ${port}`));
